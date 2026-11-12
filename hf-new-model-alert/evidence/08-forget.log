@@ -1,0 +1,11 @@
+Forgot deepseek-ai/DeepSeek-V4.1-Flash-1017
+Checking 4 organisations for models created since 2026-09-26 (45 days)
+  Qwen: 30 fetched, 1 in the date range, 0 dropped as copies, 0 not seen before
+  google: 30 fetched, 0 in the date range, 0 dropped as copies, 0 not seen before
+  mistralai: 30 fetched, 8 in the date range, 0 dropped as copies, 0 not seen before
+  deepseek-ai: 30 fetched, 1 in the date range, 0 dropped as copies, 1 not seen before
+
+[2026-11-10 11:15 UTC] 1 new model(s) on Hugging Face
+  2026-10-17  deepseek-ai/DeepSeek-V4.1-Flash-1017  licence: mit  https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017
+
+API calls left in this window: 450

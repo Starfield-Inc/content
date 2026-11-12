@@ -1,0 +1,3 @@
+# Copy this file to .env and fill in your own values.
+# .env is ignored by git. This example file is committed, so never put a real key in it.
+TEAM_NAME=your-team-name

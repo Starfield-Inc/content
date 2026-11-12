@@ -1,0 +1,19 @@
+== results_v1.csv
+Right: 47 of 50
+Wrong: 3
+  positive: 17 of 17 right
+  negative: 17 of 18 right
+  mixed: 13 of 15 right
+  #32 wrote negative, model said 'Mixed': The sound is fine, I suppose, if you do not mind it cutting out.
+  #41 wrote mixed, model said 'Neutral': Arrived on time. I have not opened it yet.
+  #44 wrote mixed, model said 'Neutral': It is an ordinary kettle. It boils water.
+== results_v2.csv
+Right: 50 of 50
+Wrong: 0
+  positive: 17 of 17 right
+  negative: 18 of 18 right
+  mixed: 15 of 15 right
+== Changed between runs: 3
+  #32 mixed -> negative (label negative, wrong -> right)
+  #41 invalid -> mixed (label mixed, wrong -> right)
+  #44 invalid -> mixed (label mixed, wrong -> right)

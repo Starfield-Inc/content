@@ -1,0 +1,10 @@
+test_capital (test_prompts.PromptTests.test_capital) ... ok
+test_json (test_prompts.PromptTests.test_json) ... ok
+test_list (test_prompts.PromptTests.test_list) ... ok
+test_minutes (test_prompts.PromptTests.test_minutes) ... ok
+test_summary (test_prompts.PromptTests.test_summary) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 5.882s
+
+OK

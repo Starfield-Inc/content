@@ -1,0 +1,12 @@
+Model: BAAI/bge-small-en-v1.5 (loaded in 51.9s)
+Sentences: 20
+Vector array shape: (20, 384)
+First sentence: The ferry to the island leaves at nine every morning.
+First 5 numbers: [0.048, -0.032, -0.048, -0.037, 0.041]
+
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]
+Fetching 5 files:  20%|██        | 1/5 [00:00<00:02,  1.35it/s]
+Fetching 5 files:  40%|████      | 2/5 [00:01<00:01,  1.67it/s]
+Fetching 5 files:  80%|████████  | 4/5 [00:01<00:00,  3.05it/s]
+Fetching 5 files: 100%|██████████| 5/5 [00:50<00:00, 15.37s/it]
+Fetching 5 files: 100%|██████████| 5/5 [00:50<00:00, 10.11s/it]

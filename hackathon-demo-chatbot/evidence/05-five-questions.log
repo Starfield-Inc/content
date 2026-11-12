@@ -1,0 +1,16 @@
+1. Q: What is a REST API? Keep it to one sentence.
+   A: A REST API is a web interface that lets applications communicate over HTTP by using standard
+      methods like GET, POST, PUT, and DELETE to access and manipulate resources identified by URLs.
+2. Q: Suggest a name for a chatbot about recycling.
+   A: How about "RecycleBot Ray"? It's friendly, memorable, and hints at recycling right in the
+      name.
+3. Q: Name one thing that can go wrong in a live demo.
+   A: The Wi-Fi or network connection can drop, so the app or the live data the demo depends on
+      fails to load.
+4. Q: How do I say good morning in Spanish?
+   A: "Good morning" in Spanish is **"Buenos días."** It's the standard greeting used until around
+      noon, and you can say it informally too, like "¡Buenos días!" with a friendly smile.
+5. Q: What is a vector database, in one sentence?
+   A: A vector database stores data as high-dimensional numerical vectors (embeddings) and lets you
+      quickly find the items most similar to a given query vector.
+5 of 5 questions answered

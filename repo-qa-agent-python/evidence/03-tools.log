@@ -1,0 +1,20 @@
+$ list_files
+README.md
+shelf/__init__.py
+shelf/books.py
+shelf/cli.py
+shelf/storage.py
+tests/test_books.py
+
+$ search_text 'MAX_TITLE'
+shelf/books.py:3: MAX_TITLE_LENGTH = 80
+shelf/books.py:9: if not title or len(title) > MAX_TITLE_LENGTH:
+
+$ read_file README.md
+  -> # shelf
+$ read_file ../private/notes.txt
+  -> refused: '../private/notes.txt' is outside the repo folder
+$ read_file /etc/hosts
+  -> refused: '/etc/hosts' is outside the repo folder
+$ read_file shelf/../../private/notes.txt
+  -> refused: 'shelf/../../private/notes.txt' is outside the repo folder

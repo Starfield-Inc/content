@@ -1,0 +1,93 @@
+[
+  {
+    "id": "01-venv",
+    "title": "Create a virtual environment",
+    "kind": "run",
+    "at": "2026-11-10T13:51:29+00:00",
+    "cmd": "python3 -m venv .venv && ls -d .venv",
+    "show": "python3 -m venv .venv",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "3c20d7bc4365acc9",
+    "ok": true,
+    "image": "evidence/01-venv.png"
+  },
+  {
+    "id": "02-install",
+    "title": "Install the package",
+    "kind": "run",
+    "at": "2026-11-10T13:51:30+00:00",
+    "cmd": "pip install -q -r requirements.txt && pip list 2>/dev/null | grep -iE '^anthropic '",
+    "show": "pip install -r requirements.txt",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "2f2078d49790b644",
+    "ok": true,
+    "image": "evidence/02-install.png"
+  },
+  {
+    "id": "03-check-data",
+    "title": "Check the 20 inputs and the 3 examples",
+    "kind": "run",
+    "at": "2026-11-10T13:51:31+00:00",
+    "cmd": "python check_data.py",
+    "show": "python check_data.py",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "920f7b3a6ba93d25",
+    "ok": true,
+    "image": "evidence/03-check-data.png"
+  },
+  {
+    "id": "04-no-key",
+    "title": "What a missing key looks like",
+    "kind": "run",
+    "at": "2026-11-10T13:51:31+00:00",
+    "cmd": "python run.py zero",
+    "show": "python run.py zero",
+    "exit": 1,
+    "expect_exit": 1,
+    "sha256": "de5912ced9e39260",
+    "ok": true,
+    "image": "evidence/04-no-key.png"
+  },
+  {
+    "id": "05-run-zero",
+    "title": "Run the 20 inputs with no examples",
+    "kind": "run",
+    "at": "2026-11-10T13:51:33+00:00",
+    "cmd": "python run.py zero",
+    "show": "python run.py zero",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "30ae0b8663efbd92",
+    "ok": true,
+    "image": "evidence/05-run-zero.png"
+  },
+  {
+    "id": "06-run-few",
+    "title": "Run the same 20 inputs with three examples",
+    "kind": "run",
+    "at": "2026-11-10T13:51:57+00:00",
+    "cmd": "python run.py few",
+    "show": "python run.py few",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "6c462d65d0f9ba0c",
+    "ok": true,
+    "image": "evidence/06-run-few.png"
+  },
+  {
+    "id": "07-score",
+    "title": "Score both runs from the saved output",
+    "kind": "run",
+    "at": "2026-11-10T13:52:25+00:00",
+    "cmd": "python score.py",
+    "show": "python score.py",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "74cd7a8fb242b8f8",
+    "ok": true,
+    "image": "evidence/07-score.png"
+  }
+]

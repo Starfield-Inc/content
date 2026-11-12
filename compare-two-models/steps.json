@@ -1,0 +1,22 @@
+[
+ {"id": "01-venv", "title": "Create a virtual environment", "kind": "run",
+  "cmd": "python3 -m venv .venv && ls -d .venv", "show": "python3 -m venv .venv", "must_contain": [".venv"]},
+ {"id": "02-install", "title": "Install the packages", "kind": "run", "venv": true,
+  "cmd": "pip install -q -r requirements.txt && pip list 2>/dev/null | grep -iE '^(anthropic|fastapi|uvicorn) '",
+  "show": "pip install -r requirements.txt", "timeout": 300,
+  "env": {"PIP_DISABLE_PIP_VERSION_CHECK": "1"}, "must_contain": ["anthropic", "fastapi", "uvicorn"]},
+ {"id": "03-cost-test", "title": "Check the cost arithmetic with fixed numbers", "kind": "run", "venv": true,
+  "cmd": "python test_cost.py", "must_contain": ["cost checks passed"]},
+ {"id": "04-no-key", "title": "What a missing key looks like", "kind": "run", "venv": true,
+  "cmd": "python compare.py \"Say hello.\"", "expect_exit": 1, "must_contain": ["ANTHROPIC_API_KEY is not set"]},
+ {"id": "05-compare", "title": "Send one prompt to both models", "kind": "run", "venv": true, "needs_key": ["ANTHROPIC_API_KEY"],
+  "cmd": "python compare.py \"Explain what an API rate limit is, in two sentences, for a beginner.\" --save demo_result.json",
+  "must_contain": ["== Haiku 5.5", "== Sonnet 5.5", "seconds", "input tokens", "output tokens", "cost $"]},
+ {"id": "06-route", "title": "Call the web route once", "kind": "run", "venv": true, "needs_key": ["ANTHROPIC_API_KEY"], "timeout": 180,
+  "cmd": "uvicorn app:app --port 8042 --log-level warning & SERVER=$!; python test_route.py; STATUS=$?; kill $SERVER; exit $STATUS",
+  "show": "python test_route.py", "must_contain": ["route returned 2 columns", "empty prompt rejected with 422"]},
+ {"id": "07-page", "title": "Open the page with the saved result", "kind": "web", "venv": true,
+  "serve": "uvicorn app:app --port 8042 --log-level warning",
+  "url": "http://127.0.0.1:8042/?demo=1", "size": [1100, 700],
+  "must_contain": ["Compare two models", "claude-haiku-5-5", "claude-sonnet-5-5"]}
+]

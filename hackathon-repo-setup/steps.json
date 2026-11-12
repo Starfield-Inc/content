@@ -1,0 +1,109 @@
+[
+ {
+  "id": "01-init",
+  "title": "Create the repo",
+  "kind": "run",
+  "cwd": "team-project",
+  "cmd": "git init -q -b main && git status",
+  "must_contain": [
+   "No commits yet",
+   "Untracked files"
+  ],
+  "show": "git init -b main && git status"
+ },
+ {
+  "id": "02-layout",
+  "title": "Look at the folder layout",
+  "kind": "run",
+  "cwd": "team-project",
+  "cmd": "find . -name .git -prune -o -type f -print | sort",
+  "show": "find . -name .git -prune -o -type f -print | sort",
+  "must_contain": [
+   "./.env.example",
+   "./.gitignore",
+   "./run.sh",
+   "./tests/test_repo.py"
+  ]
+ },
+ {
+  "id": "03-no-rule",
+  "title": "See what git does without the ignore rule",
+  "kind": "run",
+  "cwd": "team-project",
+  "cmd": "cp .env.example .env && mv .gitignore .gitignore.off && git status --short .env; mv .gitignore.off .gitignore",
+  "show": "cp .env.example .env\n# with the .gitignore file moved away for this test:\ngit status --short .env",
+  "must_contain": [
+   "?? .env"
+  ]
+ },
+ {
+  "id": "04-with-rule",
+  "title": "See what git does with the ignore rule",
+  "kind": "run",
+  "cwd": "team-project",
+  "cmd": "git status --short --ignored .env && git check-ignore -v .env",
+  "must_contain": [
+   "!! .env",
+   ".gitignore:2:.env"
+  ],
+  "show": "git status --short --ignored .env && git check-ignore -v .env"
+ },
+ {
+  "id": "05-add-refused",
+  "title": "Try to add .env anyway",
+  "kind": "run",
+  "cwd": "team-project",
+  "cmd": "git add .env",
+  "expect_exit": 1,
+  "must_contain": [
+   "The following paths are ignored by one of your .gitignore files",
+   "hint:"
+  ]
+ },
+ {
+  "id": "06-fill-env",
+  "title": "Put your own values in .env",
+  "kind": "run",
+  "cwd": "team-project",
+  "cmd": "printf 'TEAM_NAME=demo-team\\nAPI_KEY=not-a-real-key\\n' > .env && cat .env.example | head -3",
+  "show": "printf 'TEAM_NAME=demo-team\\nAPI_KEY=not-a-real-key\\n' > .env",
+  "must_contain": [
+   "Copy this file to .env"
+  ]
+ },
+ {
+  "id": "07-run",
+  "title": "Run the project",
+  "kind": "run",
+  "cwd": "team-project",
+  "cmd": "bash run.sh",
+  "must_contain": [
+   "Team: demo-team",
+   "API_KEY: set (hidden)"
+  ]
+ },
+ {
+  "id": "08-check",
+  "title": "Run the one check",
+  "kind": "run",
+  "cwd": "team-project",
+  "cmd": "python3 -m unittest -v",
+  "show": "python3 -m unittest -v",
+  "must_contain": [
+   "OK",
+   "test_gitignore_lists_env"
+  ]
+ },
+ {
+  "id": "09-commit",
+  "title": "Commit and confirm .env is not tracked",
+  "kind": "run",
+  "cwd": "team-project",
+  "cmd": "git add . && git -c user.name=Demo -c user.email=demo@example.com commit -q -m 'Starter repo' && git ls-files && git log --oneline && git status --short",
+  "show": "git add . && git commit -m 'Starter repo'\ngit ls-files && git log --oneline && git status --short",
+  "must_contain": [
+   ".env.example",
+   "Starter repo"
+  ]
+ }
+]

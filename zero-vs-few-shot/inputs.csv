@@ -1,0 +1,21 @@
+id,text,expected
+1,I was charged twice for this month and my bank shows both payments.,HIGH
+2,Could you add a keyboard shortcut for creating a new note?,LOW
+3,The date on exported reports is off by one day but I can fix it in the spreadsheet.,MEDIUM
+4,Nobody on my team can log in since this morning.,HIGH
+5,Do you have a student discount?,LOW
+6,Search is slow at about ten seconds but the results are right.,MEDIUM
+7,The checkout page shows a blank screen so customers cannot pay us.,HIGH
+8,How do I change the colour of my profile banner?,LOW
+9,Email notifications arrive twice and I turned one copy off with a filter.,MEDIUM
+10,My invoice export is deleting the original files instead of copying them.,HIGH
+11,It would be nice to export to PDF as well as CSV.,LOW
+12,Dark mode makes the chart labels hard to read but light mode works fine.,MEDIUM
+13,The app crashes the moment I open it on every phone I own.,HIGH
+14,Is there a way to see who edited a document last?,LOW
+15,The CSV import skips the last row so I add it by hand.,MEDIUM
+16,You cancelled my subscription by mistake and my shop page is now offline.,HIGH
+17,Thanks for the update and the new layout looks tidy. Any plans for a calendar view?,LOW
+18,Password reset emails take around twenty minutes to arrive.,MEDIUM
+19,All my saved reports disappeared after the update.,HIGH
+20,The mobile site loses my filters when I rotate the phone and I just set them again.,MEDIUM

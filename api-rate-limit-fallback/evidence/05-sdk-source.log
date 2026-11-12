@@ -1,0 +1,26 @@
+anthropic version: 2.7.0
+DEFAULT_MAX_RETRIES = 2
+INITIAL_RETRY_DELAY = 0.5
+MAX_RETRY_DELAY = 8.0
+
+_should_retry, the lines that name a header or a status code:
+  should_retry_header = response.headers.get("x-should-retry")
+  if response.status_code == 408:
+  if response.status_code == 409:
+  if response.status_code == 429:
+  if response.status_code >= 500:
+
+_should_retry_exception, the error types it retries:
+  if isinstance(current, RetryableError):
+  if isinstance(current, APIStatusError):
+  if isinstance(current, APIConnectionError):
+
+_calculate_retry_timeout, without comments:
+  retry_after = self._parse_retry_after_header(response_headers)
+  if retry_after is not None and retry_after > 0:
+  return min(retry_after, 4_294_967.0)
+  nb_retries = min(max_retries - remaining_retries, 1000)
+  sleep_seconds = min(INITIAL_RETRY_DELAY * pow(2.0, nb_retries), MAX_RETRY_DELAY)
+  jitter = 1 - 0.25 * random()
+  timeout = sleep_seconds * jitter
+  return timeout if timeout >= 0 else 0

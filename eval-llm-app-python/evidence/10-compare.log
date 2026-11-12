@@ -1,0 +1,4 @@
+results/v2-a.json: pass rate 95%
+results/v2-b.json: pass rate 95%
+cases whose verdict changed: 0
+cases with word-for-word identical replies: 1 of 20

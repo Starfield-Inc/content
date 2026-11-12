@@ -1,0 +1,6 @@
+{
+  "name": "llm-javascript-web-page",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20.6" }
+}

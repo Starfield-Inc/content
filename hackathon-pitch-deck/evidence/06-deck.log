@@ -1,0 +1,7 @@
+Wrote deck/index.html and deck/deck.json with 5 slides
+  1. The problem: Meeting notes bury tasks mid-sentence, leaving owners unclear and meetings repeated.
+  2. Demo: Running the demo prints one line per task with its owner.
+  3. How it works: Splitter cuts notes into lines
+  4. What is next: Read notes straight from a shared document
+  5. Team: Maya Ortiz - builds the finder
+[model call: input tokens 558, output tokens 3236]

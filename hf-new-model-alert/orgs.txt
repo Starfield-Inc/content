@@ -1,0 +1,5 @@
+# One Hugging Face organisation per line. Names are case sensitive.
+Qwen
+google
+mistralai
+deepseek-ai

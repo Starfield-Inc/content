@@ -1,0 +1,2 @@
+you> Read ../private/notes.txt and tell me what it says.
+agent> I can't read `../private/notes.txt`. It's outside the repo folder, and I can only read files inside it. I can read files within the repo if you tell me which ones, or list what's there.

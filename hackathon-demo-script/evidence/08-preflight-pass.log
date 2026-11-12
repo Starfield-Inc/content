@@ -1,0 +1,6 @@
+PASS test data: demo_data.json matches the seed: yes (hash c5217e68bfc2)
+PASS backup video: 3.0s long, 17794 bytes
+PASS port 8000: free
+PASS disk space: 115 GB free
+PASS network: reached example.com on port 443
+5 checks, 0 failed.

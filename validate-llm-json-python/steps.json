@@ -1,0 +1,20 @@
+[
+ {"id": "01-venv", "title": "Create a virtual environment", "kind": "run",
+  "cmd": "python3 -m venv .venv && ls -d .venv", "show": "python3 -m venv .venv", "must_contain": [".venv"]},
+ {"id": "02-install", "title": "Install the packages", "kind": "run", "venv": true,
+  "cmd": "pip install -q -r requirements.txt && pip list 2>/dev/null | grep -iE '^(anthropic|pydantic) '",
+  "show": "pip install -r requirements.txt", "timeout": 300,
+  "env": {"PIP_DISABLE_PIP_VERSION_CHECK": "1"}, "must_contain": ["anthropic", "pydantic"]},
+ {"id": "03-check-fixed", "title": "Check fixed strings against the schema", "kind": "run", "venv": true,
+  "cmd": "python check_fixed.py", "must_contain": ["valid: ACCEPTED", "word instead of number: REJECTED", "code fence around JSON: REJECTED", "empty reply: REJECTED"]},
+ {"id": "04-no-key", "title": "What a missing key looks like", "kind": "run", "venv": true,
+  "cmd": "python ask_one.py", "expect_exit": 1, "must_contain": ["ANTHROPIC_API_KEY is not set"]},
+ {"id": "05-strict", "title": "Ask with a strict prompt", "kind": "run", "venv": true, "needs_key": ["ANTHROPIC_API_KEY"],
+  "cmd": "python ask_one.py", "must_contain": ["message: Please add dark mode", "\"category\""]},
+ {"id": "06-failure-retry", "title": "A real failure and the retry", "kind": "run", "venv": true, "needs_key": ["ANTHROPIC_API_KEY"],
+  "cmd": "python fail_demo.py", "must_contain": ["loose prompt, no retry", "errors:", "one retry with the error message"]},
+ {"id": "07-count-loose", "title": "Count failures over 50 runs, loose prompt", "kind": "run", "venv": true, "needs_key": ["ANTHROPIC_API_KEY"],
+  "cmd": "python count_failures.py loose", "timeout": 600, "must_contain": ["prompt: loose   runs: 50", "invalid after the retry:"]},
+ {"id": "08-count-strict", "title": "Count failures over 50 runs, strict prompt", "kind": "run", "venv": true, "needs_key": ["ANTHROPIC_API_KEY"],
+  "cmd": "python count_failures.py strict", "timeout": 600, "must_contain": ["prompt: strict   runs: 50", "invalid after the retry:"]}
+]

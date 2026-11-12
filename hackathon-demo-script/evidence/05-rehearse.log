@@ -1,0 +1,7 @@
+Hook                      22s of  20s  over by 2s
+The problem               27s of  30s  ok
+Live demo                 64s of  80s  ok
+How it works              27s of  25s  over by 2s
+Result and next step      24s of  25s  ok
+Total: 164s. Slot: 180s. Spare: 16s.
+Leaves at least 10s spare.

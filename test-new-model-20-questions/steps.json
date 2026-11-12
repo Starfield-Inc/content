@@ -1,0 +1,19 @@
+[
+ {"id": "01-venv", "title": "Create a virtual environment", "kind": "run",
+  "cmd": "python3 -m venv .venv && ls -d .venv", "show": "python3 -m venv .venv", "must_contain": [".venv"]},
+ {"id": "02-install", "title": "Install the SDK", "kind": "run", "venv": true,
+  "cmd": "pip install -q -r requirements.txt && pip show anthropic | sed -n 1,2p",
+  "show": "pip install -r requirements.txt", "timeout": 300,
+  "env": {"PIP_DISABLE_PIP_VERSION_CHECK": "1"}, "must_contain": ["Name: anthropic"]},
+ {"id": "03-test-score", "title": "Check the scoring rule on fixed answers", "kind": "run", "venv": true,
+  "cmd": "python test_score.py", "must_contain": ["all 10 scoring checks passed"]},
+ {"id": "04-no-key", "title": "What a missing key looks like", "kind": "run", "venv": true,
+  "cmd": "python run_eval.py", "expect_exit": 1, "must_contain": ["ANTHROPIC_API_KEY is not set"]},
+ {"id": "05-run", "title": "Ask 20 questions to two models", "kind": "run", "venv": true, "needs_key": ["ANTHROPIC_API_KEY"],
+  "cmd": "python run_eval.py", "timeout": 400,
+  "must_contain": ["Haiku 5.5: asked 20 questions", "Sonnet 5.5: asked 20 questions", "saved results.json"]},
+ {"id": "06-score", "title": "Score the answers and read the totals", "kind": "run", "venv": true,
+  "cmd": "python score.py", "must_contain": ["/20 correct", "cost $"]},
+ {"id": "07-missing", "title": "What a wrong results file looks like", "kind": "run", "venv": true,
+  "cmd": "python score.py old-results.json", "expect_exit": 1, "must_contain": ["Cannot find old-results.json"]}
+]

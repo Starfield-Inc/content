@@ -1,0 +1,86 @@
+[
+  {
+    "id": "01-venv",
+    "title": "Create a virtual environment",
+    "kind": "run",
+    "at": "2026-11-10T11:13:10+00:00",
+    "cmd": "python3 -m venv .venv && ls -d .venv",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "3c20d7bc4365acc9",
+    "ok": true,
+    "image": "evidence/01-venv.png"
+  },
+  {
+    "id": "02-prices",
+    "title": "Look at the price file",
+    "kind": "run",
+    "at": "2026-11-10T11:13:13+00:00",
+    "cmd": "cat prices.csv",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "11a6862aa9a44c08",
+    "ok": true,
+    "image": "evidence/02-prices.png"
+  },
+  {
+    "id": "03-table",
+    "title": "Print the table",
+    "kind": "run",
+    "at": "2026-11-10T11:13:14+00:00",
+    "cmd": "python price_table.py",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "28f7479458f1f2ea",
+    "ok": true,
+    "image": "evidence/03-table.png"
+  },
+  {
+    "id": "04-usage",
+    "title": "Cost a different usage",
+    "kind": "run",
+    "at": "2026-11-10T11:13:15+00:00",
+    "cmd": "python price_table.py --input-tokens 200000 --output-tokens 800000",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "1f693dc206f2de8f",
+    "ok": true,
+    "image": "evidence/04-usage.png"
+  },
+  {
+    "id": "05-old",
+    "title": "Flag old rows by moving the date forward",
+    "kind": "run",
+    "at": "2026-11-10T11:13:16+00:00",
+    "cmd": "python price_table.py --today 2026-12-20 --max-age 30",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "f453ba1a3cff68e6",
+    "ok": true,
+    "image": "evidence/05-old.png"
+  },
+  {
+    "id": "06-bad",
+    "title": "What a mistake in the file looks like",
+    "kind": "run",
+    "at": "2026-11-10T11:13:17+00:00",
+    "cmd": "python price_table.py --file examples/bad_prices.csv",
+    "exit": 1,
+    "expect_exit": 1,
+    "sha256": "e779c0c5272c0784",
+    "ok": true,
+    "image": "evidence/06-bad.png"
+  },
+  {
+    "id": "07-test",
+    "title": "Check the cost sum on fixed numbers",
+    "kind": "run",
+    "at": "2026-11-10T11:13:18+00:00",
+    "cmd": "python -m unittest discover -s tests -v",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "595855c230a4012d",
+    "ok": true,
+    "image": "evidence/07-test.png"
+  }
+]

@@ -1,0 +1,176 @@
+[
+ {
+  "id": "01-venv",
+  "title": "Create a virtual environment",
+  "kind": "run",
+  "cmd": "python3 -m venv .venv && ls -d .venv",
+  "show": "python3 -m venv .venv",
+  "must_contain": [
+   ".venv"
+  ]
+ },
+ {
+  "id": "02-install",
+  "title": "Install fastembed and numpy",
+  "kind": "run",
+  "venv": true,
+  "cmd": "pip install -q -r requirements.txt && pip list 2>/dev/null | grep -iE '^(fastembed|numpy|onnxruntime) '",
+  "show": "pip install -r requirements.txt",
+  "must_contain": [
+   "fastembed",
+   "numpy",
+   "onnxruntime"
+  ],
+  "timeout": 600,
+  "env": {
+   "PIP_DISABLE_PIP_VERSION_CHECK": "1",
+   "HF_HUB_VERBOSITY": "error"
+  }
+ },
+ {
+  "id": "03-embed",
+  "title": "Embed 20 sentences (downloads the model on first run)",
+  "kind": "run",
+  "venv": true,
+  "cmd": "python embed_sentences.py",
+  "must_contain": [
+   "Vector array shape: (20, 384)"
+  ],
+  "timeout": 900,
+  "env": {
+   "PIP_DISABLE_PIP_VERSION_CHECK": "1",
+   "HF_HUB_VERBOSITY": "error"
+  }
+ },
+ {
+  "id": "04-compare",
+  "title": "Embed a question and compare it with cosine similarity",
+  "kind": "run",
+  "venv": true,
+  "cmd": "python compare.py",
+  "must_contain": [
+   "Question vector: 384 numbers",
+   "cosine = 1.000"
+  ],
+  "env": {
+   "PIP_DISABLE_PIP_VERSION_CHECK": "1",
+   "HF_HUB_VERBOSITY": "error"
+  }
+ },
+ {
+  "id": "05-top3",
+  "title": "Show the top three matches",
+  "kind": "run",
+  "venv": true,
+  "cmd": "python search.py \"Where can I get a boat to the island?\"",
+  "must_contain": [
+   "1. 0.605",
+   "ferry"
+  ],
+  "env": {
+   "PIP_DISABLE_PIP_VERSION_CHECK": "1",
+   "HF_HUB_VERBOSITY": "error"
+  }
+ },
+ {
+  "id": "06-top3-cook",
+  "title": "Another question, same script",
+  "kind": "run",
+  "venv": true,
+  "cmd": "python search.py \"What should I cook with onions?\"",
+  "must_contain": [
+   "Slice the onions"
+  ],
+  "env": {
+   "PIP_DISABLE_PIP_VERSION_CHECK": "1",
+   "HF_HUB_VERBOSITY": "error"
+  }
+ },
+ {
+  "id": "07-negation",
+  "title": "Failure one: negation",
+  "kind": "run",
+  "venv": true,
+  "cmd": "python search.py \"The soup was hot and the bread was fresh.\"",
+  "must_contain": [
+   "The soup was not hot, and the bread was stale."
+  ],
+  "env": {
+   "PIP_DISABLE_PIP_VERSION_CHECK": "1",
+   "HF_HUB_VERBOSITY": "error"
+  }
+ },
+ {
+  "id": "08-keyword",
+  "title": "Failure two: a shared word beats the meaning",
+  "kind": "run",
+  "venv": true,
+  "cmd": "python search.py \"Where should I sit by the water?\"",
+  "must_contain": [
+   "Our app sends a reminder when the plants need water."
+  ],
+  "env": {
+   "PIP_DISABLE_PIP_VERSION_CHECK": "1",
+   "HF_HUB_VERBOSITY": "error"
+  }
+ },
+ {
+  "id": "09-no-answer",
+  "title": "Failure three: a question the text set cannot answer",
+  "kind": "run",
+  "venv": true,
+  "cmd": "python search.py \"What is the capital of France?\"",
+  "must_contain": [
+   "1. 0.405"
+  ],
+  "env": {
+   "PIP_DISABLE_PIP_VERSION_CHECK": "1",
+   "HF_HUB_VERBOSITY": "error"
+  }
+ },
+ {
+  "id": "10-min-score",
+  "title": "A crude fix: a minimum score",
+  "kind": "run",
+  "venv": true,
+  "cmd": "python search.py \"What is the capital of France?\" --min-score 0.5",
+  "must_contain": [
+   "No sentence scored 0.5 or higher."
+  ],
+  "env": {
+   "PIP_DISABLE_PIP_VERSION_CHECK": "1",
+   "HF_HUB_VERBOSITY": "error"
+  }
+ },
+ {
+  "id": "11-min-score-leak",
+  "title": "The minimum score is not a clean cut",
+  "kind": "run",
+  "venv": true,
+  "cmd": "python search.py \"Where can I get a boat to the island?\" --min-score 0.5",
+  "must_contain": [
+   "2. 0.518",
+   "Rain is expected"
+  ],
+  "env": {
+   "PIP_DISABLE_PIP_VERSION_CHECK": "1",
+   "HF_HUB_VERBOSITY": "error"
+  }
+ },
+ {
+  "id": "12-missing",
+  "title": "What a missing vectors file looks like",
+  "kind": "run",
+  "venv": true,
+  "cmd": "mkdir -p scratch && cd scratch && python ../search.py hi",
+  "show": "python search.py hi   # run in a folder with no vectors.npy",
+  "expect_exit": 2,
+  "must_contain": [
+   "Cannot find vectors.npy"
+  ],
+  "env": {
+   "PIP_DISABLE_PIP_VERSION_CHECK": "1",
+   "HF_HUB_VERBOSITY": "error"
+  }
+ }
+]

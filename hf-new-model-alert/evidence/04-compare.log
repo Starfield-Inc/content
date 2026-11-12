@@ -1,0 +1,11 @@
+organisation  fetched                     gated            any base_model   other-author base_model            format in name
+Qwen               40                         0                        25                         0                         4
+google             40                         0                        24                         0                         5
+mistralai          40                         0                        26                         0                         6
+deepseek-ai        40                         0                         6                         0                         0
+microsoft          40                         1                        15                        13                         0
+meta-llama         40                        40                        16                         0                         0
+unsloth            40                         0                        35                        35                        19
+all               280                        41                       147                        48                        34
+
+Each number is how many of the newest 40 models the rule would drop.

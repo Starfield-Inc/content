@@ -1,0 +1,6 @@
+ok: 'repair cost 22,500 euros' -> found
+ok: 'repair cost 25,200 euros' -> NOT FOUND
+ok: 'a quote made up by the model' -> NOT FOUND
+ok: 'no sentence at all' -> NOT FOUND
+ok: 'funding is promised beyond 2027' -> found
+Last case passes as 'found' on purpose: the code cannot read meaning. It is a known miss.

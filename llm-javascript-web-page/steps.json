@@ -1,0 +1,111 @@
+[
+ {
+  "id": "01-node-version",
+  "title": "Check Node",
+  "kind": "run",
+  "cmd": "node --version",
+  "show": "node --version",
+  "must_contain": [
+   "v20"
+  ]
+ },
+ {
+  "id": "02-no-key",
+  "title": "What a missing key looks like",
+  "kind": "run",
+  "cmd": "node call.js",
+  "expect_exit": 1,
+  "must_contain": [
+   "ANTHROPIC_API_KEY is not set"
+  ]
+ },
+ {
+  "id": "03-call-node",
+  "title": "Call the model from Node",
+  "kind": "run",
+  "needs_key": [
+   "ANTHROPIC_API_KEY"
+  ],
+  "cmd": "node call.js",
+  "must_contain": [
+   "answer:",
+   "input tokens:"
+  ]
+ },
+ {
+  "id": "04-browser-blocked",
+  "title": "A browser asks the API directly",
+  "kind": "run",
+  "cmd": "curl -s -i -X OPTIONS https://api.anthropic.com/v1/messages -H 'Origin: http://localhost:8111' -H 'Access-Control-Request-Method: POST' -H 'Access-Control-Request-Headers: x-api-key,anthropic-version,content-type' | grep -iE '^(HTTP|Disallowed)'",
+  "show": "curl -i -X OPTIONS https://api.anthropic.com/v1/messages -H 'Origin: http://localhost:8111' ...",
+  "must_contain": [
+   "400",
+   "Disallowed CORS origin"
+  ]
+ },
+ {
+  "id": "05-endpoint",
+  "title": "Ask through our own endpoint",
+  "kind": "run",
+  "needs_key": [
+   "ANTHROPIC_API_KEY"
+  ],
+  "timeout": 120,
+  "cmd": "node server.js > server.log 2>&1 & SERVER=$!; for i in $(seq 40); do curl -s -o /dev/null http://127.0.0.1:8111/ && break; sleep 0.5; done; curl -s -X POST http://127.0.0.1:8111/api/ask -H 'content-type: application/json' -d '{\"question\": \"Name one use of an API key, in one sentence.\"}'; echo; kill $SERVER",
+  "show": "curl -X POST http://127.0.0.1:8111/api/ask -H 'content-type: application/json' -d '{\"question\": \"...\"}'",
+  "must_contain": [
+   "\"answer\"",
+   "\"usage\""
+  ]
+ },
+ {
+  "id": "06-key-not-in-page",
+  "title": "Check the key is not in the page",
+  "kind": "run",
+  "needs_key": [
+   "ANTHROPIC_API_KEY"
+  ],
+  "timeout": 120,
+  "cmd": "node server.js > server.log 2>&1 & SERVER=$!; for i in $(seq 40); do curl -s -o /dev/null http://127.0.0.1:8111/ && break; sleep 0.5; done; node check-leak.js; STATUS=$?; kill $SERVER; wait $SERVER 2>/dev/null; exit $STATUS",
+  "show": "node check-leak.js",
+  "must_contain": [
+   "The key stays on the server."
+  ]
+ },
+ {
+  "id": "07-errors",
+  "title": "Show errors",
+  "kind": "run",
+  "needs_key": [
+   "ANTHROPIC_API_KEY"
+  ],
+  "timeout": 120,
+  "cmd": "node server.js > server.log 2>&1 & SERVER=$!; for i in $(seq 40); do curl -s -o /dev/null http://127.0.0.1:8111/ && break; sleep 0.5; done; node test-errors.js; kill $SERVER; wait $SERVER 2>/dev/null; echo '--- same server with a model name that does not exist ---'; MODEL=no-such-model node server.js > server.log 2>&1 & SERVER=$!; for i in $(seq 40); do curl -s -o /dev/null http://127.0.0.1:8111/ && break; sleep 0.5; done; curl -s -w '  (status %{http_code})\\n' -X POST http://127.0.0.1:8111/api/ask -H 'content-type: application/json' -d '{\"question\": \"hello\"}'; kill $SERVER; wait $SERVER 2>/dev/null; sleep 1; echo '--- server terminal ---'; cat server.log",
+  "show": "node test-errors.js",
+  "must_contain": [
+   "empty question : 400",
+   "too long: 400",
+   "not JSON",
+   "502",
+   "upstream 404"
+  ]
+ },
+ {
+  "id": "08-page",
+  "title": "Open the page",
+  "kind": "web",
+  "needs_key": [
+   "ANTHROPIC_API_KEY"
+  ],
+  "serve": "node server.js",
+  "url": "http://127.0.0.1:8111/?ask=What%20is%20a%20hackathon%20demo%3F%20Answer%20in%20one%20sentence.",
+  "size": [
+   900,
+   560
+  ],
+  "ready_timeout": 30,
+  "must_contain": [
+   "Ask the model"
+  ]
+ }
+]

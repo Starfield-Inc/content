@@ -1,0 +1,19 @@
+Checking 4 organisations for models created since 2026-09-26 (45 days)
+  Qwen: 30 fetched, 1 in the date range, 0 dropped as copies, 1 not seen before
+  google: 30 fetched, 0 in the date range, 0 dropped as copies, 0 not seen before
+  mistralai: 30 fetched, 8 in the date range, 0 dropped as copies, 8 not seen before
+  deepseek-ai: 30 fetched, 1 in the date range, 0 dropped as copies, 1 not seen before
+
+[2026-11-10 11:14 UTC] 10 new model(s) on Hugging Face
+  2026-10-17  deepseek-ai/DeepSeek-V4.1-Flash-1017  licence: mit  https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017
+  2026-10-15  mistralai/Mistral-Large-4-1T-A52B-NVFP4  licence: other  https://huggingface.co/mistralai/Mistral-Large-4-1T-A52B-NVFP4
+  2026-10-14  mistralai/Timestral-123M  licence: other  https://huggingface.co/mistralai/Timestral-123M
+  2026-10-14  mistralai/Timestral-28M  licence: other  https://huggingface.co/mistralai/Timestral-28M
+  2026-10-14  mistralai/Timestral-5M  licence: other  https://huggingface.co/mistralai/Timestral-5M
+  2026-10-14  mistralai/Timestral-209M  licence: other  https://huggingface.co/mistralai/Timestral-209M
+  2026-10-09  Qwen/Qwen-Image-2.1-Turbo  licence: other  https://huggingface.co/Qwen/Qwen-Image-2.1-Turbo
+  2026-10-08  mistralai/LIDstral-Arabic  licence: apache-2.0  https://huggingface.co/mistralai/LIDstral-Arabic
+  2026-10-08  mistralai/Voxtral-Mini-4B-Realtime-Arabic  licence: none  https://huggingface.co/mistralai/Voxtral-Mini-4B-Realtime-Arabic
+  2026-09-30  mistralai/Mistral-Large-4-1T-A52B  licence: other  https://huggingface.co/mistralai/Mistral-Large-4-1T-A52B
+
+API calls left in this window: 458

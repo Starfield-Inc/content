@@ -1,0 +1,11 @@
+status 200, content-type text/plain; charset=utf-8
+chunk 1 at 1419 ms: "Because a demo is"
+chunk 2 at 1517 ms: " me"
+chunk 3 at 1518 ms: "ant to show what"
+chunk 4 at 1520 ms: " a real user would"
+chunk 5 at 1522 ms: " see, and"
+chunk 6 at 1523 ms: " polishing or"
+... 18 chunks in all, last at 1738 ms
+full answer: Because a demo is meant to show what a real user would see, and polishing or editing the output would misrepresent the product's actual quality. Showing the answer unedited builds trust, since viewers can judge its accuracy and tone for themselves.
+--- server log
+done: 18 chunks, output tokens 76

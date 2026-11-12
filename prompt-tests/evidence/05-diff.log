@@ -1,0 +1,8 @@
+1c1
+< """Five prompts. Each one has a matching test in test_prompts.py."""
+---
+> """The same five prompts with one change: the summary prompt no longer asks for a short answer."""
+8c8
+<     "summary": "Summarise this in one sentence of fewer than 20 words: Photosynthesis is the process "
+---
+>     "summary": "Explain this in detail: Photosynthesis is the process "

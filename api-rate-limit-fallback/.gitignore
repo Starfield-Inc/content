@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+spend.log
+saved_answer.json
+retries.log

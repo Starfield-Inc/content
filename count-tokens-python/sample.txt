@@ -1,0 +1,5 @@
+A hackathon team has two days to build a working demo. Most of that time goes into the parts around the model: reading input, calling an API, handling errors and showing the result.
+
+Before sending text to a language model, it helps to know how large it is. Models read tokens, which are pieces of words, and providers count and bill by the token. A short word may be one token. A long or rare word may be split into several.
+
+This file is a small sample you can replace with your own notes, an email or an article. Run the counter on it, then change a few sentences and run it again to see how the numbers move.

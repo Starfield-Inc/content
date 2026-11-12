@@ -1,0 +1,2 @@
+# No packages needed. The tools use only the Python standard library (Python 3.10 or newer).
+# Optional: ffmpeg, only to make a stand-in video for the preflight check (step 6).

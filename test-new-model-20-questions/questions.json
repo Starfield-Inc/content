@@ -1,0 +1,22 @@
+[
+  {"id": 1,  "question": "What is 17 * 24?", "accept": ["408"]},
+  {"id": 2,  "question": "What is 1,000 minus 387?", "accept": ["613"]},
+  {"id": 3,  "question": "What is the square root of 144?", "accept": ["12"]},
+  {"id": 4,  "question": "How many days are there in a leap year?", "accept": ["366"]},
+  {"id": 5,  "question": "How many minutes are there in 3.5 hours?", "accept": ["210"]},
+  {"id": 6,  "question": "Reverse the word 'stream'. Reply with the reversed word only.", "accept": ["maerts"]},
+  {"id": 7,  "question": "How many times does the letter 'r' appear in the word 'strawberry'?", "accept": ["3", "three"]},
+  {"id": 8,  "question": "How many letters are in the word 'hackathon'?", "accept": ["9", "nine"]},
+  {"id": 9,  "question": "Write the word 'model' in capital letters.", "accept": ["MODEL"]},
+  {"id": 10, "question": "Which word comes first in alphabetical order: 'pear', 'peach', 'plum'?", "accept": ["peach"]},
+  {"id": 11, "question": "What is the capital city of Australia?", "accept": ["canberra"]},
+  {"id": 12, "question": "What is the chemical symbol for sodium?", "accept": ["na"]},
+  {"id": 13, "question": "How many sides does a hexagon have?", "accept": ["6", "six"]},
+  {"id": 14, "question": "What is the next number in this series: 2, 4, 8, 16, ?", "accept": ["32"]},
+  {"id": 15, "question": "If today is Wednesday, what day of the week is it 10 days later?", "accept": ["saturday"]},
+  {"id": 16, "question": "A bat and a ball cost $1.10 together. The bat costs $1.00 more than the ball. How many cents does the ball cost? Reply with the number only.", "accept": ["5"]},
+  {"id": 17, "question": "A train leaves at 14:45 and the trip takes 2 hours 35 minutes. At what time does it arrive? Use the 24-hour format HH:MM.", "accept": ["17:20"]},
+  {"id": 18, "question": "What is 15% of 240?", "accept": ["36"]},
+  {"id": 19, "question": "Convert the binary number 101101 to decimal.", "accept": ["45"]},
+  {"id": 20, "question": "What is the sum of the digits of 98765?", "accept": ["35"]}
+]

@@ -1,0 +1,110 @@
+[
+  {
+    "id": "01-init",
+    "title": "Create the repo",
+    "kind": "run",
+    "at": "2026-11-10T11:15:11+00:00",
+    "cmd": "git init -q -b main && git status",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "d75527fa7de85593",
+    "ok": true,
+    "image": "evidence/01-init.png"
+  },
+  {
+    "id": "02-layout",
+    "title": "Look at the folder layout",
+    "kind": "run",
+    "at": "2026-11-10T11:15:12+00:00",
+    "cmd": "find . -name .git -prune -o -type f -print | sort",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "fe5f00a5cd731bbf",
+    "ok": true,
+    "image": "evidence/02-layout.png"
+  },
+  {
+    "id": "03-no-rule",
+    "title": "See what git does without the ignore rule",
+    "kind": "run",
+    "at": "2026-11-10T11:15:12+00:00",
+    "cmd": "cp .env.example .env && mv .gitignore .gitignore.off && git status --short .env; mv .gitignore.off .gitignore",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "26706624d23ea211",
+    "ok": true,
+    "image": "evidence/03-no-rule.png"
+  },
+  {
+    "id": "04-with-rule",
+    "title": "See what git does with the ignore rule",
+    "kind": "run",
+    "at": "2026-11-10T11:15:14+00:00",
+    "cmd": "git status --short --ignored .env && git check-ignore -v .env",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "007950d40f404bab",
+    "ok": true,
+    "image": "evidence/04-with-rule.png"
+  },
+  {
+    "id": "05-add-refused",
+    "title": "Try to add .env anyway",
+    "kind": "run",
+    "at": "2026-11-10T11:15:14+00:00",
+    "cmd": "git add .env",
+    "exit": 1,
+    "expect_exit": 1,
+    "sha256": "4df653f2e380661d",
+    "ok": true,
+    "image": "evidence/05-add-refused.png"
+  },
+  {
+    "id": "06-fill-env",
+    "title": "Put your own values in .env",
+    "kind": "run",
+    "at": "2026-11-10T11:15:15+00:00",
+    "cmd": "printf 'TEAM_NAME=demo-team\\nAPI_KEY=not-a-real-key\\n' > .env && cat .env.example | head -3",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "8155b300bc6d4d33",
+    "ok": true,
+    "image": "evidence/06-fill-env.png"
+  },
+  {
+    "id": "07-run",
+    "title": "Run the project",
+    "kind": "run",
+    "at": "2026-11-10T11:15:17+00:00",
+    "cmd": "bash run.sh",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "7fbdaf2df2d12e6c",
+    "ok": true,
+    "image": "evidence/07-run.png"
+  },
+  {
+    "id": "08-check",
+    "title": "Run the one check",
+    "kind": "run",
+    "at": "2026-11-10T11:15:18+00:00",
+    "cmd": "python3 -m unittest -v",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "966e1cf4ed0eb7de",
+    "ok": true,
+    "image": "evidence/08-check.png"
+  },
+  {
+    "id": "09-commit",
+    "title": "Commit and confirm .env is not tracked",
+    "kind": "run",
+    "at": "2026-11-10T11:15:18+00:00",
+    "cmd": "git add . && git -c user.name=Demo -c user.email=demo@example.com commit -q -m 'Starter repo' && git ls-files && git log --oneline && git status --short",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "78b9356b07cb9966",
+    "ok": true,
+    "image": "evidence/09-commit.png"
+  }
+]

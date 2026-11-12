@@ -1,0 +1,5 @@
+client.max_retries: 2
+reply: Our demo is an AI assistant that answers users' questions about recycling, from which bin an item belongs in to how to prepare materials properly. It's built to make recycling rules clearer and more accessible so people can dispose of waste correctly.
+input tokens: 38
+output tokens: 77
+saved saved_answer.json

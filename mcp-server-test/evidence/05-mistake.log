@@ -1,0 +1,19 @@
+[PASS] connected to the server over stdio
+      tools listed: convert_units, debug_dump, slugify, word_count
+[PASS] all three expected tools are listed
+[FAIL] no tool we did not intend is exposed - unexpected: ['debug_dump']
+[PASS] every tool has a description
+[PASS] word_count returns 4 words - {'words': 4, 'characters': 18, 'lines': 2}
+[PASS] convert_units turns 100 C into 212 F - 212.0
+[PASS] slugify returns test-an-mcp-server - test-an-mcp-server
+[PASS] bad input comes back as an error result, not a crash - Error executing tool convert_units: 1 validation error for convert_unitsArguments
+[PASS] a bad value is explained in the error text - Error executing tool convert_units: unknown conversion 'parsecs'
+[PASS] an unknown tool name is an error result - Unknown tool: no_such_tool
+[PASS] a 5 million character input ends within 5 seconds - error result in 0.01 s
+[PASS] the server still answers after the huge call - still-alive
+
+11 of 12 checks passed
+Tool 'convert_units' rejected arguments: ['value']
+Tool 'convert_units' failed: "Error executing tool convert_units: unknown conversion 'parsecs'"
+Tool 'no_such_tool' failed: 'Unknown tool: no_such_tool'
+Tool 'word_count' failed: 'Error executing tool word_count: text is 5000000 characters, the limit is 1000000'

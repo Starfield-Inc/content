@@ -1,0 +1,88 @@
+[
+  {
+    "id": "01-venv",
+    "title": "Create a virtual environment",
+    "kind": "run",
+    "at": "2026-11-10T10:59:57+00:00",
+    "cmd": "python3 -m venv .venv && ls -d .venv",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "3c20d7bc4365acc9",
+    "ok": true,
+    "image": "evidence/01-venv.png"
+  },
+  {
+    "id": "02-install",
+    "title": "Install tiktoken",
+    "kind": "run",
+    "at": "2026-11-10T11:02:50+00:00",
+    "cmd": "pip install -q -r requirements.txt && pip show tiktoken | sed -n 1,2p",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "0370f0ad81314940",
+    "ok": true,
+    "image": "evidence/02-install.png"
+  },
+  {
+    "id": "03-split",
+    "title": "See one sentence split into tokens",
+    "kind": "run",
+    "at": "2026-11-10T12:27:19+00:00",
+    "cmd": "python tokens_demo.py \"Tokens are not the same as words.\"",
+    "show": "python tokens_demo.py \"Tokens are not the same as words.\"",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "2389c56cc4d68cda",
+    "ok": true,
+    "image": "evidence/03-split.png"
+  },
+  {
+    "id": "04-count",
+    "title": "Count the tokens in a file",
+    "kind": "run",
+    "at": "2026-11-10T11:27:39+00:00",
+    "cmd": "python count_tokens.py sample.txt",
+    "show": "python count_tokens.py sample.txt",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "f9d1918cc4e36fbc",
+    "ok": true,
+    "image": "evidence/04-count.png"
+  },
+  {
+    "id": "05-cost",
+    "title": "Turn the count into a cost estimate",
+    "kind": "run",
+    "at": "2026-11-10T11:00:08+00:00",
+    "cmd": "python count_tokens.py sample.txt --price-per-million 3.00",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "9d8abadce3e1d708",
+    "ok": true,
+    "image": "evidence/05-cost.png"
+  },
+  {
+    "id": "05b-languages",
+    "title": "Count a text in two languages",
+    "kind": "run",
+    "at": "2026-11-10T11:02:52+00:00",
+    "cmd": "python count_tokens.py multilingual.txt",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "e47bf4533c30bcd5",
+    "ok": true,
+    "image": "evidence/05b-languages.png"
+  },
+  {
+    "id": "06-missing",
+    "title": "What a wrong file name looks like",
+    "kind": "run",
+    "at": "2026-11-10T11:00:10+00:00",
+    "cmd": "python count_tokens.py notes.txt",
+    "exit": 2,
+    "expect_exit": 2,
+    "sha256": "68f29e1b5902001e",
+    "ok": true,
+    "image": "evidence/06-missing.png"
+  }
+]

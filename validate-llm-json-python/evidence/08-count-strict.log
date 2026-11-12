@@ -1,0 +1,6 @@
+prompt: strict   runs: 50
+valid on the first try:        49
+invalid, valid after 1 retry:  1
+invalid after the retry:       0
+first-try failure rate:        1 of 50
+fields that failed on the first try: {'summary': 1}

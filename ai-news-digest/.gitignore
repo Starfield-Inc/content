@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+spend.log
+items.json
+unique.json
+summaries.json
+digest.html
+digest.md
+live/
+evidence/*.html

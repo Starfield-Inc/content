@@ -1,0 +1,14 @@
+you> My name is Maya and I am learning to sail.
+bot> Nice to meet you, Maya! Sailing is a wonderful skill to learn, and I hope you enjoy every time you head out on the water.
+[sent 1 messages: U | input tokens 46, output tokens 48]
+you> Give me one tip for my first lesson.
+bot> Pay close attention to the wind: feel which way it's blowing on your face and watch the sails, since understanding the wind is the key to controlling the boat.
+[sent 3 messages: U A U | input tokens 109, output tokens 50]
+you> What should I pack to eat?
+bot> Pack light, non-messy snacks that won't spoil in the sun, such as nuts, granola bars, fruit, and sandwiches, plus plenty of water. Avoid anything greasy or sugary that could make you feel queasy on the boat.
+[sent 5 messages: U A U A U | input tokens 170, output tokens 82]
+you> What is my name?
+bot> Your name is Maya.
+[sent 7 messages: U A U A U A U | input tokens 259, output tokens 10]
+you> 
+[session total: input tokens 584, output tokens 190]

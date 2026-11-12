@@ -1,0 +1,4 @@
+opening connection: 4 events, last id 3
+connection ended with no done event
+resumed after event 3: 52 more events, starting id 4, last is 'done'
+joined text matches the saved answer: yes

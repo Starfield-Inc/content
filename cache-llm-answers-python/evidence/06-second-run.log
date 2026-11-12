@@ -1,0 +1,12 @@
+1 HIT      0.0 ms  in=38 out=87  What is a token in a language mode
+2 HIT      0.0 ms  in=40 out=80  Why does temperature change the an
+3 HIT      0.0 ms  in=35 out=60  What is a context window?
+4 HIT      0.0 ms  in=40 out=31  Name one way to lower API cost.
+5 HIT      0.0 ms  in=38 out=87  What is a token in a language mode
+6 HIT      0.0 ms  in=40 out=80  Why does temperature change the an
+7 HIT      0.0 ms  in=37 out=60  What is a  context window?
+
+questions: 7  API calls: 0  cache hits: 7
+tokens sent to the API: input 0, output 0
+tokens not sent thanks to hits: input 268, output 485
+total time: 0.00 s

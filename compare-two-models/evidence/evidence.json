@@ -1,0 +1,91 @@
+[
+  {
+    "id": "01-venv",
+    "title": "Create a virtual environment",
+    "kind": "run",
+    "at": "2026-11-10T13:47:57+00:00",
+    "cmd": "python3 -m venv .venv && ls -d .venv",
+    "show": "python3 -m venv .venv",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "3c20d7bc4365acc9",
+    "ok": true,
+    "image": "evidence/01-venv.png"
+  },
+  {
+    "id": "02-install",
+    "title": "Install the packages",
+    "kind": "run",
+    "at": "2026-11-10T13:48:03+00:00",
+    "cmd": "pip install -q -r requirements.txt && pip list 2>/dev/null | grep -iE '^(anthropic|fastapi|uvicorn) '",
+    "show": "pip install -r requirements.txt",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "391023b1e02c7819",
+    "ok": true,
+    "image": "evidence/02-install.png"
+  },
+  {
+    "id": "03-cost-test",
+    "title": "Check the cost arithmetic with fixed numbers",
+    "kind": "run",
+    "at": "2026-11-10T13:50:28+00:00",
+    "cmd": "python test_cost.py",
+    "show": "python test_cost.py",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "91e6009572e1458b",
+    "ok": true,
+    "image": "evidence/03-cost-test.png"
+  },
+  {
+    "id": "04-no-key",
+    "title": "What a missing key looks like",
+    "kind": "run",
+    "at": "2026-11-10T13:50:28+00:00",
+    "cmd": "python compare.py \"Say hello.\"",
+    "show": "python compare.py \"Say hello.\"",
+    "exit": 1,
+    "expect_exit": 1,
+    "sha256": "de5912ced9e39260",
+    "ok": true,
+    "image": "evidence/04-no-key.png"
+  },
+  {
+    "id": "05-compare",
+    "title": "Send one prompt to both models",
+    "kind": "run",
+    "at": "2026-11-10T13:48:42+00:00",
+    "cmd": "python compare.py \"Explain what an API rate limit is, in two sentences, for a beginner.\" --save demo_result.json",
+    "show": "python compare.py \"Explain what an API rate limit is, in two sentences, for a beginner.\" --save demo_result.json",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "c5e6bc08153a0527",
+    "ok": true,
+    "image": "evidence/05-compare.png"
+  },
+  {
+    "id": "06-route",
+    "title": "Call the web route once",
+    "kind": "run",
+    "at": "2026-11-10T13:48:47+00:00",
+    "cmd": "uvicorn app:app --port 8042 --log-level warning & SERVER=$!; python test_route.py; STATUS=$?; kill $SERVER; exit $STATUS",
+    "show": "python test_route.py",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "419dce0201271c40",
+    "ok": true,
+    "image": "evidence/06-route.png"
+  },
+  {
+    "id": "07-page",
+    "title": "Open the page with the saved result",
+    "kind": "web",
+    "at": "2026-11-10T13:50:29+00:00",
+    "serve": "uvicorn app:app --port 8042 --log-level warning",
+    "url": "http://127.0.0.1:8042/?demo=1",
+    "up": true,
+    "image": "evidence/07-page.png",
+    "ok": true
+  }
+]

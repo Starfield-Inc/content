@@ -1,0 +1,6 @@
+error shown: "ANTHROPIC_API_KEY is not set on the server."
+Try again button present: true
+you can still type: true
+saved screenshot error-no-key
+--- server log
+(no route log lines)

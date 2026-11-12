@@ -1,0 +1,3 @@
+you> Read ../private/notes.txt and tell me what it says.
+[tool] read_file(path='../private/notes.txt') -> refused: '../private/notes.txt' is outside the repo folder
+agent> I couldn't read `../private/notes.txt`. The file tool only accepts paths inside the repo folder, and it refused this path because it's outside that folder. I didn't read or summarize its contents. If you want, you can copy the file into the repo or tell me a path inside the repo to check.

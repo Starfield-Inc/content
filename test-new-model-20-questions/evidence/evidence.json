@@ -1,0 +1,93 @@
+[
+  {
+    "id": "01-venv",
+    "title": "Create a virtual environment",
+    "kind": "run",
+    "at": "2026-11-11T12:40:31+00:00",
+    "cmd": "python3 -m venv .venv && ls -d .venv",
+    "show": "python3 -m venv .venv",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "3c20d7bc4365acc9",
+    "ok": true,
+    "image": "evidence/01-venv.png"
+  },
+  {
+    "id": "02-install",
+    "title": "Install the SDK",
+    "kind": "run",
+    "at": "2026-11-11T12:40:36+00:00",
+    "cmd": "pip install -q -r requirements.txt && pip show anthropic | sed -n 1,2p",
+    "show": "pip install -r requirements.txt",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "65615672d01ac27f",
+    "ok": true,
+    "image": "evidence/02-install.png"
+  },
+  {
+    "id": "03-test-score",
+    "title": "Check the scoring rule on fixed answers",
+    "kind": "run",
+    "at": "2026-11-11T12:40:54+00:00",
+    "cmd": "python test_score.py",
+    "show": "python test_score.py",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "b5685378480c9dd4",
+    "ok": true,
+    "image": "evidence/03-test-score.png"
+  },
+  {
+    "id": "04-no-key",
+    "title": "What a missing key looks like",
+    "kind": "run",
+    "at": "2026-11-11T12:40:57+00:00",
+    "cmd": "python run_eval.py",
+    "show": "python run_eval.py",
+    "exit": 1,
+    "expect_exit": 1,
+    "sha256": "de5912ced9e39260",
+    "ok": true,
+    "image": "evidence/04-no-key.png"
+  },
+  {
+    "id": "05-run",
+    "title": "Ask 20 questions to two models",
+    "kind": "run",
+    "at": "2026-11-11T12:41:06+00:00",
+    "cmd": "python run_eval.py",
+    "show": "python run_eval.py",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "688a3bcc15753c05",
+    "ok": true,
+    "image": "evidence/05-run.png"
+  },
+  {
+    "id": "06-score",
+    "title": "Score the answers and read the totals",
+    "kind": "run",
+    "at": "2026-11-11T12:42:00+00:00",
+    "cmd": "python score.py",
+    "show": "python score.py",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "614c58b22ef1442d",
+    "ok": true,
+    "image": "evidence/06-score.png"
+  },
+  {
+    "id": "07-missing",
+    "title": "What a wrong results file looks like",
+    "kind": "run",
+    "at": "2026-11-11T12:42:01+00:00",
+    "cmd": "python score.py old-results.json",
+    "show": "python score.py old-results.json",
+    "exit": 1,
+    "expect_exit": 1,
+    "sha256": "36ca381873912b42",
+    "ok": true,
+    "image": "evidence/07-missing.png"
+  }
+]

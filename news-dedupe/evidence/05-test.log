@@ -1,0 +1,8 @@
+test_different_version_numbers_stay_apart (test_dedupe.DedupeTest.test_different_version_numbers_stay_apart) ... ok
+test_same_story_from_two_feeds_is_grouped (test_dedupe.DedupeTest.test_same_story_from_two_feeds_is_grouped) ... ok
+test_unrelated_item_stays_alone (test_dedupe.DedupeTest.test_unrelated_item_stays_alone) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.000s
+
+OK

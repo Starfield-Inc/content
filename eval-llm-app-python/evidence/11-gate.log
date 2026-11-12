@@ -1,0 +1,5 @@
+FAIL  english-only
+
+prompt v2: 0/1 passed, pass rate 0%
+failed: english-only
+exit code: 1

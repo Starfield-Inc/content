@@ -1,0 +1,11 @@
+correct  '408'                  accepted ['408']  (normalised '408')
+correct  '  408.  '             accepted ['408']  (normalised '408')
+correct  '1,000'                accepted ['1000']  (normalised '1000')
+correct  'Canberra'             accepted ['canberra']  (normalised 'canberra')
+correct  "'maerts'"             accepted ['maerts']  (normalised 'maerts')
+correct  'Three'                accepted ['3', 'three']  (normalised 'three')
+wrong    'The answer is 408'    accepted ['408']  (normalised 'the answer is 408')
+wrong    '409'                  accepted ['408']  (normalised '409')
+wrong    'Sydney'               accepted ['canberra']  (normalised 'sydney')
+wrong    ''                     accepted ['5']  (normalised '')
+all 10 scoring checks passed

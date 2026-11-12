@@ -1,0 +1,40 @@
+## mistralai/Mistral-Large-4-1T-A52B
+
+- Licence tag: `other`
+- Licence name on the card: not given
+- Licence link on the card: not given
+- Licence file: `LICENSE`, 18 lines, 2618 characters, sha256 d242ebedb53f
+
+**Can I use it commercially, and in what kind of business?**
+- [sell]
+  Permission is hereby granted, free of charge, to any person (the “Licensee”) obtaining a copy of this model
+  and associated documentation files - including the model weights, parameters, configuration files, and
+  associated documentation (the “Model”), to deal ...
+- [affiliate, as a service, commercial]
+  If the Licensee or any of its affiliates operates a Model as a Service business, the Licensee must enter into
+  a separate commercial license with Mistral before using the Model or its derivative works for any commercial
+  purpose.
+- ... 2 more flagged lines in the licence file
+
+**Is there a limit on users or on revenue?**
+- No trigger phrase found. Silence is not permission: a person must decide what it means.
+
+**Must I give credit, keep a notice, or follow naming rules?**
+- [attribution]
+  Attribution notice: 2026 - Mistral
+- [copyright notice, permission notice]
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions
+  of the Model.
+
+**Are some uses or fields of use ruled out?**
+- No trigger phrase found. Silence is not permission: a person must decide what it means.
+
+**Who owns what the model produces, and may I use outputs to train other models?**
+- [output]
+  THE MODEL AND ANY OUTPUT THEREFROM ARE PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+  INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+  NONINFRINGEMENT.
+
+**Which law and which courts apply?**
+- No trigger phrase found. Silence is not permission: a person must decide what it means.
+

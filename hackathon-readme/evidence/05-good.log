@@ -1,0 +1,9 @@
+Checking example/README.md
+  PASS  Opens with one short sentence: 20 words (want 6 to 25)
+  PASS  Demo link near the top: found in the first 12 lines
+  PASS  Screenshot that exists: screenshot.png
+  PASS  Run guide of three lines or fewer: 2 command lines
+  PASS  Tech list: bullet list found
+  PASS  What is next: section found
+  PASS  Team: section found
+7 of 7 checks passed

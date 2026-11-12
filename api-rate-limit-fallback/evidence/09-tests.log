@@ -1,0 +1,13 @@
+test_a_bad_key_is_raised_not_hidden_by_the_fallback (test_resilient.FallbackTests.test_a_bad_key_is_raised_not_hidden_by_the_fallback) ... ok
+test_long_retry_after_goes_straight_to_the_saved_answer (test_resilient.FallbackTests.test_long_retry_after_goes_straight_to_the_saved_answer) ... ok
+test_saved_answer_after_the_last_attempt (test_resilient.FallbackTests.test_saved_answer_after_the_last_attempt) ... ok
+test_429_with_retry_after_waits_that_long_plus_jitter (test_resilient.RetryTests.test_429_with_retry_after_waits_that_long_plus_jitter) ... ok
+test_529_without_header_backs_off_exponentially_to_the_cap (test_resilient.RetryTests.test_529_without_header_backs_off_exponentially_to_the_cap) ... ok
+test_each_retry_is_logged (test_resilient.RetryTests.test_each_retry_is_logged) ... ok
+test_jitter_keeps_the_wait_between_zero_and_the_ceiling (test_resilient.RetryTests.test_jitter_keeps_the_wait_between_zero_and_the_ceiling) ... ok
+test_no_failure_means_one_call_and_no_sleep (test_resilient.RetryTests.test_no_failure_means_one_call_and_no_sleep) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 3.591s
+
+OK

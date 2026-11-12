@@ -1,0 +1,10 @@
+test_empty_reply_fails (test_checks.CheckTests.test_empty_reply_fails) ... ok
+test_fails_when_nothing_matches (test_checks.CheckTests.test_fails_when_nothing_matches) ... ok
+test_forbidden_text_fails (test_checks.CheckTests.test_forbidden_text_fails) ... ok
+test_passes_when_any_option_is_present (test_checks.CheckTests.test_passes_when_any_option_is_present) ... ok
+test_word_limit (test_checks.CheckTests.test_word_limit) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+
+OK

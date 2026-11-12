@@ -1,0 +1,98 @@
+[
+  {
+    "id": "01-venv",
+    "title": "Create a virtual environment",
+    "kind": "run",
+    "at": "2026-11-10T12:23:30+00:00",
+    "cmd": "python3 -m venv .venv && ls -d .venv",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "3c20d7bc4365acc9",
+    "ok": true,
+    "image": "evidence/01-venv.png"
+  },
+  {
+    "id": "02-install",
+    "title": "Install the Anthropic SDK",
+    "kind": "run",
+    "at": "2026-11-10T12:23:35+00:00",
+    "cmd": "pip install -q -r requirements.txt && pip show anthropic | sed -n 1,2p",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "34f88b2af23e7c5a",
+    "ok": true,
+    "image": "evidence/02-install.png"
+  },
+  {
+    "id": "03-ask",
+    "title": "Send one prompt and read the answer",
+    "kind": "run",
+    "at": "2026-11-10T12:23:48+00:00",
+    "cmd": "python ask.py capital",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "ef5c4e450494e64b",
+    "ok": true,
+    "image": "evidence/03-ask.png"
+  },
+  {
+    "id": "04-pass",
+    "title": "Run the five prompt tests",
+    "kind": "run",
+    "at": "2026-11-10T12:23:58+00:00",
+    "cmd": "python -m unittest -v test_prompts",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "a3220ba753398ee3",
+    "ok": true,
+    "image": "evidence/04-pass.png"
+  },
+  {
+    "id": "05-diff",
+    "title": "See the one prompt that changes",
+    "kind": "run",
+    "at": "2026-11-10T12:24:10+00:00",
+    "cmd": "diff prompts.py prompts_changed.py; true",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "63b2bce0a541569e",
+    "ok": true,
+    "image": "evidence/05-diff.png"
+  },
+  {
+    "id": "06-fail",
+    "title": "Run the tests with the changed prompt",
+    "kind": "run",
+    "at": "2026-11-10T12:24:13+00:00",
+    "cmd": "set -o pipefail; PROMPTS_MODULE=prompts_changed python -m unittest -v test_prompts 2>&1 | sed \"s#$PWD/##\"",
+    "exit": 1,
+    "expect_exit": 1,
+    "sha256": "e58cacaac7daba96",
+    "ok": true,
+    "image": "evidence/06-fail.png"
+  },
+  {
+    "id": "07-no-key",
+    "title": "What a missing key looks like",
+    "kind": "run",
+    "at": "2026-11-10T12:24:26+00:00",
+    "cmd": "python -m unittest test_prompts",
+    "exit": 2,
+    "expect_exit": 2,
+    "sha256": "89f8c32635621dce",
+    "ok": true,
+    "image": "evidence/07-no-key.png"
+  },
+  {
+    "id": "08-spend",
+    "title": "Add up the spend log",
+    "kind": "run",
+    "at": "2026-11-10T12:24:29+00:00",
+    "cmd": "python spend.py",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "4bbd2249697e0ced",
+    "ok": true,
+    "image": "evidence/08-spend.png"
+  }
+]

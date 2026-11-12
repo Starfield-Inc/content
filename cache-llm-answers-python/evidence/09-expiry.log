@@ -1,0 +1,3 @@
+first ask       MISS  1979.1 ms  (ttl 2 s)
+right away      HIT      0.0 ms  (ttl 2 s)
+after 3 s wait  MISS  1592.3 ms  (ttl 2 s)

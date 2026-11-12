@@ -1,0 +1,20 @@
+test_capital (test_prompts.PromptTests.test_capital) ... ok
+test_json (test_prompts.PromptTests.test_json) ... ok
+test_list (test_prompts.PromptTests.test_list) ... ok
+test_minutes (test_prompts.PromptTests.test_minutes) ... ok
+test_summary (test_prompts.PromptTests.test_summary) ... 
+  test_summary (test_prompts.PromptTests.test_summary) (check='under 20 words') ... FAIL
+
+======================================================================
+FAIL: test_summary (test_prompts.PromptTests.test_summary) (check='under 20 words')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_prompts.py", line 49, in test_summary
+    self.assertLess(word_count(out), 20, f"{word_count(out)} words")
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 134 not less than 20 : 134 words
+
+----------------------------------------------------------------------
+Ran 5 tests in 7.035s
+
+FAILED (failures=1)

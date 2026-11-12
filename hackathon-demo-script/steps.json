@@ -1,0 +1,20 @@
+[
+ {"id": "01-seed", "title": "Seed the test data", "kind": "run",
+  "cmd": "python3 seed_data.py", "must_contain": ["Wrote 12 tickets"]},
+ {"id": "02-seed-check", "title": "Prove the data is identical on every run", "kind": "run",
+  "cmd": "python3 seed_data.py --check", "must_contain": ["matches the seed: yes"]},
+ {"id": "03-script-time", "title": "Time the script before you rehearse", "kind": "run",
+  "cmd": "python3 check_script.py demo_script.md", "must_contain": ["Total:", "OVER BUDGET", "Fits, with"]},
+ {"id": "04-script-short-slot", "title": "What a slot that is too short looks like", "kind": "run",
+  "cmd": "python3 check_script.py demo_script.md --limit 120", "expect_exit": 1, "must_contain": ["Too long by"]},
+ {"id": "05-rehearse", "title": "Compare example stopwatch times with the plan", "kind": "run",
+  "cmd": "python3 rehearse.py demo_script.md --times 22,27,64,27,24", "must_contain": ["Total: 164s", "Leaves at least 10s spare"]},
+ {"id": "06-preflight-fail", "title": "Run the checklist with no backup video", "kind": "run",
+  "cmd": "python3 preflight.py", "expect_exit": 1, "must_contain": ["FAIL backup video", "1 failed"]},
+ {"id": "07-stand-in-video", "title": "Make a stand-in video file", "kind": "run",
+  "cmd": "mkdir -p backup && ffmpeg -v error -y -f lavfi -i testsrc=duration=3:size=640x360:rate=10 -pix_fmt yuv420p backup/demo-backup.mp4 && ls -l backup/demo-backup.mp4 | awk '{print $5, $9}'",
+  "show": "ffmpeg -f lavfi -i testsrc=duration=3:size=640x360:rate=10 -pix_fmt yuv420p backup/demo-backup.mp4",
+  "must_contain": ["backup/demo-backup.mp4"]},
+ {"id": "08-preflight-pass", "title": "Run the checklist again", "kind": "run",
+  "cmd": "python3 preflight.py", "must_contain": ["PASS backup video", "5 checks, 0 failed"]}
+]

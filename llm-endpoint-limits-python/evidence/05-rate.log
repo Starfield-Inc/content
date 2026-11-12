@@ -1,0 +1,5 @@
+[ana] HTTP 200 {"answer":"A rate limit is a restriction on how many requests or actions a user, client, or system can make within a specific time period.","input_tokens":26,"output_tokens":36,"spent_today_usd":"0.000206"}
+[ana] HTTP 200 {"answer":"200 OK","input_tokens":28,"output_tokens":6,"spent_today_usd":"0.000264"}
+[ana] HTTP 429 Retry-After: 58 {"error":"rate limit"}
+[ben] HTTP 200 {"answer":"Hello!","input_tokens":23,"output_tokens":6,"spent_today_usd":"0.000317"}
+usage: {"day":"2026-11-11","calls":3,"spent_usd":"0.000317","cap_usd":"1.000000","rate_limit":"2 per 60s per user"}

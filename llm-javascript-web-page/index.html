@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ask the model</title>
+  <style>
+    body { font: 16px/1.5 system-ui, sans-serif; max-width: 640px; margin: 2rem auto; padding: 0 1rem; color: #1d2433; }
+    textarea { width: 100%; box-sizing: border-box; font: inherit; padding: .6rem; border: 1px solid #aab3c5; border-radius: 6px; }
+    button { margin-top: .5rem; font: inherit; padding: .5rem 1.2rem; border: 0; border-radius: 6px; background: #2b4acb; color: #fff; cursor: pointer; }
+    button:disabled { opacity: .6; cursor: wait; }
+    #answer { margin-top: 1rem; padding: .8rem; background: #eef2fb; border-radius: 6px; white-space: pre-wrap; }
+    #error { margin-top: 1rem; padding: .8rem; background: #fdecec; color: #8a1c1c; border-radius: 6px; }
+    #meta { color: #5b6578; font-size: .85rem; margin-top: .4rem; }
+    [hidden] { display: none; }
+  </style>
+</head>
+<body>
+  <h1>Ask the model</h1>
+  <label for="question">Your question</label>
+  <textarea id="question" rows="3" maxlength="500">What is a hackathon demo, in one sentence?</textarea>
+  <button id="send">Ask</button>
+  <div id="error" role="alert" hidden></div>
+  <div id="answer" hidden></div>
+  <div id="meta"></div>
+  <script src="/app.js"></script>
+</body>
+</html>

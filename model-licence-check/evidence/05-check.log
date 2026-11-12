@@ -1,0 +1,8 @@
+deepseek-ai/DeepSeek-V4.1-Flash-1017: tag mit, file LICENSE
+  flagged lines: commercial 1, limits 0, naming 1, field 0, outputs 0, law 0
+mistralai/Mistral-Large-4-1T-A52B: tag other, file LICENSE
+  flagged lines: commercial 4, limits 0, naming 2, field 0, outputs 1, law 0
+google/timesfm-3.0-pytorch: tag other, file LICENSE
+  flagged lines: commercial 10, limits 0, naming 2, field 7, outputs 5, law 0
+
+Saved report.md. It is not legal advice: read the note at the top of the report.

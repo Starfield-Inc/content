@@ -1,0 +1,9 @@
+Usage: 3,000,000 input tokens and 500,000 output tokens. Today: 2026-12-20.
+Model                                           In $/M  Out $/M    Cost $     Checked  Age  Flag
+Claude Haiku 5.5 (prompts up to 100k tokens)      0.10     0.50      0.55  2026-11-10   40  OLD (over 30 days)
+gpt-6-luna (short context)                        0.10     0.50      0.55  2026-11-10   40  OLD (over 30 days)
+Gemini 3.1 Flash-Lite (text input)                0.25     1.50      1.50  2026-11-10   40  OLD (over 30 days)
+gpt-6.1-terra (short context)                     1.00     5.00      5.50  2026-11-10   40  OLD (over 30 days)
+Claude Sonnet 5.5                                 2.00    10.00     11.00  2026-11-10   40  OLD (over 30 days)
+Claude Opus 5.5                                   4.00    20.00     22.00  2026-11-10   40  OLD (over 30 days)
+6 rows, 6 older than 30 days.

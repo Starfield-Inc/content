@@ -1,0 +1,8 @@
+test_age_in_days (test_price_table.PriceTableTests.test_age_in_days) ... ok
+test_cost_for_one_million_each (test_price_table.PriceTableTests.test_cost_for_one_million_each) ... ok
+test_cost_for_small_usage (test_price_table.PriceTableTests.test_cost_for_small_usage) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.000s
+
+OK

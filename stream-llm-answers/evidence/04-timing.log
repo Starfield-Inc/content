@@ -1,0 +1,6 @@
+answer: A hackathon demo should show the answer exactly as the system produced it, because judges are evaluating what the tool actually does, not a polished version of it. Hiding or editing the raw output invites the question of whether the system works at all, and a single cleaned-up response can't be trusted as representative. Showing the real answer, including its imperfections, demonstrates honesty and lets judges assess the quality and limits of the approach. If the output is wrong in some way, acknowledging that openly and explaining why earns more credibility than a flawless-looking result that falls apart under questions.
+chunks: 55
+opening chunk after 0.97 s
+last chunk after 2.03 s
+a reader of a non-streaming page would see nothing for 2.03 s; this reader sees text after 0.97 s
+saved cache.json

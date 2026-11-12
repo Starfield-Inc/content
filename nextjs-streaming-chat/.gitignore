@@ -1,0 +1,7 @@
+node_modules/
+.next/
+.env
+.env.local
+server.log
+evidence/*.html
+next-env.d.ts

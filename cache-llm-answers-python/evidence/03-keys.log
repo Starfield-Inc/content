@@ -1,0 +1,10 @@
+base key: 021d818dbdb4
+same request again     021d818dbdb4  same key
+other model name       8d115151ca3b  NEW key
+max_tokens 500         a1d7788dd8c9  NEW key
+thinking enabled       44d657c58e67  NEW key
+extra space inside     0d9d724adaf7  NEW key
+space at the end       3139114dc14b  NEW key
+lower case             0c09ddca99b3  NEW key
+messy, normalize on    0c09ddca99b3  NEW key
+tidy, normalize on     0c09ddca99b3  NEW key

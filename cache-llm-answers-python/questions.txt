@@ -1,0 +1,7 @@
+What is a token in a language model?
+Why does temperature change the answer?
+What is a context window?
+Name one way to lower API cost.
+What is a token in a language model?
+Why does temperature change the answer?
+  What is a  context window?  

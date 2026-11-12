@@ -1,0 +1,143 @@
+[
+ {
+  "id": "01-venv",
+  "title": "Create a virtual environment",
+  "kind": "run",
+  "cmd": "python3 -m venv .venv && ls -d .venv",
+  "must_contain": [
+   ".venv"
+  ],
+  "show": "python3 -m venv .venv"
+ },
+ {
+  "id": "02-install",
+  "title": "Install requests",
+  "kind": "run",
+  "cmd": "pip install -q -r requirements.txt && pip show requests | sed -n 1,2p",
+  "must_contain": [
+   "Name: requests"
+  ],
+  "venv": true,
+  "show": "pip install -r requirements.txt",
+  "env": {
+   "PIP_DISABLE_PIP_VERSION_CHECK": "1"
+  },
+  "timeout": 300
+ },
+ {
+  "id": "03-fields",
+  "title": "Look at the fields for one model",
+  "kind": "run",
+  "cmd": "python show_one.py",
+  "must_contain": [
+   "\"base_model:quantized:",
+   "\"gated\""
+  ],
+  "venv": true
+ },
+ {
+  "id": "04-compare",
+  "title": "Compare four filter rules",
+  "kind": "run",
+  "cmd": "python compare_filters.py",
+  "must_contain": [
+   "other-author base_model",
+   "unsloth"
+  ],
+  "venv": true,
+  "timeout": 120
+ },
+ {
+  "id": "05-test",
+  "title": "Check the rules on fixed records",
+  "kind": "run",
+  "cmd": "python -m unittest discover -s tests -t . -v",
+  "must_contain": [
+   "OK",
+   "test_own_quantised_release_is_kept"
+  ],
+  "venv": true
+ },
+ {
+  "id": "06-first",
+  "title": "First run",
+  "kind": "run",
+  "cmd": "python hf_alert.py",
+  "must_contain": [
+   "new model(s) on Hugging Face",
+   "API calls left"
+  ],
+  "venv": true,
+  "timeout": 180
+ },
+ {
+  "id": "07-second",
+  "title": "Second run, nothing new",
+  "kind": "run",
+  "cmd": "python hf_alert.py",
+  "must_contain": [
+   "No new models since the last run."
+  ],
+  "venv": true,
+  "timeout": 180
+ },
+ {
+  "id": "08-forget",
+  "title": "Pretend a model is new, then run again",
+  "kind": "run",
+  "cmd": "python forget.py && python hf_alert.py",
+  "must_contain": [
+   "Forgot",
+   "1 new model(s)"
+  ],
+  "venv": true,
+  "show": "python forget.py\npython hf_alert.py",
+  "timeout": 180
+ },
+ {
+  "id": "09-copies",
+  "title": "Watch a publisher full of copies",
+  "kind": "run",
+  "cmd": "python hf_alert.py --orgs unsloth --days 14 --state seen-unsloth.json --message-file alerts-unsloth.txt",
+  "must_contain": [
+   "dropped as copies"
+  ],
+  "venv": true,
+  "timeout": 120
+ },
+ {
+  "id": "10-keep",
+  "title": "Same check with the copy filter off",
+  "kind": "run",
+  "cmd": "python hf_alert.py --orgs unsloth --days 14 --keep-copies --state seen-keep.json --message-file alerts-keep.txt",
+  "must_contain": [
+   "0 dropped as copies"
+  ],
+  "venv": true,
+  "timeout": 120
+ },
+ {
+  "id": "11-mistake",
+  "title": "What a misspelt organisation looks like",
+  "kind": "run",
+  "cmd": "python hf_alert.py --orgs qwen",
+  "must_contain": [
+   "no models found"
+  ],
+  "venv": true,
+  "expect_exit": 2,
+  "timeout": 60
+ },
+ {
+  "id": "12-files",
+  "title": "Look at the message file and the state file",
+  "kind": "run",
+  "cmd": "cat alerts.txt && head -5 seen.json",
+  "must_contain": [
+   "new model(s)",
+   "\"mistralai/"
+  ],
+  "venv": true,
+  "show": "cat alerts.txt\nhead -5 seen.json"
+ }
+]

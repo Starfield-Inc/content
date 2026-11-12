@@ -1,0 +1,14 @@
+{
+  "_id": "6ae32d080d2ee8c5762cbfc1",
+  "id": "unsloth/Mistral-Large-4-1T-A52B-GGUF",
+  "gated": false,
+  "downloads": 18276,
+  "tags": [
+    "gguf",
+    "base_model:mistralai/Mistral-Large-4-1T-A52B",
+    "base_model:quantized:mistralai/Mistral-Large-4-1T-A52B",
+    "license:other",
+    "region:us"
+  ],
+  "createdAt": "2026-10-29T11:24:56.000Z"
+}

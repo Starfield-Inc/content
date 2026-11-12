@@ -1,0 +1,19 @@
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin: 0; font: 16px/1.5 system-ui, sans-serif; background: #f3f5f9; color: #1a2030; }
+main { max-width: 640px; margin: 0 auto; padding: 20px 16px 24px; display: flex; flex-direction: column; min-height: 100vh; }
+h1 { font-size: 20px; margin: 0 0 12px; }
+#log { flex: 1; display: flex; flex-direction: column; gap: 10px; padding-bottom: 12px; }
+.hint { color: #667; }
+.msg { max-width: 85%; padding: 8px 12px; border-radius: 12px; background: #fff; border: 1px solid #dde2ec; }
+.msg.user { align-self: flex-end; background: #2b4acb; color: #fff; border-color: #2b4acb; }
+.msg p { margin: 2px 0 0; white-space: pre-wrap; }
+.who { font-size: 12px; opacity: 0.7; }
+.tag { font-size: 13px; opacity: 0.7; }
+#error { display: flex; gap: 12px; align-items: center; justify-content: space-between; padding: 10px 12px; margin-bottom: 10px; border-radius: 8px; background: #fdecea; border: 1px solid #e5a29b; color: #7a1c14; }
+form { display: flex; gap: 8px; }
+input { flex: 1; padding: 10px 12px; font: inherit; border: 1px solid #b9c1d3; border-radius: 8px; }
+button { padding: 10px 16px; font: inherit; border: 0; border-radius: 8px; background: #2b4acb; color: #fff; cursor: pointer; }
+button:disabled { background: #a9b2cf; cursor: default; }
+#stop { background: #b3261e; }
+#retry { padding: 6px 12px; background: #7a1c14; }

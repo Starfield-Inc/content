@@ -1,0 +1,4 @@
+127.0.0.1 - - [11/Nov/2026 15:45:03] "GET /digest.html HTTP/1.1" 200 -
+127.0.0.1 - - [11/Nov/2026 15:45:04] "GET /digest.html HTTP/1.1" 200 -
+127.0.0.1 - - [11/Nov/2026 15:45:04] code 404, message File not found
+127.0.0.1 - - [11/Nov/2026 15:45:04] "GET /favicon.ico HTTP/1.1" 404 -

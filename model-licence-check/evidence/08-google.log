@@ -1,0 +1,36 @@
+## google/timesfm-3.0-pytorch
+
+- Licence tag: `other`
+- Licence name on the card: timesfm-non-commercial-license-v1.0
+- Licence link on the card: LICENSE
+- Licence file: `LICENSE`, 31 lines, 7208 characters, sha256 3e36db7240d2
+
+**Can I use it commercially, and in what kind of business?**
+- [commercial]
+  TimesFM Non-Commercial License v1.0
+- [commercial, production]
+  Google LLC (“we” or “our” or “Company”) is pleased to make available the weights, parameters and inference
+  code for the TimesFM Model (as defined below) freely available for your non-commercial and non-production use
+  as set forth in this TimesFM ...
+- ... 8 more flagged lines in the licence file
+
+**Is there a limit on users or on revenue?**
+- No trigger phrase found. Silence is not permission: a person must decide what it means.
+
+**Must I give credit, keep a notice, or follow naming rules?**
+- [trademark]
+  Trademarks
+- [logo, trademark]
+  You have not been granted any trademark license as part of this License and may not use any name, logo or
+  trademark associated with Company without the prior written permission of Company.
+
+**Are some uses or fields of use ruled out?**
+- [may not]
+  If you do not have the requisite authority, you may not accept the License or access the TimesFM Model on
+  behalf of your employer or other entity.
+- [compliance]
+  Subject to your compliance with this License, Company grants you a non-exclusive, worldwide, non-transferable,
+  non-sublicensable, revocable, royalty-free and limited license to access, use and create Derivatives of the
+  TimesFM Model solely for your ...
+- ... 5 more flagged lines in the licence file
+

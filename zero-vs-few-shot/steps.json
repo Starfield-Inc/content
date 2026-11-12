@@ -1,0 +1,18 @@
+[
+ {"id": "01-venv", "title": "Create a virtual environment", "kind": "run",
+  "cmd": "python3 -m venv .venv && ls -d .venv", "show": "python3 -m venv .venv", "must_contain": [".venv"]},
+ {"id": "02-install", "title": "Install the package", "kind": "run", "venv": true,
+  "cmd": "pip install -q -r requirements.txt && pip list 2>/dev/null | grep -iE '^anthropic '",
+  "show": "pip install -r requirements.txt", "timeout": 300,
+  "env": {"PIP_DISABLE_PIP_VERSION_CHECK": "1"}, "must_contain": ["anthropic"]},
+ {"id": "03-check-data", "title": "Check the 20 inputs and the 3 examples", "kind": "run", "venv": true,
+  "cmd": "python check_data.py", "must_contain": ["20 inputs:", "none of the 3 examples is in the inputs"]},
+ {"id": "04-no-key", "title": "What a missing key looks like", "kind": "run", "venv": true,
+  "cmd": "python run.py zero", "expect_exit": 1, "must_contain": ["ANTHROPIC_API_KEY is not set"]},
+ {"id": "05-run-zero", "title": "Run the 20 inputs with no examples", "kind": "run", "venv": true, "needs_key": ["ANTHROPIC_API_KEY"],
+  "timeout": 300, "cmd": "python run.py zero", "must_contain": ["zero-shot: 20 calls", "input tokens:", "output tokens:"]},
+ {"id": "06-run-few", "title": "Run the same 20 inputs with three examples", "kind": "run", "venv": true, "needs_key": ["ANTHROPIC_API_KEY"],
+  "timeout": 300, "cmd": "python run.py few", "must_contain": ["few-shot: 20 calls", "input tokens:", "output tokens:"]},
+ {"id": "07-score", "title": "Score both runs from the saved output", "kind": "run", "venv": true,
+  "cmd": "python score.py", "must_contain": ["zero-shot:", "few-shot:", "of 20 correct"]}
+]

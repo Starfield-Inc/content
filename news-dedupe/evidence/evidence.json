@@ -1,0 +1,73 @@
+[
+  {
+    "id": "01-venv",
+    "title": "Create a virtual environment",
+    "kind": "run",
+    "at": "2026-11-10T11:01:57+00:00",
+    "cmd": "python3 -m venv .venv && ls -d .venv",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "3c20d7bc4365acc9",
+    "ok": true,
+    "image": "evidence/01-venv.png"
+  },
+  {
+    "id": "02-install",
+    "title": "Install feedparser",
+    "kind": "run",
+    "at": "2026-11-10T11:02:54+00:00",
+    "cmd": "pip install -q -r requirements.txt && pip show feedparser | sed -n 1,2p",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "6a1d2c130438584f",
+    "ok": true,
+    "image": "evidence/02-install.png"
+  },
+  {
+    "id": "03-fetch",
+    "title": "Read the feeds",
+    "kind": "run",
+    "at": "2026-11-10T11:02:03+00:00",
+    "cmd": "python fetch_feeds.py",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "fe697105331e23a6",
+    "ok": true,
+    "image": "evidence/03-fetch.png"
+  },
+  {
+    "id": "04-group",
+    "title": "Group the repeated stories",
+    "kind": "run",
+    "at": "2026-11-10T11:02:10+00:00",
+    "cmd": "python dedupe.py",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "672e45a1774277c2",
+    "ok": true,
+    "image": "evidence/04-group.png"
+  },
+  {
+    "id": "05-test",
+    "title": "Check the rule on fixed headlines",
+    "kind": "run",
+    "at": "2026-11-10T11:02:11+00:00",
+    "cmd": "python -m unittest discover -s tests -v",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "513c960cf5c51c6c",
+    "ok": true,
+    "image": "evidence/05-test.png"
+  },
+  {
+    "id": "06-page",
+    "title": "Open the page",
+    "kind": "web",
+    "at": "2026-11-10T11:02:12+00:00",
+    "serve": "python app.py",
+    "url": "http://127.0.0.1:8011/",
+    "up": true,
+    "image": "evidence/06-page.png",
+    "ok": true
+  }
+]

@@ -1,0 +1,110 @@
+[
+  {
+    "id": "01-venv",
+    "title": "Create a virtual environment",
+    "kind": "run",
+    "at": "2026-11-10T11:24:55+00:00",
+    "cmd": "python3 -m venv .venv && ls -d .venv",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "3c20d7bc4365acc9",
+    "ok": true,
+    "image": "evidence/01-venv.png"
+  },
+  {
+    "id": "02-install",
+    "title": "Install requests",
+    "kind": "run",
+    "at": "2026-11-10T11:24:58+00:00",
+    "cmd": "pip install -q -r requirements.txt && pip show requests | sed -n 1,2p",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "c486cb79e4d7d8c5",
+    "ok": true,
+    "image": "evidence/02-install.png"
+  },
+  {
+    "id": "03-fields",
+    "title": "Read the licence fields",
+    "kind": "run",
+    "at": "2026-11-10T11:25:02+00:00",
+    "cmd": "python licence_check.py --tags-only",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "f637aac953e6a9a6",
+    "ok": true,
+    "image": "evidence/03-fields.png"
+  },
+  {
+    "id": "04-test",
+    "title": "Check the checklist on fixed text",
+    "kind": "run",
+    "at": "2026-11-10T11:25:13+00:00",
+    "cmd": "python -m unittest discover -s tests -t . -v",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "a3e61b352502bfbb",
+    "ok": true,
+    "image": "evidence/04-test.png"
+  },
+  {
+    "id": "05-check",
+    "title": "Run the checklist",
+    "kind": "run",
+    "at": "2026-11-10T11:25:13+00:00",
+    "cmd": "python licence_check.py",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "d0cd24677e1a12af",
+    "ok": true,
+    "image": "evidence/05-check.png"
+  },
+  {
+    "id": "06-mit",
+    "title": "Read the report for the MIT model",
+    "kind": "run",
+    "at": "2026-11-10T11:25:23+00:00",
+    "cmd": "sed -n '/^## deepseek/,/^## mistralai/p' report.md | sed '$d'",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "899e397bb83940b3",
+    "ok": true,
+    "image": "evidence/06-mit.png"
+  },
+  {
+    "id": "07-mistral",
+    "title": "Read the report for the Mistral model",
+    "kind": "run",
+    "at": "2026-11-10T11:25:23+00:00",
+    "cmd": "sed -n '/^## mistralai/,/^## google/p' report.md | sed '$d'",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "9b5345e3f7e98663",
+    "ok": true,
+    "image": "evidence/07-mistral.png"
+  },
+  {
+    "id": "08-google",
+    "title": "Read the report for the Google model",
+    "kind": "run",
+    "at": "2026-11-10T11:25:24+00:00",
+    "cmd": "sed -n '/^## google/,$p' report.md | head -n 36",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "f8beb0d61ba4ca8b",
+    "ok": true,
+    "image": "evidence/08-google.png"
+  },
+  {
+    "id": "09-mistake",
+    "title": "What a wrong model name looks like",
+    "kind": "run",
+    "at": "2026-11-10T11:25:25+00:00",
+    "cmd": "python licence_check.py --models mistralai/Mistral-Large-4",
+    "exit": 2,
+    "expect_exit": 2,
+    "sha256": "5a3e2e04362c95b4",
+    "ok": true,
+    "image": "evidence/09-mistake.png"
+  }
+]

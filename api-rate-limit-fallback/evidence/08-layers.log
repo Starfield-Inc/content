@@ -1,0 +1,10 @@
+max_retries=0 on the client
+  retry 1 of 2: OverloadedError (status 529), no retry-after header, waiting 0.06 s
+  retry 2 of 2: OverloadedError (status 529), no retry-after header, waiting 0.04 s
+  attempt 3 of 3 failed: OverloadedError (status 529). Out of attempts, using the saved answer.
+  wrapper attempts: 3, calls that reached the stand-in: 3
+default client, max_retries=2
+  retry 1 of 2: OverloadedError (status 529), no retry-after header, waiting 0.06 s
+  retry 2 of 2: OverloadedError (status 529), no retry-after header, waiting 0.19 s
+  attempt 3 of 3 failed: OverloadedError (status 529). Out of attempts, using the saved answer.
+  wrapper attempts: 3, calls that reached the stand-in: 9

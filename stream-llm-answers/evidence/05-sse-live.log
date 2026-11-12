@@ -1,0 +1,20 @@
+retry: 300
+id: 0
+data: "A hackathon demo should"
+
+id: 1
+data: " show the answ"
+
+id: 2
+data: "er ex"
+
+id: 3
+data: "actly as the"
+...
+data: "."
+
+event: done
+data: {"chunks": 47}
+
+
+lines in live.sse:      145

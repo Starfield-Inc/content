@@ -1,0 +1,4 @@
+status 500, content-type application/json
+body: {"error":"ANTHROPIC_API_KEY is not set on the server."}
+--- server log
+(no route log lines)

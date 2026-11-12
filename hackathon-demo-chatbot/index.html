@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hackathon demo chatbot</title>
+<style>
+  body { font: 16px/1.5 system-ui, sans-serif; background: #f3f5f8; margin: 0; color: #1d2330; }
+  main { max-width: 640px; margin: 0 auto; padding: 24px 16px; }
+  h1 { font-size: 20px; margin: 0 0 16px; }
+  #log { display: flex; flex-direction: column; gap: 10px; min-height: 220px; }
+  .msg { padding: 10px 14px; border-radius: 12px; max-width: 85%; white-space: pre-wrap; }
+  .user { align-self: flex-end; background: #2b59c3; color: #fff; }
+  .assistant { align-self: flex-start; background: #fff; border: 1px solid #d5dbe5; }
+  .error { align-self: flex-start; background: #fde8e8; border: 1px solid #f0b4b4; }
+  form { display: flex; gap: 8px; margin-top: 16px; }
+  input { flex: 1; padding: 10px 12px; font: inherit; border: 1px solid #b9c2d0; border-radius: 8px; }
+  button { padding: 10px 16px; font: inherit; border: 0; border-radius: 8px; background: #2b59c3; color: #fff; cursor: pointer; }
+  button:disabled { opacity: 0.6; cursor: wait; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Hackathon demo chatbot</h1>
+  <div id="log"></div>
+  <form id="form">
+    <input id="text" autocomplete="off" maxlength="500" placeholder="Ask a question" required>
+    <button id="send">Send</button>
+  </form>
+</main>
+<script>
+  const history = __START__;
+  const log = document.getElementById("log");
+  const form = document.getElementById("form");
+  const text = document.getElementById("text");
+  const send = document.getElementById("send");
+
+  function show(role, content) {
+    const div = document.createElement("div");
+    div.className = "msg " + role;
+    div.textContent = content; // textContent, so model output is never run as HTML
+    log.appendChild(div);
+  }
+
+  history.forEach(turn => show(turn.role, turn.content));
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const message = text.value.trim();
+    if (!message) return;
+    text.value = "";
+    send.disabled = true;
+    show("user", message);
+    try {
+      const res = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message, history }),
+      });
+      if (!res.ok) throw new Error("Server said " + res.status);
+      const data = await res.json();
+      history.push({ role: "user", content: message }, { role: "assistant", content: data.reply });
+      show("assistant", data.reply);
+    } catch (err) {
+      show("error", "Something went wrong: " + err.message);
+    }
+    send.disabled = false;
+    text.focus();
+  });
+</script>
+</body>
+</html>

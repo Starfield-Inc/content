@@ -1,0 +1,5 @@
+Question: The soup was hot and the bread was fresh.
+Model: BAAI/bge-small-en-v1.5
+1. 0.845  The soup was not hot, and the bread was stale.
+2. 0.568  Slice the onions thin and cook them slowly until they turn golden.
+3. 0.537  Keep the sourdough starter in the fridge if you bake only once a week.

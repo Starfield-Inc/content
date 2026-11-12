@@ -1,0 +1,6 @@
+clicked Stop: 91 characters on screen, Send button is back
+2.5 seconds later: 91 characters (no more text arrived)
+marked as stopped: true
+saved screenshot stopped
+--- server log
+client left after 14 chunks, upstream request aborted

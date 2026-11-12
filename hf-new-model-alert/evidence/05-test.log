@@ -1,0 +1,10 @@
+test_date_window (tests.test_filters.FilterTests.test_date_window) ... ok
+test_model_without_base_tag_is_kept (tests.test_filters.FilterTests.test_model_without_base_tag_is_kept) ... ok
+test_other_author_quantised_copy_is_dropped (tests.test_filters.FilterTests.test_other_author_quantised_copy_is_dropped) ... ok
+test_own_quantised_release_is_kept (tests.test_filters.FilterTests.test_own_quantised_release_is_kept) ... ok
+test_short_and_long_tag_forms_are_read (tests.test_filters.FilterTests.test_short_and_long_tag_forms_are_read) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+
+OK

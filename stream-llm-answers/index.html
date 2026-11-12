@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Streaming demo</title>
+<style>
+  body { font: 16px/1.5 system-ui, sans-serif; background: #f3f5f8; margin: 0; color: #1d2330; }
+  main { max-width: 640px; margin: 0 auto; padding: 24px 16px; }
+  h1 { font-size: 20px; margin: 0 0 16px; }
+  #answer { background: #fff; border: 1px solid #d5dbe5; border-radius: 12px; padding: 14px 16px; min-height: 140px; white-space: pre-wrap; }
+  #status { margin: 12px 0; font: 13px/1.4 ui-monospace, Menlo, monospace; color: #4a5568; }
+  button { font: inherit; padding: 8px 14px; border-radius: 8px; border: 1px solid #9aa5b8; background: #fff; cursor: pointer; }
+  .row { display: flex; gap: 8px; margin-top: 12px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Streaming demo</h1>
+  <div id="answer" aria-live="polite"></div>
+  <div id="status">Press a button to start.</div>
+  <div class="row">
+    <button id="cached">Run the saved answer</button>
+    <button id="live">Run a live answer (calls the API)</button>
+  </div>
+</main>
+<script>
+const params = new URLSearchParams(location.search);
+const answer = document.getElementById("answer");
+const status = document.getElementById("status");
+let source = null;
+
+function run(live) {
+  if (source) source.close();
+  answer.textContent = "";
+  let chunks = 0, reconnects = 0, openAt = null;
+  const t0 = performance.now();
+  const query = new URLSearchParams();
+  if (live) query.set("live", "1");
+  if (params.has("speed")) query.set("speed", params.get("speed"));
+  if (params.has("drop")) query.set("drop_after", "5");
+  status.textContent = "Waiting for the opening chunk...";
+  source = new EventSource("/demo?" + query);
+  source.onmessage = (e) => {
+    if (openAt === null) openAt = performance.now() - t0;
+    answer.textContent += JSON.parse(e.data);
+    chunks += 1;
+    status.textContent = `Receiving: ${chunks} chunks, opening chunk at ${Math.round(openAt)} ms`;
+  };
+  source.addEventListener("done", () => {
+    source.close();
+    const total = Math.round(performance.now() - t0);
+    status.textContent = `Done: ${chunks} chunks, opening chunk at ${Math.round(openAt)} ms, finished at ${total} ms, reconnects: ${reconnects}`;
+  });
+  source.addEventListener("problem", () => { source.close(); status.textContent = "The model call failed. Run it again."; });
+  source.onerror = () => {
+    if (source.readyState === EventSource.CLOSED) {
+      status.textContent = `Connection lost after ${chunks} chunks. The text so far is kept. Run it again.`;
+    } else {
+      reconnects += 1;
+      status.textContent = `Connection dropped after ${chunks} chunks. Reconnecting...`;
+    }
+  };
+}
+
+document.getElementById("cached").onclick = () => run(false);
+document.getElementById("live").onclick = () => run(true);
+if (params.has("speed")) run(false);  // lets a screenshot tool open the page already running
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+Checking weak/README.md
+  FAIL  Opens with one short sentence: 3 words (want 6 to 25)
+  FAIL  Demo link near the top: no link with demo in its text in the first 12 lines
+  FAIL  Screenshot that exists: no image found
+  FAIL  Run guide of three lines or fewer: no code block under a Run heading
+  FAIL  Tech list: no Built with heading
+  FAIL  What is next: no Next heading
+  FAIL  Team: no Team heading
+0 of 7 checks passed

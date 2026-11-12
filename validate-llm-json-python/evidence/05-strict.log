@@ -1,0 +1,8 @@
+message: I was charged twice for May and I want one of the charges refunded today.
+   {"category":"billing","priority":4,"summary":"Charged twice for May; requests refund of one charge today","needs_human":true}
+message: The export button does nothing when I click it on Firefox. Started after the last update.
+   {"category":"bug","priority":3,"summary":"Export button does nothing on Firefox after last update","needs_human":false}
+message: Do you support single sign-on for teams? Thanks.
+   {"category":"question","priority":2,"summary":"Asks whether single sign-on is supported for teams","needs_human":false}
+message: Please add dark mode. It would be nice for night work.
+   {"category":"feature","priority":2,"summary":"Request to add dark mode for nighttime use","needs_human":false}

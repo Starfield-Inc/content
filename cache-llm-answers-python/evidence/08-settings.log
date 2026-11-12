@@ -1,0 +1,7 @@
+1 MISS  1317.4 ms  in=38 out=67  What is a token in a language mode
+2 MISS  2295.0 ms  in=40 out=113  Why does temperature change the an
+
+questions: 2  API calls: 2  cache hits: 0
+tokens sent to the API: input 78, output 180
+tokens not sent thanks to hits: input 0, output 0
+total time: 3.61 s

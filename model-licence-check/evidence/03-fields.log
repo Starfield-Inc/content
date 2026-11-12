@@ -1,0 +1,15 @@
+deepseek-ai/DeepSeek-V4.1-Flash-1017
+  tag: mit
+  name: None
+  link: None
+  files: ['LICENSE']
+mistralai/Mistral-Large-4-1T-A52B
+  tag: other
+  name: None
+  link: None
+  files: ['LICENSE']
+google/timesfm-3.0-pytorch
+  tag: other
+  name: timesfm-non-commercial-license-v1.0
+  link: LICENSE
+  files: ['LICENSE']

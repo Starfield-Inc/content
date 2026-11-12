@@ -1,0 +1,17 @@
+1. A 429 with retry-after 1. The client has max_retries=0, so nothing retries.
+  class: RateLimitError
+  status_code: 429
+  error type in the body: rate_limit_error
+  retry-after header: 1
+  calls that reached the stand-in: 1
+2. A 529 with no retry-after header. Same client settings.
+  class: OverloadedError
+  status_code: 529
+  error type in the body: overloaded_error
+  retry-after header: None
+  is it also an InternalServerError? True
+3. The default client (max_retries=2) against two 429s then a reply.
+  no exception. Reply: This reply came from the local stand-in server, not the API.
+  calls that reached the stand-in: 3, gaps in seconds: [1.01, 1.01]
+4. The default client against three 429s.
+  raised RateLimitError after 3 calls, gaps in seconds: [1.0, 1.0]

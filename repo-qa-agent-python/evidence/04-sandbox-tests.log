@@ -1,0 +1,10 @@
+test_blocks_absolute_path (test_sandbox.SandboxTests.test_blocks_absolute_path) ... ok
+test_blocks_parent_folder (test_sandbox.SandboxTests.test_blocks_parent_folder) ... ok
+test_blocks_symlink_out (test_sandbox.SandboxTests.test_blocks_symlink_out) ... ok
+test_prefix_trick (test_sandbox.SandboxTests.test_prefix_trick) ... ok
+test_reads_inside (test_sandbox.SandboxTests.test_reads_inside) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.004s
+
+OK

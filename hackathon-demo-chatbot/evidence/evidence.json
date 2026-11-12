@@ -1,0 +1,73 @@
+[
+  {
+    "id": "01-venv",
+    "title": "Create a virtual environment",
+    "kind": "run",
+    "at": "2026-11-10T12:22:12+00:00",
+    "cmd": "python3 -m venv .venv && ls -d .venv",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "3c20d7bc4365acc9",
+    "ok": true,
+    "image": "evidence/01-venv.png"
+  },
+  {
+    "id": "02-install",
+    "title": "Install the packages",
+    "kind": "run",
+    "at": "2026-11-10T12:22:17+00:00",
+    "cmd": "pip install -q -r requirements.txt && pip list 2>/dev/null | grep -iE '^(anthropic|fastapi|uvicorn) '",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "391023b1e02c7819",
+    "ok": true,
+    "image": "evidence/02-install.png"
+  },
+  {
+    "id": "03-no-key",
+    "title": "What a missing key looks like",
+    "kind": "run",
+    "at": "2026-11-10T12:22:32+00:00",
+    "cmd": "python one_call.py",
+    "exit": 1,
+    "expect_exit": 1,
+    "sha256": "b282ac6942cca9d1",
+    "ok": true,
+    "image": "evidence/03-no-key.png"
+  },
+  {
+    "id": "04-one-call",
+    "title": "Make one call",
+    "kind": "run",
+    "at": "2026-11-10T12:22:36+00:00",
+    "cmd": "python one_call.py",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "83a2747a20dc1f6e",
+    "ok": true,
+    "image": "evidence/04-one-call.png"
+  },
+  {
+    "id": "05-five-questions",
+    "title": "Test the web API with five questions",
+    "kind": "run",
+    "at": "2026-11-10T12:23:06+00:00",
+    "cmd": "uvicorn app:app --port 8031 --log-level warning & SERVER=$!; python test_questions.py; STATUS=$?; kill $SERVER; exit $STATUS",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "0edf1bb30f781be3",
+    "ok": true,
+    "image": "evidence/05-five-questions.png"
+  },
+  {
+    "id": "06-page",
+    "title": "Open the page",
+    "kind": "web",
+    "at": "2026-11-10T12:22:50+00:00",
+    "serve": "uvicorn app:app --port 8031 --log-level warning",
+    "url": "http://127.0.0.1:8031/?ask=What%20is%20a%20REST%20API%3F%20Keep%20it%20to%20one%20sentence.",
+    "up": true,
+    "image": "evidence/06-page.png",
+    "ok": true
+  }
+]

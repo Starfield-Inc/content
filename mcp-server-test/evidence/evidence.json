@@ -1,0 +1,62 @@
+[
+  {
+    "id": "01-venv",
+    "title": "Create a virtual environment",
+    "kind": "run",
+    "at": "2026-11-10T11:15:05+00:00",
+    "cmd": "python3 -m venv .venv && ls -d .venv",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "3c20d7bc4365acc9",
+    "ok": true,
+    "image": "evidence/01-venv.png"
+  },
+  {
+    "id": "02-install",
+    "title": "Install the MCP SDK",
+    "kind": "run",
+    "at": "2026-11-10T11:15:09+00:00",
+    "cmd": "pip install -q -r requirements.txt && pip show mcp | sed -n 1,2p",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "b7253cd1dce3a407",
+    "ok": true,
+    "image": "evidence/02-install.png"
+  },
+  {
+    "id": "03-safe",
+    "title": "Check the server file for risky imports",
+    "kind": "run",
+    "at": "2026-11-10T11:15:41+00:00",
+    "cmd": "grep -nE 'import (os|sys|subprocess|socket|urllib|requests|pathlib|shutil)|open\\(' server.py || echo 'no file, network or shell code found in server.py'",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "3fb284611ad19dc6",
+    "ok": true,
+    "image": "evidence/03-safe.png"
+  },
+  {
+    "id": "04-test",
+    "title": "Run the test client",
+    "kind": "run",
+    "at": "2026-11-10T11:15:25+00:00",
+    "cmd": "python test_client.py",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "4e01953dbae6ec96",
+    "ok": true,
+    "image": "evidence/04-test.png"
+  },
+  {
+    "id": "05-mistake",
+    "title": "Run the test client against a server with an extra tool",
+    "kind": "run",
+    "at": "2026-11-10T11:15:30+00:00",
+    "cmd": "python test_client.py server_extra.py",
+    "exit": 1,
+    "expect_exit": 1,
+    "sha256": "c8c7c959cbbb18b8",
+    "ok": true,
+    "image": "evidence/05-mistake.png"
+  }
+]

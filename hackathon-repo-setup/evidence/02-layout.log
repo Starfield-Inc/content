@@ -1,0 +1,9 @@
+./.env.example
+./.gitignore
+./README.md
+./app/__init__.py
+./app/main.py
+./app/settings.py
+./run.sh
+./tests/__init__.py
+./tests/test_repo.py

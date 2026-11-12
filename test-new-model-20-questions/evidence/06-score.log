@@ -1,0 +1,24 @@
+ #  expected  Haiku 5.5                   Sonnet 5.5                  
+ 1  408       ok   '408'                  ok   '408'                  
+ 2  613       ok   '613'                  ok   '613'                  
+ 3  12        ok   '12'                   ok   '12'                   
+ 4  366       ok   '366'                  ok   '366'                  
+ 5  210       ok   '210'                  MISS '210 minutes'          
+ 6  maerts    ok   'maerts'               ok   'maerts'               
+ 7  3         ok   '3'                    ok   '3'                    
+ 8  9         ok   '9'                    ok   '9'                    
+ 9  MODEL     ok   'MODEL'                ok   'MODEL'                
+10  peach     ok   'peach'                ok   'peach'                
+11  canberra  ok   'Canberra'             ok   'Canberra'             
+12  na        ok   'Na'                   ok   'Na'                   
+13  6         ok   '6'                    ok   '6'                    
+14  32        ok   '32'                   ok   '32'                   
+15  saturday  ok   'Saturday'             ok   'Saturday'             
+16  5         ok   '5'                    ok   '5'                    
+17  17:20     ok   '17:20'                ok   '17:20'                
+18  36        ok   '36'                   ok   '36'                   
+19  45        ok   '45'                   ok   '45'                   
+20  35        ok   '35'                   ok   '35'                   
+
+Haiku 5.5: 20/20 correct, 21.9 seconds, 889 input tokens, 75 output tokens, cost $0.000126
+Sonnet 5.5: 19/20 correct, 26.2 seconds, 889 input tokens, 79 output tokens, cost $0.002568

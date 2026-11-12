@@ -1,0 +1,18 @@
+[2026-11-10 11:14 UTC] 10 new model(s) on Hugging Face
+  2026-10-17  deepseek-ai/DeepSeek-V4.1-Flash-1017  licence: mit  https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017
+  2026-10-15  mistralai/Mistral-Large-4-1T-A52B-NVFP4  licence: other  https://huggingface.co/mistralai/Mistral-Large-4-1T-A52B-NVFP4
+  2026-10-14  mistralai/Timestral-123M  licence: other  https://huggingface.co/mistralai/Timestral-123M
+  2026-10-14  mistralai/Timestral-28M  licence: other  https://huggingface.co/mistralai/Timestral-28M
+  2026-10-14  mistralai/Timestral-5M  licence: other  https://huggingface.co/mistralai/Timestral-5M
+  2026-10-14  mistralai/Timestral-209M  licence: other  https://huggingface.co/mistralai/Timestral-209M
+  2026-10-09  Qwen/Qwen-Image-2.1-Turbo  licence: other  https://huggingface.co/Qwen/Qwen-Image-2.1-Turbo
+  2026-10-08  mistralai/LIDstral-Arabic  licence: apache-2.0  https://huggingface.co/mistralai/LIDstral-Arabic
+  2026-10-08  mistralai/Voxtral-Mini-4B-Realtime-Arabic  licence: none  https://huggingface.co/mistralai/Voxtral-Mini-4B-Realtime-Arabic
+  2026-09-30  mistralai/Mistral-Large-4-1T-A52B  licence: other  https://huggingface.co/mistralai/Mistral-Large-4-1T-A52B
+[2026-11-10 11:15 UTC] 1 new model(s) on Hugging Face
+  2026-10-17  deepseek-ai/DeepSeek-V4.1-Flash-1017  licence: mit  https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017
+{
+  "Qwen/Qwen-Image-2.1-Turbo": "2026-10-09T04:50:01.000Z",
+  "deepseek-ai/DeepSeek-V4.1-Flash-1017": "2026-10-17T02:40:38.000Z",
+  "mistralai/LIDstral-Arabic": "2026-10-08T11:37:05.000Z",
+  "mistralai/Mistral-Large-4-1T-A52B": "2026-09-30T18:35:13.000Z",

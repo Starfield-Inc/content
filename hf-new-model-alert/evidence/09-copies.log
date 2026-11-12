@@ -1,0 +1,7 @@
+Checking 1 organisations for models created since 2026-10-27 (14 days)
+  unsloth: 30 fetched, 4 in the date range, 3 dropped as copies, 1 not seen before
+
+[2026-11-10 11:15 UTC] 1 new model(s) on Hugging Face
+  2026-11-04  unsloth/Kimi-K3.1-Pro  licence: other  https://huggingface.co/unsloth/Kimi-K3.1-Pro
+
+API calls left in this window: 449

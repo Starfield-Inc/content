@@ -1,0 +1,9 @@
+message: Do you support single sign-on for teams? Thanks.
+--- loose prompt, no retry ---
+raw reply: {"category": "product_question", "priority": "low", "summary": "Customer asks whether the product supports single sign-on (SSO) for teams.", "needs_human": true}
+errors: category: Input should be 'billing', 'bug', 'question' or 'feature'; priority: Input should be a valid integer, unable to parse string as an integer; summary: String should have at most 60 characters
+result: INVALID after 1 attempt
+--- loose prompt, one retry with the error message ---
+attempt 1 raw reply: {"category": "product_inquiry", "priority": "low", "summary": "Customer asks whether the product supports single sign-on (SSO) for teams.", "needs_human": false}
+attempt 1 errors: category: Input should be 'billing', 'bug', 'question' or 'feature'; priority: Input should be a valid integer, unable to parse string as an integer; summary: String should have at most 60 characters
+result: valid on attempt 2: {"category":"question","priority":3,"summary":"Asks if the product supports SSO for teams.","needs_human":false}

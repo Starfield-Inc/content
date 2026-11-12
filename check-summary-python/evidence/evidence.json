@@ -1,0 +1,80 @@
+[
+  {
+    "id": "01-venv",
+    "title": "Create a virtual environment",
+    "kind": "run",
+    "at": "2026-11-11T12:54:39+00:00",
+    "cmd": "python3 -m venv .venv && ls -d .venv",
+    "show": "python3 -m venv .venv",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "3c20d7bc4365acc9",
+    "ok": true,
+    "image": "evidence/01-venv.png"
+  },
+  {
+    "id": "02-install",
+    "title": "Install the SDK",
+    "kind": "run",
+    "at": "2026-11-11T12:54:42+00:00",
+    "cmd": "pip install -q -r requirements.txt && pip show anthropic | sed -n 1,2p",
+    "show": "pip install -r requirements.txt",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "65615672d01ac27f",
+    "ok": true,
+    "image": "evidence/02-install.png"
+  },
+  {
+    "id": "03-no-key",
+    "title": "What a missing key looks like",
+    "kind": "run",
+    "at": "2026-11-11T12:54:53+00:00",
+    "cmd": "python check_summary.py source.txt summary_good.txt",
+    "show": "python check_summary.py source.txt summary_good.txt",
+    "exit": 1,
+    "expect_exit": 1,
+    "sha256": "b282ac6942cca9d1",
+    "ok": true,
+    "image": "evidence/03-no-key.png"
+  },
+  {
+    "id": "04-good",
+    "title": "Check a good summary",
+    "kind": "run",
+    "at": "2026-11-11T12:54:56+00:00",
+    "cmd": "python check_summary.py source.txt summary_good.txt",
+    "show": "python check_summary.py source.txt summary_good.txt",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "d61af66803e9ef01",
+    "ok": true,
+    "image": "evidence/04-good.png"
+  },
+  {
+    "id": "05-bad",
+    "title": "Check a summary with planted errors",
+    "kind": "run",
+    "at": "2026-11-11T12:55:29+00:00",
+    "cmd": "python check_summary.py source.txt summary_bad.txt",
+    "show": "python check_summary.py source.txt summary_bad.txt",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "895868701c01af8d",
+    "ok": true,
+    "image": "evidence/05-bad.png"
+  },
+  {
+    "id": "06-limits",
+    "title": "Test the code-side checks with fixed data",
+    "kind": "run",
+    "at": "2026-11-11T12:56:02+00:00",
+    "cmd": "python test_judge.py",
+    "show": "python test_judge.py",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "dd100693bcc82697",
+    "ok": true,
+    "image": "evidence/06-limits.png"
+  }
+]

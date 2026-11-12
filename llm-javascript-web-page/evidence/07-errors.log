@@ -1,0 +1,8 @@
+empty question : 400 {"error":"The question is empty."}
+question too long: 400 {"error":"The question is longer than 500 characters."}
+not JSON       : 400 {"error":"Send JSON like {\"question\": \"...\"}."}
+--- same server with a model name that does not exist ---
+{"error":"The model service returned an error. Try again later."}  (status 502)
+--- server terminal ---
+listening on http://127.0.0.1:8111
+upstream 404: model: no-such-model

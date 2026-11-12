@@ -1,0 +1,4 @@
+empty reply: not cached, 2 calls for 2 asks
+good reply: cached, 1 call for 2 asks
+expired entry: called again
+all checks passed

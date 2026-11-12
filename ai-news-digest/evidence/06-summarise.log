@@ -1,0 +1,21 @@
+1. Open-source toolkit adds offline speech recognition
+   A community-maintained open-source toolkit released version 2.0, adding speech recognition that works without a network connection, supporting 12 languages and running on a laptop CPU, according to its maintainers.
+   https://example.com/wire/offline-speech-toolkit?utm_source=rss
+
+2. Students release a free dataset of lab safety signs
+   A university group has published a free, openly licensed set of 4,000 labelled photos of lab safety signs, intended for training small image classifiers.
+   https://example.com/wire/lab-safety-signs
+
+3. Cloud credits programme opens for student teams
+   A cloud provider is offering compute credits to student teams that apply before the end of the month.
+   https://www.example.org/daily/credits-programme
+
+4. Weekly roundup
+   Not enough text to summarise.
+   https://example.net/post/roundup-46
+
+5. A short guide to testing prompts before you ship
+   This post explains how to write five test inputs for a prompt, run them after every change, and keep the expected answers in a plain text file.
+   https://example.net/post/testing-prompts
+
+Summarised 5 items with claude-haiku-5-5. Saved to summaries.json

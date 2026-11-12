@@ -1,0 +1,9 @@
+test_env_example_holds_no_real_key (tests.test_repo.RepoSetupTests.test_env_example_holds_no_real_key) ... ok
+test_env_example_lists_the_settings (tests.test_repo.RepoSetupTests.test_env_example_lists_the_settings) ... ok
+test_gitignore_lists_env (tests.test_repo.RepoSetupTests.test_gitignore_lists_env) ... ok
+test_missing_env_file_gives_empty_settings (tests.test_repo.RepoSetupTests.test_missing_env_file_gives_empty_settings) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.000s
+
+OK

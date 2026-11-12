@@ -1,0 +1,4 @@
+[ana] HTTP 200 {"answer":"Blue.","input_tokens":24,"output_tokens":6,"spent_today_usd":"0.000054"}
+usage: {"day":"2026-11-11","calls":1,"spent_usd":"0.000054","cap_usd":"0.001000","rate_limit":"5 per 60s per user"}
+after restart:
+usage: {"day":"2026-11-11","calls":0,"spent_usd":"0.000000","cap_usd":"0.001000","rate_limit":"5 per 60s per user"}

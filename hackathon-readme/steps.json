@@ -1,0 +1,22 @@
+[
+ {"id": "01-venv", "title": "Create a virtual environment", "kind": "run",
+  "cmd": "python3 -m venv .venv && ls -d .venv", "show": "python3 -m venv .venv", "must_contain": [".venv"]},
+ {"id": "02-install", "title": "Install the Markdown package", "kind": "run", "venv": true,
+  "cmd": "pip install -q -r requirements.txt && pip show markdown | sed -n 1,2p", "show": "pip install -r requirements.txt",
+  "must_contain": ["Name: Markdown"], "timeout": 300, "env": {"PIP_DISABLE_PIP_VERSION_CHECK": "1"}},
+ {"id": "03-weak", "title": "Check a weak README", "kind": "run", "venv": true,
+  "cmd": "python check_readme.py weak/README.md", "expect_exit": 1,
+  "must_contain": ["FAIL  Demo link near the top", "0 of 7 checks passed"]},
+ {"id": "04-app", "title": "Run the example project", "kind": "run", "venv": true,
+  "cmd": "python app.py notes.txt", "cwd": "example", "show": "python app.py notes.txt",
+  "must_contain": ["Found 4 action items"]},
+ {"id": "05-good", "title": "Check the rewritten README", "kind": "run", "venv": true,
+  "cmd": "python check_readme.py example/README.md", "must_contain": ["7 of 7 checks passed"]},
+ {"id": "06-render", "title": "Render the README as a page", "kind": "run", "venv": true,
+  "cmd": "python render_readme.py example/README.md", "must_contain": ["Wrote site/index.html"]},
+ {"id": "07-page", "title": "See the README the way a judge sees it", "kind": "web", "venv": true,
+  "serve": "python -m http.server 8044 --directory site", "url": "http://127.0.0.1:8044/", "ready_timeout": 30, "size": [1000, 1300],
+  "must_contain": ["Notetrim"]},
+ {"id": "08-missing", "title": "What a wrong path looks like", "kind": "run", "venv": true,
+  "cmd": "python check_readme.py MISSING.md", "expect_exit": 2, "must_contain": ["Cannot find MISSING.md"]}
+]

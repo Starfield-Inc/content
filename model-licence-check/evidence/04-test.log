@@ -1,0 +1,8 @@
+test_each_question_finds_its_line (tests.test_checklist.ChecklistTests.test_each_question_finds_its_line) ... ok
+test_silence_gives_no_hits (tests.test_checklist.ChecklistTests.test_silence_gives_no_hits) ... ok
+test_wrapped_lines_become_one_sentence (tests.test_checklist.ChecklistTests.test_wrapped_lines_become_one_sentence) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+OK

@@ -1,0 +1,7 @@
+File:       sample.txt
+Characters: 613
+Words:      119
+
+Encoding        Tokens        Cost
+cl100k_base        136   $0.000408
+o200k_base         136   $0.000408

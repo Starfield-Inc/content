@@ -1,0 +1,8 @@
+zero-shot: 16 of 20 correct
+  #3 expected MEDIUM, got 'LOW': The date on exported reports is off by one day but I can fix it in the spreadsheet.
+  #9 expected MEDIUM, got 'LOW': Email notifications arrive twice and I turned one copy off with a filter.
+  #18 expected MEDIUM, got 'LOW': Password reset emails take around twenty minutes to arrive.
+  #20 expected MEDIUM, got 'LOW': The mobile site loses my filters when I rotate the phone and I just set them again.
+few-shot: 18 of 20 correct
+  #3 expected MEDIUM, got 'LOW': The date on exported reports is off by one day but I can fix it in the spreadsheet.
+  #20 expected MEDIUM, got 'LOW': The mobile site loses my filters when I rotate the phone and I just set them again.

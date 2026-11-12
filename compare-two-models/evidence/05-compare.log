@@ -1,0 +1,9 @@
+== Haiku 5.5
+An API rate limit is a cap on how many requests you can send to a service within a set amount of time, such as 100 per minute. If you go over that limit, the service will usually reject your extra requests for a while, so they can keep their system from being overwhelmed and share it fairly among all users.
+1.53 seconds, 30 input tokens, 89 output tokens, cost $0.000048
+
+== Sonnet 5.5
+An API rate limit is a cap on how many requests you can send to a service within a certain time period, such as 100 requests per minute. It exists to prevent overload and abuse, and if you exceed it, the service will temporarily block or reject your requests until the time window resets.
+1.9 seconds, 30 input tokens, 84 output tokens, cost $0.000900
+
+saved to demo_result.json

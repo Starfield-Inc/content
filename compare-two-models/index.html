@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compare two models</title>
+<style>
+  body { font: 16px/1.5 system-ui, sans-serif; margin: 0; background: #f4f6f9; color: #1b1f27; }
+  main { max-width: 1040px; margin: 0 auto; padding: 24px 16px; }
+  h1 { font-size: 24px; margin: 0 0 16px; }
+  form { display: flex; gap: 8px; margin-bottom: 20px; }
+  input { flex: 1; padding: 10px; font: inherit; border: 1px solid #b8c0cc; border-radius: 6px; }
+  button { padding: 10px 18px; font: inherit; border: 0; border-radius: 6px; background: #2b4acb; color: #fff; cursor: pointer; }
+  .prompt { margin: 0 0 12px; color: #4a5568; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .col { background: #fff; border: 1px solid #d5dbe4; border-radius: 8px; padding: 16px; }
+  .col h2 { font-size: 16px; margin: 0 0 8px; font-family: ui-monospace, Menlo, monospace; }
+  .answer { white-space: pre-wrap; min-height: 120px; }
+  dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; margin: 12px 0 0; font-size: 14px; color: #4a5568; }
+  dt { font-weight: 600; } dd { margin: 0; }
+  @media (max-width: 700px) { .cols { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Compare two models</h1>
+  <form id="form">
+    <input id="prompt" maxlength="500" placeholder="Type one prompt" required>
+    <button>Send to both</button>
+  </form>
+  <p class="prompt" id="asked"></p>
+  <div class="cols" id="cols"></div>
+</main>
+<script>
+const START = __START__;
+const cols = document.getElementById("cols");
+
+function show(prompt, results) {
+  document.getElementById("asked").textContent = "Prompt: " + prompt;
+  cols.replaceChildren();
+  for (const r of results) {
+    const col = document.createElement("section");
+    col.className = "col";
+    const h = document.createElement("h2"); h.textContent = r.model;
+    const a = document.createElement("div"); a.className = "answer"; a.textContent = r.answer;
+    const dl = document.createElement("dl");
+    for (const [k, v] of [["Time", r.seconds + " s"], ["Input tokens", r.input_tokens],
+                          ["Output tokens", r.output_tokens], ["Cost", "$" + r.cost_usd.toFixed(6)]]) {
+      const dt = document.createElement("dt"); dt.textContent = k;
+      const dd = document.createElement("dd"); dd.textContent = v;
+      dl.append(dt, dd);
+    }
+    col.append(h, a, dl);
+    cols.append(col);
+  }
+}
+
+if (START) show(START.prompt, START.results);
+
+document.getElementById("form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const prompt = document.getElementById("prompt").value;
+  document.getElementById("asked").textContent = "Waiting for both models...";
+  cols.replaceChildren();
+  try {
+    const res = await fetch("/compare", {method: "POST", headers: {"Content-Type": "application/json"},
+                                         body: JSON.stringify({prompt})});
+    if (!res.ok) throw new Error("status " + res.status);
+    show(prompt, (await res.json()).results);
+  } catch (err) {
+    document.getElementById("asked").textContent = "Something went wrong. Look at the server terminal.";
+  }
+});
+</script>
+</body>
+</html>

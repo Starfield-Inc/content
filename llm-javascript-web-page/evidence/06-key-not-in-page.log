@@ -1,0 +1,4 @@
+GET /       1342 bytes, contains the key: no
+GET /app.js 1604 bytes, contains the key: no
+POST /api/ask reply contains the key: no
+The key stays on the server.

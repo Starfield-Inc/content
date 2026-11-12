@@ -1,0 +1,9 @@
+[
+ {"id":"01-venv","title":"Create a virtual environment","kind":"run","cmd":"python3 -m venv .venv && ls -d .venv","show":"python3 -m venv .venv","must_contain":[".venv"]},
+ {"id":"02-prices","title":"Look at the price file","kind":"run","cmd":"cat prices.csv","must_contain":["Claude Sonnet 5.5","2026-11-10"]},
+ {"id":"03-table","title":"Print the table","kind":"run","venv":true,"cmd":"python price_table.py","must_contain":["Cost $","6 rows, 0 older than 30 days."]},
+ {"id":"04-usage","title":"Cost a different usage","kind":"run","venv":true,"cmd":"python price_table.py --input-tokens 200000 --output-tokens 800000","must_contain":["200,000 input tokens and 800,000 output tokens"]},
+ {"id":"05-old","title":"Flag old rows by moving the date forward","kind":"run","venv":true,"cmd":"python price_table.py --today 2026-12-20 --max-age 30","must_contain":["OLD (over 30 days)","6 rows, 6 older than 30 days."]},
+ {"id":"06-bad","title":"What a mistake in the file looks like","kind":"run","venv":true,"cmd":"python price_table.py --file examples/bad_prices.csv","expect_exit":1,"must_contain":["Cannot read prices","line 2 (Example model)"]},
+ {"id":"07-test","title":"Check the cost sum on fixed numbers","kind":"run","venv":true,"cmd":"python -m unittest discover -s tests -v","must_contain":["OK","test_cost_for_one_million_each"]}
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "01-venv",
+    "title": "Create a virtual environment",
+    "kind": "run",
+    "at": "2026-11-10T12:19:11+00:00",
+    "cmd": "python3 -m venv .venv && ls -d .venv",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "3c20d7bc4365acc9",
+    "ok": true,
+    "image": "evidence/01-venv.png"
+  },
+  {
+    "id": "02-install",
+    "title": "Install the Anthropic SDK",
+    "kind": "run",
+    "at": "2026-11-10T12:19:16+00:00",
+    "cmd": "pip install -q -r requirements.txt && pip show anthropic | sed -n 1,2p",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "34f88b2af23e7c5a",
+    "ok": true,
+    "image": "evidence/02-install.png"
+  },
+  {
+    "id": "03-data",
+    "title": "Check the labelled reviews",
+    "kind": "run",
+    "at": "2026-11-10T12:19:18+00:00",
+    "cmd": "python check_data.py",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "f79735ea46fe97fa",
+    "ok": true,
+    "image": "evidence/03-data.png"
+  },
+  {
+    "id": "04-one",
+    "title": "Classify one review",
+    "kind": "run",
+    "at": "2026-11-10T12:19:19+00:00",
+    "cmd": "python classify.py --text \"The kettle boils fast but the lid broke in a month.\"",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "1b6e894706e62d9f",
+    "ok": true,
+    "image": "evidence/04-one.png"
+  },
+  {
+    "id": "05-run-v1",
+    "title": "Run all 50 reviews with prompt v1",
+    "kind": "run",
+    "at": "2026-11-10T12:19:24+00:00",
+    "cmd": "python classify.py --prompt v1",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "811253002b620b06",
+    "ok": true,
+    "image": "evidence/05-run-v1.png"
+  },
+  {
+    "id": "06-score-v1",
+    "title": "Count right and wrong for v1",
+    "kind": "run",
+    "at": "2026-11-10T12:23:51+00:00",
+    "cmd": "python score.py results_v1.csv",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "270e81ebcfbb4ab1",
+    "ok": true,
+    "image": "evidence/06-score-v1.png"
+  },
+  {
+    "id": "07-run-v2",
+    "title": "Change the prompt and rerun",
+    "kind": "run",
+    "at": "2026-11-10T12:20:12+00:00",
+    "cmd": "python classify.py --prompt v2",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "6751e78aeb62bc61",
+    "ok": true,
+    "image": "evidence/07-run-v2.png"
+  },
+  {
+    "id": "08-score-v2",
+    "title": "Compare v1 and v2",
+    "kind": "run",
+    "at": "2026-11-10T12:23:52+00:00",
+    "cmd": "python score.py results_v1.csv results_v2.csv",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "3b9c69ec6bfe5456",
+    "ok": true,
+    "image": "evidence/08-score-v2.png"
+  },
+  {
+    "id": "09-no-key",
+    "title": "What a missing key looks like",
+    "kind": "run",
+    "at": "2026-11-10T12:21:09+00:00",
+    "cmd": "python classify.py --text \"Works fine.\"",
+    "exit": 2,
+    "expect_exit": 2,
+    "sha256": "89f8c32635621dce",
+    "ok": true,
+    "image": "evidence/09-no-key.png"
+  },
+  {
+    "id": "10-spend",
+    "title": "Add up the spend log",
+    "kind": "run",
+    "at": "2026-11-10T12:21:39+00:00",
+    "cmd": "python spend.py",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "f884993d0f6df901",
+    "ok": true,
+    "image": "evidence/10-spend.png"
+  }
+]

@@ -1,0 +1,11 @@
+valid: ACCEPTED
+word instead of number: REJECTED
+    priority: Input should be a valid integer, unable to parse string as an integer
+category not allowed: REJECTED
+    category: Input should be 'billing', 'bug', 'question' or 'feature'
+code fence around JSON: REJECTED
+    json: Invalid JSON: expected value at line 1 column 1
+missing key: REJECTED
+    needs_human: Field required
+empty reply: REJECTED
+    The reply was empty.

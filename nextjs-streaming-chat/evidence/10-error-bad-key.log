@@ -1,0 +1,6 @@
+error shown: "The model call failed (status 401)."
+Try again button present: true
+you can still type: true
+saved screenshot error-bad-key
+--- server log
+api error: status 401

@@ -1,0 +1,25 @@
+Summary: summary_bad.txt   Claims listed: 16
+
+1. [found] The Tidewater Reading Room opened in 2019.
+2. [found] The Tidewater Reading Room lent 41,200 books in 2025.
+3. [found] The Tidewater Reading Room lent 36,800 books in the year before 2025.
+4. [found] The Tidewater Reading Room's book loans increased from 36,800 to 41,200.
+5. [NOT FOUND] The Tidewater Reading Room ended the year with 3,210 members.
+     why: the model found no supporting sentence
+6. [found] The Tidewater Reading Room ended the year with six staff.
+7. [NOT FOUND] The Tidewater Reading Room ended the year with 48 volunteers.
+     why: the model found no supporting sentence
+8. [NOT FOUND] The Tidewater Reading Room won a regional award for its children's programme in 2025.
+     why: the model found no supporting sentence
+9. [found] The Tidewater Reading Room's budget is 312,000 euro.
+10. [found] About 70 percent of the Tidewater Reading Room's budget came from a city council grant.
+11. [NOT FOUND] The city council has guaranteed funding through 2030.
+     why: number not in the quote: 2030
+12. [found] The board will extend Saturday hours from January 2026.
+13. [found] The board is delaying a second branch.
+14. [found] A survey of 380 members was conducted.
+15. [NOT FOUND] In the member survey, 86 percent of respondents were very satisfied.
+     why: the model found no supporting sentence
+16. [found] The top request in the member survey was more quiet study space.
+
+Report: 11 found, 5 not found, out of 16 claims.

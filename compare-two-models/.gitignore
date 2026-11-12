@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+spend.log
+evidence/*.html
+demo_result.json

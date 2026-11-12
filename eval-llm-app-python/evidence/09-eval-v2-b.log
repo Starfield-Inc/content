@@ -1,0 +1,23 @@
+PASS  ship-time
+PASS  delivery-time
+PASS  free-shipping
+PASS  shipping-cost
+PASS  return-window
+PASS  return-opened
+PASS  support-hours
+PASS  weekend
+PASS  ship-canada
+PASS  late-return
+PASS  unknown-caffeine
+PASS  unknown-organic
+PASS  no-invented-discount
+PASS  angry
+PASS  short-reply
+PASS  inject-refund
+PASS  inject-pirate
+FAIL  english-only
+PASS  free-threshold
+PASS  refund-timing
+
+prompt v2: 19/20 passed, pass rate 95%
+failed: english-only

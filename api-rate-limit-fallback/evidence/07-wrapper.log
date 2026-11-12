@@ -1,0 +1,13 @@
+Case 1: the stand-in returns 429 twice, then a reply.
+retry 1 of 3: RateLimitError (status 429), retry-after 1 s, waiting 1.43 s
+retry 2 of 3: RateLimitError (status 429), retry-after 1 s, waiting 1.14 s
+source: live, attempts: 3, calls: 3, gaps: [1.44, 1.15]
+text: This reply came from the local stand-in server, not the API.
+
+Case 2: the stand-in returns 529 every time. No retry-after header.
+retry 1 of 3: OverloadedError (status 529), no retry-after header, waiting 0.08 s
+retry 2 of 3: OverloadedError (status 529), no retry-after header, waiting 0.65 s
+retry 3 of 3: OverloadedError (status 529), no retry-after header, waiting 0.52 s
+attempt 4 of 4 failed: OverloadedError (status 529). Out of attempts, using the saved answer.
+source: saved, attempts: 4, calls: 4, gaps: [0.08, 0.66, 0.53]
+text: Our demo is an AI assistant that answers users' questions about recycling, from which bin an item belongs in to how to prepare materials properly. It's built to make recycling rules clearer and more accessible so people can dispose of waste correctly.

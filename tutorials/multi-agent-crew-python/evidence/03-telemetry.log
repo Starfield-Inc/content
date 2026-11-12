@@ -1,0 +1,4 @@
+CREWAI_DISABLE_TELEMETRY=true
+CREWAI_DISABLE_TRACKING=true
+OTEL_SDK_DISABLED=true
+telemetry disabled: True

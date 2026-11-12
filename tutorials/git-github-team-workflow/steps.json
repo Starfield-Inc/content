@@ -1,0 +1,628 @@
+[
+ {
+  "id": "01-version",
+  "title": "Check git is installed",
+  "kind": "run",
+  "cmd": "git --version",
+  "must_contain": [
+   "git version"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "02-bare",
+  "title": "Make the shared bare repo",
+  "kind": "run",
+  "cmd": "rm -rf sandbox && mkdir sandbox && cd sandbox && git init --bare -b main remote.git",
+  "show": "mkdir sandbox && cd sandbox\ngit init --bare -b main remote.git",
+  "must_contain": [
+   "Initialized empty Git repository"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "03-init",
+  "title": "Alice starts the project",
+  "kind": "run",
+  "cmd": "mkdir alice && cd alice && git init -b main",
+  "cwd": "sandbox",
+  "must_contain": [
+   "Initialized empty Git repository"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "03b-remote",
+  "title": "Alice sets her name and the shared repo",
+  "kind": "run",
+  "cmd": "git config user.name \"Alice\" && git config user.email \"alice@example.com\" && git remote add origin ../remote.git && git remote -v",
+  "cwd": "sandbox/alice",
+  "must_contain": [
+   "origin\t../remote.git (push)"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "03c-status",
+  "title": "Alice checks the status",
+  "kind": "run",
+  "cmd": "git status -sb",
+  "cwd": "sandbox/alice",
+  "must_contain": [
+   "No commits yet"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "04-ignore",
+  "title": "Add files and a .env that git ignores",
+  "kind": "run",
+  "cmd": "cp ../../template/app.py ../../template/.gitignore . && echo 'DEMO_SERVICE_KEY=fake-value-for-this-tutorial' > .env && git status --short",
+  "cwd": "sandbox/alice",
+  "must_contain": [
+   "?? app.py"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "04b-check-ignore",
+  "title": "Ask git why .env is ignored",
+  "kind": "run",
+  "cmd": "git check-ignore -v .env",
+  "cwd": "sandbox/alice",
+  "must_contain": [
+   ".gitignore:2:.env"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "05-add-refused",
+  "title": "Mistake: try to add the .env file",
+  "kind": "run",
+  "cmd": "git add .env",
+  "cwd": "sandbox/alice",
+  "expect_exit": 1,
+  "must_contain": [
+   "ignored by one of your .gitignore files"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "06-first-commit",
+  "title": "Commit the starting point",
+  "kind": "run",
+  "cmd": "git add . && git commit -m 'Add starter app and gitignore'",
+  "cwd": "sandbox/alice",
+  "must_contain": [
+   "Add starter app and gitignore"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "06b-push",
+  "title": "Push main",
+  "kind": "run",
+  "cmd": "git push -u origin main 2>&1",
+  "cwd": "sandbox/alice",
+  "must_contain": [
+   "main -> main"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "06c-files",
+  "title": "List the tracked files",
+  "kind": "run",
+  "cmd": "git ls-files",
+  "cwd": "sandbox/alice",
+  "must_contain": [
+   "app.py"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "06d-log",
+  "title": "Show the log",
+  "kind": "run",
+  "cmd": "git log --oneline",
+  "cwd": "sandbox/alice",
+  "must_contain": [
+   "Add starter app and gitignore"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "07-bob-clone",
+  "title": "Bob clones the project",
+  "kind": "run",
+  "cmd": "git clone remote.git bob",
+  "cwd": "sandbox",
+  "must_contain": [
+   "Cloning into 'bob'"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "07b-config",
+  "title": "Bob sets his name",
+  "kind": "run",
+  "cmd": "git config user.name \"Bob\" && git config user.email \"bob@example.com\" && git config --get-regexp \"^user\"",
+  "cwd": "sandbox/bob",
+  "must_contain": [
+   "user.name Bob"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "07c-log",
+  "title": "Bob reads the log",
+  "kind": "run",
+  "cmd": "git log --oneline",
+  "cwd": "sandbox/bob",
+  "must_contain": [
+   "Add starter app and gitignore"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "07d-ls",
+  "title": "Bob lists the files",
+  "kind": "run",
+  "cmd": "ls -A",
+  "cwd": "sandbox/bob",
+  "must_contain": [
+   ".gitignore"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "08-alice-branch",
+  "title": "Alice creates a branch",
+  "kind": "run",
+  "cmd": "git switch -c feature/title",
+  "cwd": "sandbox/alice",
+  "must_contain": [
+   "feature/title"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "08b-diff",
+  "title": "Alice changes the title",
+  "kind": "run",
+  "cmd": "sed -i.bak 's/^TITLE = .*/TITLE = \"Recipe Helper\"/' app.py && rm app.py.bak && git diff",
+  "cwd": "sandbox/alice",
+  "must_contain": [
+   "+TITLE = \"Recipe Helper\""
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "08c-commit",
+  "title": "Alice commits",
+  "kind": "run",
+  "cmd": "git commit -am 'Rename the demo to Recipe Helper'",
+  "cwd": "sandbox/alice",
+  "must_contain": [
+   "Rename the demo to Recipe Helper"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "08d-graph",
+  "title": "Alice reads the graph",
+  "kind": "run",
+  "cmd": "git log --oneline --graph --decorate --all",
+  "cwd": "sandbox/alice",
+  "must_contain": [
+   "feature/title"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "09-alice-merge",
+  "title": "Alice switches to main",
+  "kind": "run",
+  "cmd": "git switch main",
+  "cwd": "sandbox/alice",
+  "must_contain": [
+   "main"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "09b-merge",
+  "title": "Alice merges",
+  "kind": "run",
+  "cmd": "git merge feature/title",
+  "cwd": "sandbox/alice",
+  "must_contain": [
+   "Fast-forward"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "09c-push",
+  "title": "Alice pushes",
+  "kind": "run",
+  "cmd": "git push origin main 2>&1",
+  "cwd": "sandbox/alice",
+  "must_contain": [
+   "main -> main"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "09d-log",
+  "title": "Alice reads the log",
+  "kind": "run",
+  "cmd": "git log --oneline",
+  "cwd": "sandbox/alice",
+  "must_contain": [
+   "Rename the demo to Recipe Helper"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "10-bob-branch",
+  "title": "Bob creates a branch",
+  "kind": "run",
+  "cmd": "git switch -c feature/pantry",
+  "cwd": "sandbox/bob",
+  "must_contain": [
+   "feature/pantry"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "10b-title",
+  "title": "Bob changes the title and commits",
+  "kind": "run",
+  "cmd": "sed -i.bak 's/^TITLE = .*/TITLE = \"Pantry Pal\"/' app.py && rm app.py.bak && git commit -am 'Rename the demo to Pantry Pal'",
+  "cwd": "sandbox/bob",
+  "must_contain": [
+   "Rename the demo to Pantry Pal"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "10c-farewell",
+  "title": "Bob adds a farewell function and commits",
+  "kind": "run",
+  "cmd": "printf '\\n\\ndef farewell(name):\\n    return f\"Thanks for visiting, {name}!\"\\n' >> app.py && git commit -am 'Add a farewell message'",
+  "cwd": "sandbox/bob",
+  "must_contain": [
+   "Add a farewell message"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "10d-log",
+  "title": "Bob reads the log",
+  "kind": "run",
+  "cmd": "git log --oneline",
+  "cwd": "sandbox/bob",
+  "must_contain": [
+   "Add a farewell message",
+   "Rename the demo to Pantry Pal"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "11-bob-fetch",
+  "title": "Bob fetches",
+  "kind": "run",
+  "cmd": "git fetch origin 2>&1",
+  "cwd": "sandbox/bob",
+  "must_contain": [
+   "origin/main"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "11b-graph",
+  "title": "Bob reads the graph",
+  "kind": "run",
+  "cmd": "git log --oneline --graph --decorate --all",
+  "cwd": "sandbox/bob",
+  "must_contain": [
+   "origin/main",
+   "feature/pantry"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "12-conflict",
+  "title": "Merge main into Bob's branch: conflict",
+  "kind": "run",
+  "cmd": "git merge origin/main",
+  "cwd": "sandbox/bob",
+  "expect_exit": 1,
+  "must_contain": [
+   "CONFLICT (content): Merge conflict in app.py"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "13-markers",
+  "title": "Bob checks the status",
+  "kind": "run",
+  "cmd": "git status -sb",
+  "cwd": "sandbox/bob",
+  "must_contain": [
+   "UU app.py"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "13b-cat",
+  "title": "Read the conflict markers",
+  "kind": "run",
+  "cmd": "cat app.py",
+  "cwd": "sandbox/bob",
+  "must_contain": [
+   "<<<<<<< HEAD",
+   "=======",
+   ">>>>>>> origin/main"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "14-abort",
+  "title": "Back out with merge --abort",
+  "kind": "run",
+  "cmd": "git merge --abort && git status -sb",
+  "cwd": "sandbox/bob",
+  "must_contain": [
+   "## feature/pantry"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "14b-reconflict",
+  "title": "Merge again: same conflict",
+  "kind": "run",
+  "cmd": "git merge origin/main",
+  "cwd": "sandbox/bob",
+  "expect_exit": 1,
+  "must_contain": [
+   "CONFLICT (content)"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "15-resolve",
+  "title": "Edit app.py to resolve it",
+  "kind": "run",
+  "cmd": "cat > app.py <<'EOF'\nTITLE = \"Pantry Pal\"\n\n\ndef greet(name):\n    return f\"Welcome to {TITLE}, {name}!\"\n\n\ndef farewell(name):\n    return f\"Thanks for visiting, {name}!\"\n\n\nif __name__ == \"__main__\":\n    print(greet(\"team\"))\n    print(farewell(\"team\"))\nEOF\ncat app.py",
+  "show": "cat app.py   # after editing: keep one TITLE, delete the marker lines",
+  "cwd": "sandbox/bob",
+  "must_contain": [
+   "Thanks for visiting"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "15b-markers",
+  "title": "Count the marker lines",
+  "kind": "run",
+  "cmd": "grep -c '<<<<<<<' app.py || echo 'no markers left'",
+  "cwd": "sandbox/bob",
+  "must_contain": [
+   "no markers left"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "15c-run",
+  "title": "Run the program",
+  "kind": "run",
+  "cmd": "python3 app.py",
+  "cwd": "sandbox/bob",
+  "must_contain": [
+   "Welcome to Pantry Pal, team!"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "15d-commit",
+  "title": "Finish the merge",
+  "kind": "run",
+  "cmd": "git add app.py && git commit --no-edit",
+  "cwd": "sandbox/bob",
+  "must_contain": [
+   "Merge remote-tracking branch 'origin/main' into feature/pantry"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "15e-graph",
+  "title": "Read the graph",
+  "kind": "run",
+  "cmd": "git log --oneline --graph --decorate",
+  "cwd": "sandbox/bob",
+  "must_contain": [
+   "Merge remote-tracking branch 'origin/main' into feature/pantry"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "16-push-branch",
+  "title": "Bob pushes his branch",
+  "kind": "run",
+  "cmd": "git push -u origin feature/pantry 2>&1",
+  "cwd": "sandbox/bob",
+  "must_contain": [
+   "feature/pantry -> feature/pantry"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "16b-branches",
+  "title": "List branches on the shared repo",
+  "kind": "run",
+  "cmd": "git -C ../remote.git branch",
+  "cwd": "sandbox/bob",
+  "must_contain": [
+   "* main"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "17-pr-body",
+  "title": "Summarise the branch",
+  "kind": "run",
+  "cmd": "git diff --stat origin/main...HEAD",
+  "cwd": "sandbox/bob",
+  "must_contain": [
+   "app.py"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ },
+ {
+  "id": "17b-pr-template",
+  "title": "Fill the PR template",
+  "kind": "run",
+  "cmd": "sh ../../pr_body.sh ../../template/PULL_REQUEST_TEMPLATE.md",
+  "show": "sh pr_body.sh PULL_REQUEST_TEMPLATE.md",
+  "cwd": "sandbox/bob",
+  "must_contain": [
+   "- Rename the demo to Pantry Pal",
+   "- Add a farewell message",
+   "## Checklist"
+  ],
+  "env": {
+   "GIT_CONFIG_GLOBAL": "/dev/null",
+   "GIT_CONFIG_NOSYSTEM": "1"
+  }
+ }
+]

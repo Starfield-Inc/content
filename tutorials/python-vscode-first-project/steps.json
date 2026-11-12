@@ -1,0 +1,23 @@
+[
+ {"id": "01-code-cli", "title": "Check whether the code command is installed", "kind": "run",
+  "cmd": "if command -v code >/dev/null; then echo \"code: installed\"; else echo \"code: not found on this machine\"; fi",
+  "must_contain": ["code:"]},
+ {"id": "02-venv", "title": "Create a virtual environment", "kind": "run",
+  "cmd": "python3 -m venv .venv && ls -d .venv", "show": "python3 -m venv .venv", "must_contain": [".venv"]},
+ {"id": "03-install", "title": "Install the packages", "kind": "run", "venv": true,
+  "cmd": "pip install -q -r requirements.txt && pip list 2>/dev/null | grep -iE '^(anthropic|debugpy) '",
+  "show": "pip install -r requirements.txt", "env": {"PIP_DISABLE_PIP_VERSION_CHECK": "1"}, "timeout": 300,
+  "must_contain": ["anthropic", "debugpy"]},
+ {"id": "04-interpreter", "title": "Confirm the interpreter is the one in .venv", "kind": "run", "venv": true,
+  "cmd": "python -c \"import sys; print('python', sys.version.split()[0]); print('running from .venv:', '.venv' in sys.executable)\"",
+  "must_contain": ["running from .venv: True"]},
+ {"id": "05-config", "title": "Check settings.json and launch.json", "kind": "run", "venv": true,
+  "cmd": "python check_launch.py", "must_contain": ["settings.json: valid JSON", "program exists=True"]},
+ {"id": "06-no-key", "title": "What a missing key looks like", "kind": "run", "venv": true,
+  "cmd": "python hello_haiku.py", "expect_exit": 1, "must_contain": ["ANTHROPIC_API_KEY is not set"]},
+ {"id": "07-run", "title": "Run the first script", "kind": "run", "venv": true,
+  "needs_key": ["ANTHROPIC_API_KEY"], "cmd": "python hello_haiku.py", "must_contain": ["Reply:", "[tokens used:"]},
+ {"id": "08-debug", "title": "Stop at a breakpoint with debugpy", "kind": "run", "venv": true,
+  "cmd": "python debug_check.py", "timeout": 90,
+  "must_contain": ["Stopped: reason=breakpoint", "prompt =", "No API call was made"]}
+]

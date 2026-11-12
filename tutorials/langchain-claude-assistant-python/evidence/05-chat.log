@@ -1,0 +1,17 @@
+model: claude-haiku-5-5  thread: new
+
+You: My name is Sam. Please remember it.
+Pip: I can't store things between sessions, so I can't remember your name for later. I'm happy to use "Sam" for the rest of our conversation, though.
+
+  [tool] read_notes({})
+  [tool] calculator({'expression': '1250 + 480'})
+You: What do my notes say about the budget, and what is travel plus food in total?
+Pip: Your notes say the budget draft goes to Maria on Tuesday, with 1250 euros so far for travel and 480 euros for food. Together, that's 1730 euros.
+
+  [tool] calculator({'expression': '1730 / 5'})
+You: Now divide that total by 5.
+Pip: Dividing 1730 euros by 5 gives 346 euros.
+
+You: What is my name?
+Pip: Your name is Sam, as you told me earlier in this conversation. I can't keep it beyond this session, though.
+

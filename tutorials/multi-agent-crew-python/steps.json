@@ -1,0 +1,15 @@
+[
+ {"id": "01-venv", "title": "Create a virtual environment", "kind": "run",
+  "cmd": "python3.11 -m venv .venv && .venv/bin/python --version", "show": "python3.11 -m venv .venv", "must_contain": ["Python 3.11"]},
+ {"id": "02-install", "title": "Install CrewAI", "kind": "run", "venv": true,
+  "cmd": "pip install -q -r requirements.txt && pip show crewai anthropic | grep -E '^(Name|Version)' && echo \"packages installed: $(pip list 2>/dev/null | tail -n +3 | wc -l | tr -d ' ')\" && echo \"venv size: $(du -sh .venv | cut -f1)\"",
+  "show": "pip install -r requirements.txt", "timeout": 1500,
+  "env": {"PIP_DISABLE_PIP_VERSION_CHECK": "1"}, "must_contain": ["Name: crewai", "packages installed:", "venv size:"]},
+ {"id": "03-telemetry", "title": "Check telemetry is off", "kind": "run", "venv": true,
+  "cmd": "python telemetry_check.py", "must_contain": ["telemetry disabled: True"]},
+ {"id": "04-no-key", "title": "What a missing key looks like", "kind": "run", "venv": true,
+  "cmd": "python crew_run.py", "expect_exit": 1, "must_contain": ["ANTHROPIC_API_KEY is not set"]},
+ {"id": "05-run", "title": "Run the three-role crew", "kind": "run", "venv": true,
+  "needs_key": ["ANTHROPIC_API_KEY"], "cmd": "python crew_run.py", "timeout": 300,
+  "must_contain": ["--- researcher ---", "--- writer ---", "--- reviewer ---", "[calls:"]}
+]

@@ -1,0 +1,173 @@
+[
+ {
+  "id": "01-venv",
+  "title": "Create a virtual environment",
+  "kind": "run",
+  "cmd": "python3 -m venv .venv && ls -d .venv",
+  "show": "python3 -m venv .venv",
+  "must_contain": [
+   ".venv"
+  ]
+ },
+ {
+  "id": "02-install",
+  "title": "Install Chroma and the SDK",
+  "kind": "run",
+  "venv": true,
+  "cmd": "pip install -q -r requirements.txt && pip list 2>/dev/null | grep -iE '^(chromadb|anthropic|onnxruntime) '",
+  "show": "pip install -r requirements.txt",
+  "timeout": 900,
+  "env": {
+   "PIP_DISABLE_PIP_VERSION_CHECK": "1"
+  },
+  "must_contain": [
+   "chromadb",
+   "anthropic",
+   "onnxruntime"
+  ]
+ },
+ {
+  "id": "03-notes",
+  "title": "List the notes",
+  "kind": "run",
+  "cmd": "ls notes && wc -w notes/*.md | tail -1",
+  "show": "ls notes",
+  "must_contain": [
+   "team-roster.md",
+   "total"
+  ]
+ },
+ {
+  "id": "04-licence",
+  "title": "Check the Chroma version and licence",
+  "kind": "run",
+  "venv": true,
+  "cmd": "pip show -v chromadb | grep -E '^Version|License'",
+  "timeout": 60,
+  "must_contain": [
+   "Version: 1.5.9",
+   "Apache Software License"
+  ]
+ },
+ {
+  "id": "04b-model-size",
+  "title": "Check the model download size",
+  "kind": "run",
+  "cmd": "curl -sIL https://chroma-onnx-models.s3.amazonaws.com/all-MiniLM-L6-v2/onnx.tar.gz | grep -i \"^content-length\"",
+  "timeout": 60,
+  "must_contain": [
+   "Content-Length: 83178821"
+  ]
+ },
+ {
+  "id": "05-model",
+  "title": "Download the default embedding model once",
+  "kind": "run",
+  "venv": true,
+  "timeout": 900,
+  "cmd": "python warm_up.py 2>/dev/null",
+  "show": "python warm_up.py",
+  "must_contain": [
+   "Model ready",
+   "vectors of 384 numbers"
+  ]
+ },
+ {
+  "id": "06-ingest",
+  "title": "Store the notes in Chroma (downloads the default model on first run)",
+  "kind": "run",
+  "venv": true,
+  "cmd": "python ingest.py",
+  "timeout": 900,
+  "must_contain": [
+   "Read 9 notes, stored "
+  ]
+ },
+ {
+  "id": "07-ingest-again",
+  "title": "Run it again to show the count does not grow",
+  "kind": "run",
+  "venv": true,
+  "cmd": "python ingest.py",
+  "must_contain": [
+   "Read 9 notes, stored "
+  ]
+ },
+ {
+  "id": "08-search",
+  "title": "Retrieve the closest chunks for a question",
+  "kind": "run",
+  "venv": true,
+  "cmd": "python search.py \"Who is cleaning the tide data?\"",
+  "must_contain": [
+   "1. ",
+   "distance"
+  ]
+ },
+ {
+  "id": "09-no-key",
+  "title": "What a missing key looks like",
+  "kind": "run",
+  "venv": true,
+  "cmd": "python ask.py \"Why did the team choose SQLite?\"",
+  "expect_exit": 1,
+  "must_contain": [
+   "ANTHROPIC_API_KEY is not set"
+  ]
+ },
+ {
+  "id": "10-ask",
+  "title": "Ask a question the notes can answer",
+  "kind": "run",
+  "venv": true,
+  "needs_key": [
+   "ANTHROPIC_API_KEY"
+  ],
+  "cmd": "python ask.py \"Why did the team choose SQLite?\"",
+  "must_contain": [
+   "Answer:",
+   "tech-stack.md",
+   "[tokens used:"
+  ]
+ },
+ {
+  "id": "11-ask-two-notes",
+  "title": "Ask a question that needs two notes",
+  "kind": "run",
+  "venv": true,
+  "needs_key": [
+   "ANTHROPIC_API_KEY"
+  ],
+  "cmd": "python ask.py \"Who will text during the demo, and what limits the text messages?\"",
+  "must_contain": [
+   "Answer:",
+   "[tokens used:"
+  ]
+ },
+ {
+  "id": "12-ask-absent",
+  "title": "Ask a question the notes cannot answer",
+  "kind": "run",
+  "venv": true,
+  "needs_key": [
+   "ANTHROPIC_API_KEY"
+  ],
+  "cmd": "python ask.py \"How much did the team spend on food during the event?\"",
+  "must_contain": [
+   "Answer:",
+   "not in the notes"
+  ]
+ },
+ {
+  "id": "13-empty-folder",
+  "title": "What an empty notes folder looks like",
+  "kind": "run",
+  "venv": true,
+  "cmd": "mkdir -p empty_demo && python -c \"import kb, pathlib; kb.NOTES_DIR = pathlib.Path('empty_demo'); import ingest; ingest.NOTES_DIR = kb.NOTES_DIR; ingest.main()\"; rc=$?; rmdir empty_demo; exit $rc",
+  "show": "python ingest.py   # with an empty notes folder",
+  "expect_exit": 1,
+  "must_contain": [
+   "No .md files found in empty_demo/"
+  ]
+ }
+]

@@ -1,0 +1,154 @@
+[
+ {
+  "id": "01-venv",
+  "title": "Create a virtual environment",
+  "kind": "run",
+  "cmd": "python3 -m venv .venv && .venv/bin/python --version",
+  "show": "python3 -m venv .venv && .venv/bin/python --version",
+  "must_contain": [
+   "Python 3"
+  ]
+ },
+ {
+  "id": "02-install",
+  "title": "Install the SDK",
+  "kind": "run",
+  "venv": true,
+  "cmd": "set -o pipefail; pip install -r requirements.txt | tail -n 4",
+  "show": "pip install -r requirements.txt | tail -n 4",
+  "timeout": 300,
+  "env": {
+   "PIP_DISABLE_PIP_VERSION_CHECK": "1"
+  },
+  "must_contain": [
+   "Successfully installed",
+   "anthropic-"
+  ]
+ },
+ {
+  "id": "02b-version",
+  "title": "Check the installed SDK version",
+  "kind": "run",
+  "venv": true,
+  "cmd": "pip show anthropic | sed -n 1,2p",
+  "show": "pip show anthropic | sed -n 1,2p",
+  "must_contain": [
+   "Name: anthropic",
+   "Version:"
+  ]
+ },
+ {
+  "id": "03-dry-short",
+  "title": "Dry run on a short text",
+  "kind": "run",
+  "venv": true,
+  "cmd": "python summarize.py article.txt --dry-run",
+  "must_contain": [
+   "1 part(s)",
+   "Nothing was sent"
+  ]
+ },
+ {
+  "id": "04-dry-long",
+  "title": "Dry run on a long text",
+  "kind": "run",
+  "venv": true,
+  "cmd": "python summarize.py long.txt --dry-run",
+  "must_contain": [
+   "3384 characters",
+   "part(s)"
+  ]
+ },
+ {
+  "id": "05-too-big",
+  "title": "The input-size guard",
+  "kind": "run",
+  "venv": true,
+  "cmd": "python summarize.py long.txt --max-input 2000",
+  "expect_exit": 1,
+  "must_contain": [
+   "over the limit of 2000",
+   "Nothing was sent"
+  ]
+ },
+ {
+  "id": "06-no-key",
+  "title": "What a missing key looks like",
+  "kind": "run",
+  "venv": true,
+  "cmd": "python summarize.py article.txt",
+  "expect_exit": 1,
+  "must_contain": [
+   "ANTHROPIC_API_KEY is not set"
+  ]
+ },
+ {
+  "id": "07-summarize",
+  "title": "Summarise a file",
+  "kind": "run",
+  "venv": true,
+  "needs_key": [
+   "ANTHROPIC_API_KEY"
+  ],
+  "cmd": "python summarize.py article.txt",
+  "must_contain": [
+   "HEADLINE:",
+   "1 model call(s)"
+  ]
+ },
+ {
+  "id": "08-short",
+  "title": "Ask for a shorter summary",
+  "kind": "run",
+  "venv": true,
+  "needs_key": [
+   "ANTHROPIC_API_KEY"
+  ],
+  "cmd": "python summarize.py article.txt --length short",
+  "must_contain": [
+   "HEADLINE:",
+   "1 model call(s)"
+  ]
+ },
+ {
+  "id": "09-long-text",
+  "title": "Summarise a text that needs chunks",
+  "kind": "run",
+  "venv": true,
+  "needs_key": [
+   "ANTHROPIC_API_KEY"
+  ],
+  "cmd": "python summarize.py long.txt --length long",
+  "must_contain": [
+   "part 1/",
+   "HEADLINE:",
+   "model call(s)"
+  ]
+ },
+ {
+  "id": "10-pasted",
+  "title": "Summarise pasted text",
+  "kind": "run",
+  "venv": true,
+  "needs_key": [
+   "ANTHROPIC_API_KEY"
+  ],
+  "cmd": "printf 'The swimming pool on Mill Road closes for repairs on 3 March and reopens on 14 April. Lessons move to the leisure centre, and season tickets are extended by the number of days the pool is shut.' | python summarize.py - --length short",
+  "show": "printf 'The swimming pool on Mill Road closes ... shut.' | python summarize.py - --length short",
+  "must_contain": [
+   "HEADLINE:",
+   "1 model call(s)"
+  ]
+ },
+ {
+  "id": "11-missing-file",
+  "title": "What a wrong file name looks like",
+  "kind": "run",
+  "venv": true,
+  "cmd": "python summarize.py notes.txt",
+  "expect_exit": 1,
+  "must_contain": [
+   "Cannot find notes.txt"
+  ]
+ }
+]

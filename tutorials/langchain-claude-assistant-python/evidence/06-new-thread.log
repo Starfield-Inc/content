@@ -1,0 +1,6 @@
+model: claude-haiku-5-5  thread: new
+
+  [tool] read_notes({})
+You: What is my name?
+Pip: I can't find your name in your notes. They cover a team demo day, a budget draft for Maria, a dentist appointment, and what to bring on Friday.
+

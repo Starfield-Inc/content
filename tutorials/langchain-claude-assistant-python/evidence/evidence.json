@@ -1,0 +1,80 @@
+[
+  {
+    "id": "01-venv",
+    "title": "Create a virtual environment",
+    "kind": "run",
+    "at": "2026-11-12T10:54:15+00:00",
+    "cmd": "python3 -m venv .venv && ls -d .venv",
+    "show": "python3 -m venv .venv",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "3c20d7bc4365acc9",
+    "ok": true,
+    "image": "evidence/01-venv.png"
+  },
+  {
+    "id": "02-install",
+    "title": "Install LangChain and the Anthropic integration",
+    "kind": "run",
+    "at": "2026-11-12T10:54:18+00:00",
+    "cmd": "pip install -q -r requirements.txt && pip list 2>/dev/null | grep -E '^(langchain|langchain-anthropic|langgraph) '",
+    "show": "pip install -r requirements.txt",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "0781d24c7fe4297c",
+    "ok": true,
+    "image": "evidence/02-install.png"
+  },
+  {
+    "id": "03-tools",
+    "title": "Test the two tools without a model",
+    "kind": "run",
+    "at": "2026-11-12T10:54:51+00:00",
+    "cmd": "python tools.py",
+    "show": "python tools.py",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "77f218285280e84c",
+    "ok": true,
+    "image": "evidence/03-tools.png"
+  },
+  {
+    "id": "04-no-key",
+    "title": "What a missing key looks like",
+    "kind": "run",
+    "at": "2026-11-12T10:54:59+00:00",
+    "cmd": "python assistant.py hello",
+    "show": "python assistant.py hello",
+    "exit": 1,
+    "expect_exit": 1,
+    "sha256": "83d51fb8ad05cade",
+    "ok": true,
+    "image": "evidence/04-no-key.png"
+  },
+  {
+    "id": "05-chat",
+    "title": "Chat with memory and tools in one thread",
+    "kind": "run",
+    "at": "2026-11-12T10:55:05+00:00",
+    "cmd": "python assistant.py \"My name is Sam. Please remember it.\" \"What do my notes say about the budget, and what is travel plus food in total?\" \"Now divide that total by 5.\" \"What is my name?\"",
+    "show": "python assistant.py \"My name is Sam. Please remember it.\" \"What do my notes say about the budget, and what is travel plus food in total?\" \"Now divide that total by 5.\" \"What is my name?\"",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "f589adb094d4a649",
+    "ok": true,
+    "image": "evidence/05-chat.png"
+  },
+  {
+    "id": "06-new-thread",
+    "title": "A new process starts with no memory",
+    "kind": "run",
+    "at": "2026-11-12T10:55:23+00:00",
+    "cmd": "python assistant.py \"What is my name?\"",
+    "show": "python assistant.py \"What is my name?\"",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "830616bd89823edb",
+    "ok": true,
+    "image": "evidence/06-new-thread.png"
+  }
+]

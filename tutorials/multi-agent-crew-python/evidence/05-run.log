@@ -1,0 +1,13 @@
+--- researcher ---
+1. Store API keys in environment variables or a local config file, not in source code that is committed to the repository.
+2. Add the file containing secrets (such as .env or config.local.json) to .gitignore before the first commit so git does not track it.
+3. If a key was already committed, rotate it immediately, because removing it from later commits does not erase it from the repository history.
+4. Use secret scanning tools, such as git-secrets or GitHub secret scanning, to detect keys before they are pushed to a public repository.
+
+--- writer ---
+Keep API keys out of source code. Store them in environment variables or a local config file instead, and add that file (such as .env or config.local.json) to .gitignore before your first commit so git never tracks it. If a key was already committed, rotate it immediately, since deleting it in a later commit does not remove it from repository history. Use secret scanning tools such as git-secrets or GitHub secret scanning to catch keys before they are pushed to a public repository.
+
+--- reviewer ---
+APPROVE: The draft covers all four research points (environment variables or local config, .gitignore before the first commit, rotating already-committed keys because history retains them, and secret scanning tools) accurately and without adding unsupported claims.
+
+[calls: 9, tokens: input 2706, output 1137]

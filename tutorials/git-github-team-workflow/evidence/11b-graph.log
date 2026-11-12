@@ -1,0 +1,5 @@
+* 624ff8e (HEAD -> feature/pantry) Add a farewell message
+* ada879c Rename the demo to Pantry Pal
+| * 89ae31b (origin/main, origin/HEAD) Rename the demo to Recipe Helper
+|/  
+* e75fad8 (main) Add starter app and gitignore

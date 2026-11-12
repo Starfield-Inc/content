@@ -1,0 +1,7 @@
+Question: Why did the team choose SQLite?
+Chunks sent: team-roster.md (0.69), tech-stack.md (0.71), judging-notes.md (0.76), team-roster.md (0.82)
+
+Answer:
+The team chose SQLite because nobody wants to run a server during a weekend event [tech-stack.md].
+
+[tokens used: 667 in, 35 out]

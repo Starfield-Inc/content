@@ -1,0 +1,14 @@
+--- cell 1 ---
+--- cell 2 ---
+question   How do I reset my password?
+statement  The meeting starts at nine.
+request    Please send me the report.
+question   Where is the nearest station?
+statement  The server restarted overnight.
+request    Could you share the slides?
+statement  Our team won the prize.
+request    Close the door, please.
+tokens used: 135 in, 20 out
+--- cell 3 ---
+[chart image, PNG]
+{'question': 2, 'statement': 3, 'request': 3}

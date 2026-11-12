@@ -1,0 +1,19 @@
+[
+ {"id": "01-venv", "title": "Create a virtual environment", "kind": "run",
+  "cmd": "python3 -m venv .venv && ls -d .venv", "show": "python3 -m venv .venv", "must_contain": [".venv"]},
+ {"id": "02-install", "title": "Install LangChain and the Anthropic integration", "kind": "run", "venv": true,
+  "cmd": "pip install -q -r requirements.txt && pip list 2>/dev/null | grep -E '^(langchain|langchain-anthropic|langgraph) '",
+  "show": "pip install -r requirements.txt", "timeout": 400,
+  "env": {"PIP_DISABLE_PIP_VERSION_CHECK": "1"}, "must_contain": ["langchain-anthropic", "langgraph"]},
+ {"id": "03-tools", "title": "Test the two tools without a model", "kind": "run", "venv": true,
+  "cmd": "python tools.py", "must_contain": ["-> 1730", "division by zero", "exponent is too large", "HDMI"]},
+ {"id": "04-no-key", "title": "What a missing key looks like", "kind": "run", "venv": true,
+  "cmd": "python assistant.py hello", "expect_exit": 1, "must_contain": ["ANTHROPIC_API_KEY is not set"]},
+ {"id": "05-chat", "title": "Chat with memory and tools in one thread", "kind": "run", "venv": true,
+  "needs_key": ["ANTHROPIC_API_KEY"],
+  "cmd": "python assistant.py \"My name is Sam. Please remember it.\" \"What do my notes say about the budget, and what is travel plus food in total?\" \"Now divide that total by 5.\" \"What is my name?\"",
+  "timeout": 180, "must_contain": ["[tool] calculator", "[tool] read_notes", "Sam"]},
+ {"id": "06-new-thread", "title": "A new process starts with no memory", "kind": "run", "venv": true,
+  "needs_key": ["ANTHROPIC_API_KEY"],
+  "cmd": "python assistant.py \"What is my name?\"", "timeout": 120, "must_contain": ["Pip:"]}
+]

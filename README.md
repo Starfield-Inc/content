@@ -3,7 +3,7 @@
 Working code, saved output and written pieces from Starfield Labs.
 
 - `tutorials/` holds the tutorials. Each folder is one tutorial: a small project you can run, the article that explains it, and the evidence (real command output and screenshots) from running each step.
-- `articles/` holds the articles as Markdown, each with a dark cover (`<name>.png`) and a light cover (`<name>.light.png`). The front matter at the top of each file has the title, summary and publish date.
+- `articles/` holds the articles as Markdown, most with a dark cover (`<name>.png`) and a light cover (`<name>.light.png`). The front matter at the top of each file has the title, summary and publish date.
 
 ## What is in a tutorial folder
 
@@ -71,12 +71,28 @@ The notes list limits of what was tested. Model replies differ between runs, so 
 Code and text in this repository are under the [MIT licence](LICENSE). Tutorials that download or use embedding or other models (for example `embeddings-search-python/`) use those models under their own licences. Check the folder's README and the model's page before you reuse it. Data fetched from third-party sites, such as RSS feeds or the Hugging Face API, stays under those sites' terms.
 
 ## Covers
+| RB-001 Gemini CLI vs Claude Code: which tool fits which task | `tutorials/gemini-cli-vs-claude-code/` | Text only, not re-run. Tool paths, flags and model names may be out of date |
+| RB-005 Set up Jupyter in a virtual environment and run a notebook headless | `tutorials/jupyter-notebook-setup-python/` | Browser notebook page not driven |
+| RB-006 OpenClaw AI agent tutorial: autonomous wallets on Base and Solana, part 1 | `tutorials/openclaw-agent-wallets-part-one/` | Text only, not re-run. Needs wallets and accounts. Use test funds only |
+| RB-007 OpenClaw and Moltbook: setup and integration | `tutorials/openclaw-moltbook-memory/` | Text only, not re-run |
+| RB-008 Set up the Google Workspace CLI package for AI agents | `tutorials/google-workspace-cli-agent/` | Text only, not re-run. Needs a Google account |
+| RB-010 Set up Python in VS Code and make your first Claude call | `tutorials/python-vscode-first-project/` | Partial. Editor window steps described, not run |
+| RB-017 Build a summariser command-line tool in Python with Claude | `tutorials/claude-summarizer-cli-python/` | Tested on two short made-up texts |
+| RB-018 Host an LLM on an AMD GPU in the cloud | `tutorials/vllm-amd-cloud-llm-host/` | Text only, not re-run. Needs a cloud GPU. Prices may be out of date |
+| RB-021 Using agent harnesses for AI hackathons with Claude Code | `tutorials/claude-code-agent-harness/` | Text only, not re-run. Cost figures may be out of date |
+| RB-025 Build a draft helper with a safety layer (Flask and Claude) | `tutorials/safe-writing-assistant-app/` | One prompt-injection draft tested |
+| RB-031 Answer questions from your own notes with Chroma and Claude | `tutorials/chroma-knowledge-base-chatbot/` | Local embedding model, about 79 MB download |
+| RB-032 Build a three-role agent pipeline with CrewAI | `tutorials/multi-agent-crew-python/` | Python 3.11 used. Python 3.14 is not supported by CrewAI. Large install |
+| RB-034 Git workflow for a hackathon team | `tutorials/git-github-team-workflow/` | Local bare repo stands in for GitHub. Pull requests not run |
+| RB-035 Build a personal assistant with LangChain and Claude in Python | `tutorials/langchain-claude-assistant-python/` | In-memory memory only |
+| RB-037 Build a rulebook Q&A assistant in Python that cites its sources | `tutorials/legal-qa-assistant-python/` | Invented rulebook. Not legal advice |
+| RB-044 Pay-per-call LLM API with Circle USDC nano payments | `tutorials/circle-gateway-nanopayments/` | Text only, not re-run. Needs a wallet. Use test funds only |
 
 `_covers/` holds the scripts that render each tutorial's cover images. See `_covers/render_covers.py`; it needs Chrome and a `tutorials.csv` file (set `TUTORIALS_CSV`).
 
 ## Articles
 
-30 articles are in [`articles/`](articles/). Each is one Markdown file with its cover images beside it.
+35 articles are in [`articles/`](articles/). Each is one Markdown file. The first 30 have cover images beside them; the last 5 do not have covers yet.
 
 ## Contributing
 

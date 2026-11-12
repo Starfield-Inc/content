@@ -1,0 +1,2 @@
+settings.json: valid JSON, interpreter = ${workspaceFolder}/.venv/bin/python
+launch.json: 'Run hello_haiku.py' type=debugpy program exists=True

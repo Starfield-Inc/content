@@ -1,0 +1,14 @@
+TITLE = "Pantry Pal"
+
+
+def greet(name):
+    return f"Welcome to {TITLE}, {name}!"
+
+
+def farewell(name):
+    return f"Thanks for visiting, {name}!"
+
+
+if __name__ == "__main__":
+    print(greet("team"))
+    print(farewell("team"))

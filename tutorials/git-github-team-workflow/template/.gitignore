@@ -1,0 +1,13 @@
+# Keys and local settings. Never committed.
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Editor and OS files
+.DS_Store
+.vscode/

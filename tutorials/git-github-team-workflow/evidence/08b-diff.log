@@ -1,0 +1,10 @@
+diff --git a/app.py b/app.py
+index 7d97cf3..6d95b0a 100644
+--- a/app.py
++++ b/app.py
+@@ -1,4 +1,4 @@
+-TITLE = "Hackathon demo"
++TITLE = "Recipe Helper"
+ 
+ 
+ def greet(name):

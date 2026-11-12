@@ -1,0 +1,3 @@
+Rulebook has 10 rules. Checking 2 answers in bad_answers.log.
+answer 1: cited [12] -> FAIL quotes rule 12 which is not in the rulebook
+answer 2: cited [5] -> FAIL has no disclaimer

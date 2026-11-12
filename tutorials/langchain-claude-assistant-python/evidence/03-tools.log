@@ -1,0 +1,12 @@
+calculator('1250 + 480') -> 1730
+calculator('(3 + 4) * 2.5') -> 17.5
+calculator('2 ** 10') -> 1024
+calculator('10 / 0') -> Error: division by zero
+calculator("__import__('os')") -> Error: only numbers and + - * / ** are allowed
+calculator('9 ** 9 ** 9') -> Error: exponent is too large
+read_notes() ->
+Monday: book the venue for the team demo day (room 4B, fits 30 people).
+Tuesday: send the budget draft to Maria. Total so far is 1250 euros for travel and 480 euros for food.
+Wednesday: dentist at 15:30.
+Friday: demo day. Bring 2 laptops and the spare HDMI cable.
+

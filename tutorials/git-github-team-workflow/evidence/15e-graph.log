@@ -1,0 +1,7 @@
+*   4582a82 (HEAD -> feature/pantry) Merge remote-tracking branch 'origin/main' into feature/pantry
+|\  
+| * 89ae31b (origin/main, origin/HEAD) Rename the demo to Recipe Helper
+* | 624ff8e Add a farewell message
+* | ada879c Rename the demo to Pantry Pal
+|/  
+* e75fad8 (main) Add starter app and gitignore

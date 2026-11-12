@@ -1,0 +1,67 @@
+[
+  {
+    "id": "01-venv",
+    "title": "Create a virtual environment",
+    "kind": "run",
+    "at": "2026-11-12T11:04:53+00:00",
+    "cmd": "python3.11 -m venv .venv && .venv/bin/python --version",
+    "show": "python3.11 -m venv .venv",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "b1d173e941dbfa8b",
+    "ok": true,
+    "image": "evidence/01-venv.png"
+  },
+  {
+    "id": "02-install",
+    "title": "Install CrewAI",
+    "kind": "run",
+    "at": "2026-11-12T11:04:57+00:00",
+    "cmd": "pip install -q -r requirements.txt && pip show crewai anthropic | grep -E '^(Name|Version)' && echo \"packages installed: $(pip list 2>/dev/null | tail -n +3 | wc -l | tr -d ' ')\" && echo \"venv size: $(du -sh .venv | cut -f1)\"",
+    "show": "pip install -r requirements.txt",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "3cf54b9cbf6e4b2a",
+    "ok": true,
+    "image": "evidence/02-install.png"
+  },
+  {
+    "id": "03-telemetry",
+    "title": "Check telemetry is off",
+    "kind": "run",
+    "at": "2026-11-12T11:09:26+00:00",
+    "cmd": "python telemetry_check.py",
+    "show": "python telemetry_check.py",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "162da3fb40d01c64",
+    "ok": true,
+    "image": "evidence/03-telemetry.png"
+  },
+  {
+    "id": "04-no-key",
+    "title": "What a missing key looks like",
+    "kind": "run",
+    "at": "2026-11-12T11:10:00+00:00",
+    "cmd": "python crew_run.py",
+    "show": "python crew_run.py",
+    "exit": 1,
+    "expect_exit": 1,
+    "sha256": "b282ac6942cca9d1",
+    "ok": true,
+    "image": "evidence/04-no-key.png"
+  },
+  {
+    "id": "05-run",
+    "title": "Run the three-role crew",
+    "kind": "run",
+    "at": "2026-11-12T11:10:32+00:00",
+    "cmd": "python crew_run.py",
+    "show": "python crew_run.py",
+    "exit": 0,
+    "expect_exit": 0,
+    "sha256": "e32be9cf3cd5632f",
+    "ok": true,
+    "image": "evidence/05-run.png"
+  }
+]

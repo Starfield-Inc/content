@@ -1,0 +1,127 @@
+[
+ {
+  "id": "01-venv",
+  "title": "Create a virtual environment",
+  "kind": "run",
+  "cmd": "python3 -m venv .venv && .venv/bin/python --version",
+  "show": "python3 -m venv .venv && .venv/bin/python --version",
+  "must_contain": [
+   "Python 3"
+  ]
+ },
+ {
+  "id": "02-install",
+  "title": "Install the packages",
+  "kind": "run",
+  "venv": true,
+  "cmd": "set -o pipefail; pip install -r requirements.txt | tail -n 4",
+  "show": "pip install -r requirements.txt | tail -n 4",
+  "must_contain": [
+   "Successfully installed",
+   "notebook-"
+  ],
+  "timeout": 900,
+  "env": {
+   "PIP_DISABLE_PIP_VERSION_CHECK": "1"
+  }
+ },
+ {
+  "id": "02b-list",
+  "title": "List the installed versions",
+  "kind": "run",
+  "venv": true,
+  "cmd": "pip list 2>/dev/null | grep -iE '^(notebook|nbconvert|ipykernel|anthropic|matplotlib) '",
+  "show": "pip list | grep -iE '^(notebook|nbconvert|ipykernel|anthropic|matplotlib) '",
+  "must_contain": [
+   "notebook",
+   "nbconvert",
+   "matplotlib"
+  ]
+ },
+ {
+  "id": "03-check",
+  "title": "Check that Jupyter is installed",
+  "kind": "run",
+  "venv": true,
+  "cmd": "jupyter --version | grep -E 'notebook|nbconvert|ipykernel'",
+  "show": "jupyter --version",
+  "must_contain": [
+   "notebook",
+   "nbconvert"
+  ]
+ },
+ {
+  "id": "04-build",
+  "title": "Create the notebook file",
+  "kind": "run",
+  "venv": true,
+  "cmd": "python build_notebook.py",
+  "must_contain": [
+   "4 cells"
+  ]
+ },
+ {
+  "id": "05-run",
+  "title": "Run the notebook headless",
+  "kind": "run",
+  "venv": true,
+  "needs_key": [
+   "ANTHROPIC_API_KEY"
+  ],
+  "cmd": "jupyter nbconvert --to notebook --execute first_notebook.ipynb --output executed.ipynb > run.log 2>&1; code=$?; grep -v WARNING run.log; rm -f run.log; exit $code",
+  "show": "jupyter nbconvert --to notebook --execute first_notebook.ipynb --output executed.ipynb",
+  "must_contain": [
+   "Writing"
+  ],
+  "timeout": 300
+ },
+ {
+  "id": "06-outputs",
+  "title": "Read the outputs saved in the notebook",
+  "kind": "run",
+  "venv": true,
+  "cmd": "python show_outputs.py executed.ipynb",
+  "must_contain": [
+   "question",
+   "tokens used",
+   "chart image"
+  ]
+ },
+ {
+  "id": "07-html",
+  "title": "Export the executed notebook to HTML",
+  "kind": "run",
+  "venv": true,
+  "cmd": "jupyter nbconvert --to html executed.ipynb --output executed.html 2>&1 && ls -l executed.html | awk '{print $NF}'",
+  "show": "jupyter nbconvert --to html executed.ipynb",
+  "must_contain": [
+   "executed.html"
+  ]
+ },
+ {
+  "id": "08-chart",
+  "title": "The chart the notebook saved",
+  "kind": "web",
+  "serve": "python -m http.server 8765 --bind 127.0.0.1",
+  "url": "http://127.0.0.1:8765/chart.png",
+  "ready_timeout": 20,
+  "size": [
+   800,
+   520
+  ],
+  "must_contain": [],
+  "venv": true
+ },
+ {
+  "id": "09-nokey",
+  "title": "What a missing key looks like",
+  "kind": "run",
+  "venv": true,
+  "cmd": "jupyter nbconvert --to notebook --execute first_notebook.ipynb --output executed_nokey.ipynb > run.log 2>&1; code=$?; sed 's/\\x1b\\[[0-9;]*m//g' run.log | grep -E 'RuntimeError: ' | head -1; rm -f run.log; exit $code",
+  "show": "jupyter nbconvert --to notebook --execute first_notebook.ipynb --output executed_nokey.ipynb",
+  "expect_exit": 1,
+  "must_contain": [
+   "Set ANTHROPIC_API_KEY"
+  ]
+ }
+]

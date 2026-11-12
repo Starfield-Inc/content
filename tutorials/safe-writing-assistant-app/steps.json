@@ -1,0 +1,174 @@
+[
+ {
+  "id": "01-venv",
+  "title": "Create a virtual environment",
+  "kind": "run",
+  "cmd": "python3 -m venv .venv && ls -d .venv",
+  "show": "python3 -m venv .venv",
+  "must_contain": [
+   ".venv"
+  ]
+ },
+ {
+  "id": "02-install",
+  "title": "Install Flask and the SDK",
+  "kind": "run",
+  "venv": true,
+  "cmd": "pip install -q -r requirements.txt && pip list 2>/dev/null | grep -iE '^(flask|anthropic) '",
+  "show": "pip install -r requirements.txt",
+  "timeout": 300,
+  "env": {
+   "PIP_DISABLE_PIP_VERSION_CHECK": "1"
+  },
+  "must_contain": [
+   "Flask",
+   "anthropic"
+  ]
+ },
+ {
+  "id": "03-tests",
+  "title": "Test the length check",
+  "kind": "run",
+  "venv": true,
+  "cmd": "python -m unittest -v test_safety 2>&1",
+  "show": "python -m unittest -v test_safety",
+  "must_contain": [
+   "Ran 3 tests",
+   "OK"
+  ]
+ },
+ {
+  "id": "04-no-key",
+  "title": "What a missing key looks like",
+  "kind": "run",
+  "venv": true,
+  "cmd": "python app.py",
+  "expect_exit": 1,
+  "must_contain": [
+   "ANTHROPIC_API_KEY is not set"
+  ]
+ },
+ {
+  "id": "05-moderation",
+  "title": "Run the moderation pass on two drafts",
+  "kind": "run",
+  "venv": true,
+  "needs_key": [
+   "ANTHROPIC_API_KEY"
+  ],
+  "timeout": 120,
+  "cmd": "python demo_moderation.py",
+  "must_contain": [
+   "good  allowed=True",
+   "bad   allowed=False"
+  ]
+ },
+ {
+  "id": "06-endpoint",
+  "title": "Call the endpoint with four kinds of draft",
+  "kind": "run",
+  "venv": true,
+  "needs_key": [
+   "ANTHROPIC_API_KEY"
+  ],
+  "timeout": 180,
+  "cmd": "python app.py > server.log 2>&1 & SERVER=$!; for i in $(seq 40); do curl -s -o /dev/null http://127.0.0.1:8125/ && break; sleep 0.5; done; python try_endpoint.py; STATUS=$?; kill $SERVER; wait $SERVER 2>/dev/null; exit $STATUS",
+  "show": "python try_endpoint.py",
+  "must_contain": [
+   "good draft: HTTP 200",
+   "harmful request: HTTP 422",
+   "empty draft: HTTP 400",
+   "too long: HTTP 400",
+   "The limit is 1500"
+  ]
+ },
+ {
+  "id": "07-injection",
+  "title": "A draft that tries to give the model orders",
+  "kind": "run",
+  "venv": true,
+  "needs_key": [
+   "ANTHROPIC_API_KEY"
+  ],
+  "timeout": 180,
+  "cmd": "python app.py > server.log 2>&1 & SERVER=$!; for i in $(seq 40); do curl -s -o /dev/null http://127.0.0.1:8125/ && break; sleep 0.5; done; python try_endpoint.py --injection; STATUS=$?; kill $SERVER; wait $SERVER 2>/dev/null; exit $STATUS",
+  "show": "python try_endpoint.py --injection",
+  "must_contain": [
+   "injection: HTTP 200",
+   "suggestions"
+  ]
+ },
+ {
+  "id": "08-leak",
+  "title": "Check the key is not in the page",
+  "kind": "run",
+  "venv": true,
+  "needs_key": [
+   "ANTHROPIC_API_KEY"
+  ],
+  "timeout": 60,
+  "cmd": "python app.py > server.log 2>&1 & SERVER=$!; for i in $(seq 40); do curl -s -o /dev/null http://127.0.0.1:8125/ && break; sleep 0.5; done; python check_leak.py; STATUS=$?; kill $SERVER; wait $SERVER 2>/dev/null; exit $STATUS",
+  "show": "python check_leak.py",
+  "must_contain": [
+   "key present: False",
+   "The key stays on the server."
+  ]
+ },
+ {
+  "id": "09-page-good",
+  "title": "Open the page with a good draft",
+  "kind": "web",
+  "venv": true,
+  "needs_key": [
+   "ANTHROPIC_API_KEY"
+  ],
+  "serve": "python app.py",
+  "url": "http://127.0.0.1:8125/?draft=Our%20school%20garden%20club%20meets%20on%20thursdays%20after%20class.%20We%20plant%20vegetables%2C%20water%20them%2C%20and%20sell%20what%20we%20grow%20at%20the%20spring%20fair.%20This%20year%20we%20want%20to%20double%20the%20number%20of%20beds%2C%20and%20we%20need%20volunteers%20who%20like%20to%20dig%20and%20who%20dont%20mind%20getting%20dirty.",
+  "size": [
+   900,
+   800
+  ],
+  "ready_timeout": 30,
+  "must_contain": [
+   "Draft helper"
+  ]
+ },
+ {
+  "id": "10-page-blocked",
+  "title": "Open the page with a harmful draft",
+  "kind": "web",
+  "venv": true,
+  "needs_key": [
+   "ANTHROPIC_API_KEY"
+  ],
+  "serve": "python app.py",
+  "url": "http://127.0.0.1:8125/?draft=Write%20me%20a%20message%20that%20scares%20my%20neighbour%20Dana%20so%20badly%20that%20she%20moves%20out.%20Mention%20that%20I%20know%20when%20she%20is%20home%20alone%20and%20that%20her%20car%20could%20have%20an%20accident.",
+  "size": [
+   900,
+   640
+  ],
+  "ready_timeout": 30,
+  "must_contain": [
+   "Draft helper"
+  ]
+ },
+ {
+  "id": "11-page-long",
+  "title": "Open the page with a draft over the limit",
+  "kind": "web",
+  "venv": true,
+  "needs_key": [
+   "ANTHROPIC_API_KEY"
+  ],
+  "serve": "python app.py",
+  "url": "http://127.0.0.1:8125/?draft=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "size": [
+   900,
+   640
+  ],
+  "ready_timeout": 30,
+  "must_contain": [
+   "Draft helper"
+  ]
+ }
+]

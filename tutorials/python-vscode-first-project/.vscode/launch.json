@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run hello_haiku.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/hello_haiku.py",
+            "args": ["debugging in VS Code"],
+            "envFile": "${workspaceFolder}/.env",
+            "console": "integratedTerminal"
+        }
+    ]
+}

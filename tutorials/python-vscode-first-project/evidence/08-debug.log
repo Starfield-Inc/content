@@ -1,0 +1,6 @@
+Breakpoint set on line 20 of hello_haiku.py, verified=True
+Stopped: reason=breakpoint
+Paused in main() at line 20
+  prompt = 'Write one short, friendly sentence that welcomes a beginner to debugging in VS Code.'
+  topic = 'debugging in VS Code'
+Program ended at the breakpoint. No API call was made.

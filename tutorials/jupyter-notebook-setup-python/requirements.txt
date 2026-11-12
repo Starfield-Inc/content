@@ -1,0 +1,5 @@
+notebook>=7.0
+nbconvert>=7.16
+ipykernel>=6.29
+anthropic>=2.7.0
+matplotlib>=3.9

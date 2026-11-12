@@ -87,12 +87,63 @@ Code and text in this repository are under the [MIT licence](LICENSE). Tutorials
 | RB-035 Build a personal assistant with LangChain and Claude in Python | `tutorials/langchain-claude-assistant-python/` | In-memory memory only |
 | RB-037 Build a rulebook Q&A assistant in Python that cites its sources | `tutorials/legal-qa-assistant-python/` | Invented rulebook. Not legal advice |
 | RB-044 Pay-per-call LLM API with Circle USDC nano payments | `tutorials/circle-gateway-nanopayments/` | Text only, not re-run. Needs a wallet. Use test funds only |
+| RB-063 Mastering AI Agent Management with AgentOps: An In-Depth Guide | `tutorials/agentops-multi-agent-monitoring/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-048 AI21 Labs tutorial: How to use the Playground | `tutorials/ai21-playground-guide/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-049 Comprehensive Guide to AI71's API Hub | `tutorials/ai71-falcon-api-guide/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-009 Getting Started with Arc Testnet: Send USDC with ethers.js for AI Hackathons | `tutorials/arc-usdc-ethersjs/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-072 Getting Started with Aria: A Beginner's Guide to Rhymes AI's Multimodal API for AI Hackathons | `tutorials/aria-multimodal-api/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-020 Audiocraft tutorial: How to create music with Audiocraft | `tutorials/audiocraft-musicgen-streamlit/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-033 AutoGPT tutorial: How to set up AutoGPT | `tutorials/autogpt-local-setup/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-065 AutoGPT Tutorial: Building an AI Agent-Powered Research Assistant App | `tutorials/autogpt-research-assistant-app/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-041 ChatGPT tutorial: How to integrate ChatGPT and Whisper API into your project | `tutorials/chat-completions-whisper-api/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-058 ChatGPT Plugin Tutorial: How to build ChatGPT Plugin for image generation using Stable Diffusion | `tutorials/chatgpt-plugin-image-flask/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-053 ChatGPT tutorial: How to create a website with ChatGPT | `tutorials/chatgpt-portfolio-website/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-028 Chirp Tutorial: How to use Google's Chirp speech-to-text AI model on Google Cloud console | `tutorials/chirp-speech-to-text-gcp/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-064 Stable Diffusion Tutorial: How to bring book characters to live with Stable Diffusion | `tutorials/chroma-stable-diffusion-search/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-054 Anthropic tutorial: how to create a 100 000 token context AI chatbot | `tutorials/claude-100k-chatbot-python/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-046 Cohere tutorial: How to use Cohere Playground | `tutorials/cohere-playground-basics/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-052 Leveraging Composio for Advanced Multi-Agent AI Applications | `tutorials/composio-autogen-agents/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-066 Building an Intelligent AI Agent for Content Moderation with Structured Output | `tutorials/content-moderation-agent-python/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-045 Craiyon tutorial: text-to-image generation prompt guide | `tutorials/craiyon-prompt-guide/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-056 Developing Intelligent Agents with CrewAI | `tutorials/crewai-intelligent-agents/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-024 Stable Diffusion tutorial: how to create video with text prompts | `tutorials/deforum-video-from-prompts/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-038 ElevenLabs Tutorial: Building AI-Powered Auto Dubbing Service | `tutorials/elevenlabs-auto-dubbing-streamlit/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-073 ElevenLabs Tutorial: Building Simple Word Spelling App | `tutorials/elevenlabs-spelling-app-streamlit/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-050 Building an AI-Powered Personal Health Dashboard with Falcon 180B | `tutorials/falcon-health-dashboard-fastapi/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-071 Falcon LLMs: In-depth Tutorial. | `tutorials/falcon-llm-colab-guide/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-003 Building Real-Time Voice Agents for AI Hackathons: Gemini Live API Guide | `tutorials/gemini-live-voice-agent/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-015 Exploring the Power of Google AI Studio: A Comprehensive Guide | `tutorials/google-ai-studio-guide/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-016 Getting Started with xAI's Grok API: Your First AI Integration for AI Hackathons | `tutorials/grok-api-beginner/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-011 Google Colab tutorial: How to create your own AI image generator | `tutorials/image-generator-colab/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-002 KoboldAI Tutorial: Using Free and Open Source AI Models to Craft Fun and Quirky Stories | `tutorials/koboldai-story-writing-colab/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-030 Stable Diffusion tutorial: How to use Lexica, the Stable Diffusion AI art image search engine | `tutorials/lexica-image-search-api/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-067 Best Practices for Deploying AI Agents with the Llama Stack for AI Hackathons | `tutorials/llama-stack-local-agents/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-036 Unlocking LLaMA 3 with Ollama: A Beginner's Guide | `tutorials/llama3-ollama-python/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-012 Mastering Multilingual Translations with LLaMA 3.1 | `tutorials/llama31-multilingual-translator/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-004 ElevenLabs Tutorial: Adding a Witty Narrator into Minecraft via a Simple Mod | `tutorials/minecraft-ai-narrator-mod/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-070 Creating Your Advanced AI Companion for MongoDB Management | `tutorials/mongodb-atlas-llm-agent/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-043 OpenAI Codex tutorial: Natural language to SQL query with OpenAI Codex | `tutorials/nl-to-sql-codex/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-019 Building Efficient AI Models with OpenAI's Model Distillation for AI Hackathons: A Comprehensive Guide | `tutorials/openai-model-distillation-guide/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-027 OpenAI's Swarm: A Deep Dive into Multi-Agent Orchestration for Everyone | `tutorials/openai-swarm-multi-agent-guide/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-075 PaLM2 Tutorial: Create your own AI-powered Virtual Assistant | `tutorials/palm2-text-bison-intro/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-061 ElevenLabs Tutorial: How to Build your own Podcast Generation app | `tutorials/podcast-generator-elevenlabs-streamlit/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-051 Stable Diffusion tutorial: How to make an AI art with QR code | `tutorials/qr-code-ai-art-diffusion/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-022 Shape-E Tutorial: how to set up and use Shap-E model | `tutorials/shap-e-text-to-3d/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-074 Stable Diffusion tutorial: Text-guided image-to-image generation with Stable Diffusion | `tutorials/stable-diffusion-img2img-diffusers/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-040 Stable Diffusion tutorial: Prompt Inpainting with Stable Diffusion | `tutorials/stable-diffusion-inpainting-python/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-057 Stable Diffusion prompt tutorial: Basics of prompt engineering for Stable Diffusion | `tutorials/stable-diffusion-prompt-basics/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-026 Fine-Tuning TinyLLaMA with Unsloth | `tutorials/tinyllama-finetune-unsloth/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-047 Vectara Hackathon Guide | `tutorials/vectara-rag-quickstart/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-023 OpenAI Whisper tutorial: Creating OpenAI Whisper API in a Docker Container | `tutorials/whisper-api-docker-flask/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-014 OpenAI Whisper tutorial: how to create speaker identification app | `tutorials/whisper-speaker-diarization/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-076 OpenAI Whisper tutorial: How to use Whisper to transcribe a YouTube video | `tutorials/whisper-transcribe-youtube/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
+| RB-055 OpenAI Whisper tutorial: How to use OpenAI Whisper | `tutorials/whisper-transcription-notebook/` | Text only, not re-run. Details such as versions, prices and APIs may be out of date |
 
 `_covers/` holds the scripts that render each tutorial's cover images. See `_covers/render_covers.py`; it needs Chrome and a `tutorials.csv` file (set `TUTORIALS_CSV`).
 
 ## Articles
 
-35 articles are in [`articles/`](articles/). Each is one Markdown file. The first 30 have cover images beside them; the last 5 do not have covers yet.
+43 articles are in [`articles/`](articles/). Each is one Markdown file. The first 30 have cover images beside them; the rest do not have covers yet.
 
 ## Contributing
 

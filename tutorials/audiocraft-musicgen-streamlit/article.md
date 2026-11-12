@@ -1,0 +1,264 @@
+---
+title: "Audiocraft tutorial: How to create music with Audiocraft"
+seo_title: "Audiocraft Tutorial: Create Music with MusicGen"
+meta_description: "AI hackathon tutorial: install Meta's Audiocraft, extend the MusicGen song limit and build a Streamlit URL-to-song app."
+---
+
+## What is Audiocraft?
+
+On Friday, June 9, 2023, Meta unveiled yet another AI tool: [Audiocraft](https://audiocraft.metademolab.com/). 
+It is a music generator and audio processing tool powered by deep learning. In contrast to Google’s MusicLM, Audiocraft is an open-source platform, 
+providing users with the freedom to explore and experiment as much as they desire. Today, we will delve into the process of installing it and 
+learning how to extend the duration limit (120 seconds) so we can create full-length songs. We will also examine how to import and use Audiocraft in a
+Streamlit app, so you can also integrate it with your projects.
+
+### Prerequisites
+
+You need to have [Python 3.9](https://www.python.org/downloads/release/python-3913/) and pip installed, as well as 
+pytorch 2.0 and ffmpeg.
+
+In order to install pytorch on your computer, open a terminal and run:
+
+```bash
+pip install 'torch>=2.0'
+```
+
+To install ffmpeg, run:
+
+```bash
+sudo apt-get install ffmpeg
+# Or if you are using Anaconda or Miniconda
+conda install 'ffmpeg<5' -c  conda-forge
+```
+
+## Installation
+
+First, clone the [github repository](https://github.com/facebookresearch/audiocraft) and open the downloaded folder.
+
+```bash
+git clone https://github.com/facebookresearch/audiocraft
+cd audiocraft
+```
+
+Now, proceed to install the required libraries:
+
+```bash
+pip install -r requirements.txt
+```
+
+We are ready to start playing music with our new instrument!
+
+## Creating music with Audiocraft
+
+To start using MusicGen, the module for creating songs, Meta prepared a Gradio UI that we can open running the following command:
+
+```bash
+python -m demos.musicgen_app --share
+```
+
+And voilà! You should see the UI running on http://127.0.0.1:7860/
+
+The demo also sets up a public URL that you can use to collaborate with others. Now, let's experiment a little bit with this. It might take a while, 
+ the first time around, because it needs to download the models. Specially if you don't have a powerful GPU. But the results are totally
+worth it!
+
+You can choose between 4 models, that will influence the output you will get. The "facebook/musicgen-melody" model generates music with melodies 
+influenced by a music file that you can upload. The other ones generate more ambient-like music and only receive text as input.
+
+I have personally been using this tool since its release, as I love creating music. I got my results playing with the suggested prompts and the given track "bolero_ravel.mp3" (from the famous Boléro by Maurice Ravel).
+
+Yet we can still do much more with this tool. As you might have noticed, the UI has a slider, where you can choose the duration of
+your song, capped at 120 seconds maximum by default.
+
+Let's see if we can find this and modify it in the code. On your favourite code editor, open the project and go to the demos folder. Here you should
+find the musicgen_app.py file, which renders the Gradio UI that we just used. Inside it, look for the "duration" variable (you can use the search tool
+if you are using VS Code). At the time of writing this tutorial, you can find it in line 240.
+
+```python
+# musicgen_app.py
+...
+with gr.Row():
+    duration = gr.Slider(minimum=1, maximum=200, value=10, label="Duration", interactive=True) # <-- Change the maximum value
+...
+```
+
+Now modify the value to whatever you like. Notice, though, that using a high value affects the results and also can take a very long time to finish.
+I wanted to create standard 3:20 minutes songs, so I put 200 (seconds) as the duration. Once you've changed the value, save and restart the program.
+You can do that by pressing Ctrl+C and then running again:
+
+```bash
+python -m demos.musicgen_app --share
+```
+
+Now you can see that the maximum limit duration has been altered to whatever you chose.
+
+Don't worry if it's taking too long to render the audio file. On a M1 Mac with 16GB, it took an hour or so to create a 3:20 minutes song. I also had to 
+tinker a little bit with the prompts to get a clean result. I leave it up to you to figure out how to create the next musical masterpiece!
+
+## Integrating Audiocraft into an existing project
+
+Let's dive deeper now on how to use audiocraft as a tool in an existing codebase. For this purpose, we will create a simple app that generates a song description from 
+a URL (inspired by an earlier Streamlit tutorial). We will then feed Audiocraft with this 
+description to create audio based on the URL's content. You will need an OpenAI API Key for this.
+
+Create a new folder named "audiocraft_app". Then create a python file "audiocraft_app.py" and a "requirements.txt" text file:
+
+```bash
+mkdir audiocraft_app
+cd audiocraft_app
+touch audiocraft_app.py
+touch requirements.txt
+```
+
+Open the requirements.txt file and fill it with the necesary libraries.
+
+```
+git+https://github.com/huggingface/transformers.git
+scipy
+streamlit==1.22.0
+langchain==0.0.176
+openai==0.27.7
+tiktoken==0.4.0
+unstructured==0.6.8
+tabulate==0.9.0
+pdf2image==1.16.3
+pytesseract==0.3.10
+```
+
+Install the libraries.
+
+```bash
+pip install -r requirements.txt
+```
+
+Now open the audiocraft_app.py file and write the following code:
+
+```python
+import validators
+import streamlit as st
+from langchain.chat_models import ChatOpenAI
+from langchain.document_loaders import UnstructuredURLLoader
+from langchain.chains.summarize import load_summarize_chain
+from langchain.prompts import PromptTemplate
+from transformers import AutoProcessor, MusicgenForConditionalGeneration
+import scipy
+
+# Streamlit app
+st.subheader('URL to Song:')
+st.caption(
+    "ChatGPT will turn the contents of this URL's website into a song description and Audiocraft will then create a song out of it and save it as musicgen_out.wav in your project's folder. This might take a while the first time your run it because Audiocraft needs to download the models.")
+
+# Get OpenAI API key and URL to be summarized
+with st.sidebar:
+    openai_api_key = st.text_input("OpenAI API key", value="", type="password")
+    st.caption(
+        "*If you don't have an OpenAI API key, get it [here](https://platform.openai.com/account/api-keys).*")
+    model = st.selectbox("OpenAI chat model",
+                         ("gpt-3.5-turbo", "gpt-3.5-turbo-16k"))
+    st.caption("*If the article is long, choose gpt-3.5-turbo-16k.*")
+url = st.text_input("URL", label_visibility="collapsed")
+
+# If 'Create song' button is clicked
+if st.button("Create song"):
+    # Validate inputs
+    if not openai_api_key.strip() or not url.strip():
+        st.error("Please provide the missing fields.")
+    elif not validators.url(url):
+        st.error("Please enter a valid URL.")
+    else:
+        try:
+            with st.spinner("Please wait..."):
+                # Load URL data
+                loader = UnstructuredURLLoader(urls=[url])
+                data = loader.load()
+
+                # Initialize the ChatOpenAI module, load and run the summarize chain
+                llm = ChatOpenAI(temperature=0, model=model,
+                                 openai_api_key=openai_api_key)
+                prompt_template = """Write a 1 sentence song description, specifying instruments and style, from the following text:
+
+                    {text}
+
+                """
+                prompt = PromptTemplate(
+                    template=prompt_template, input_variables=["text"])
+                chain = load_summarize_chain(
+                    llm, chain_type="stuff", prompt=prompt)
+                # Generate the song description based on the URL's content
+                song_description = chain.run(data)
+
+                # Load the MusicGen model
+                processor = AutoProcessor.from_pretrained(
+                    "facebook/musicgen-small")
+                model = MusicgenForConditionalGeneration.from_pretrained(
+                    "facebook/musicgen-small")
+
+                # Format the input based on the song description
+                inputs = processor(
+                    text=[song_description],
+                    padding=True,
+                    return_tensors="pt",
+                )
+
+                # Generate the audio
+                audio_values = model.generate(**inputs, max_new_tokens=256)
+
+                sampling_rate = model.config.audio_encoder.sampling_rate
+                # Save the wav file into your system
+                scipy.io.wavfile.write(
+                    "musicgen_out.wav", rate=sampling_rate, data=audio_values[0, 0].numpy())
+
+                # Render a success message with the song description generated by ChatGPT
+                st.success("Your song has been succesfully created with the following prompt: "+song_description)
+        except Exception as e:
+            st.exception(f"Exception: {e}")
+
+```
+
+Save the file and run the app with:
+
+```bash
+streamlit run audiocraft_app.py
+```
+
+You should see your app running on http://localhost:8501/. Insert your OpenAI API Key and choose a ChatGPT model depending on your website's content length. I used a 
+fairly lengthy Wikipedia article about Erik Satie (a french composer from the late XIX, early XX centuries), so I selected the "gpt-3.5-turbo-16k" model. 
+When you have your URL ready, write it in the input and hit the "Create Song" button. Your first audio might take a while because Audiocraft needs to download the model. 
+
+If everything went right, your app should show a success message with the song description generated by ChatGPT, which also means that your wav file should be ready at 
+your project's root folder.
+
+For simplicity's sake, the code we wrote generates a short 5 seconds sample using the "facebook/musicgen-small" model, but now that you have everything set up, you are
+free to experiment with longer durations (by modifying the max_new_tokens variable) and the other models. More information about this on 
+[this link](https://github.com/facebookresearch/audiocraft/blob/main/docs/MUSICGEN.md). You can also very easily deploy this app to Streamlit 
+by uploading the code to Github and following Streamlit's deployment steps.
+
+## Conclusion
+
+We just managed to create music with AI! Isn't that amazing? The possibilities are endless, and it will only get better from here. The use cases 
+include music, movies, ads, podcasting and so much more. You can even generate your own tracks for studying and working. I hope you find this 
+tutorial helpful and that it inspires to create awesome tracks and apps.
+
+## Build it at an AI hackathon
+
+Generated audio can set a hackathon demo apart, whether as a soundtrack or as the core of the product. An AI hackathon is a good place to try it, and Starfield Labs lists [upcoming AI hackathons](/ai-hackathons/) if you want a deadline and a team.
+
+## Frequently asked questions
+
+**How do I raise the 120-second song limit?**
+
+Open `demos/musicgen_app.py`, find the `duration` slider (line 240 when the tutorial was written) and change its maximum value, then save and restart the app. High values affect the results and can take a very long time; the author's 3:20 minute song took about an hour on an M1 Mac with 16 GB.
+
+**Which MusicGen models can I choose?**
+
+There are 4 models. "facebook/musicgen-melody" generates music with melodies influenced by a music file you upload. The other ones generate more ambient-like music and only take text as input.
+
+**What does the URL-to-song app need?**
+
+An OpenAI API key, entered in the Streamlit sidebar. ChatGPT turns the contents of the URL into a one-sentence song description, and the "facebook/musicgen-small" model creates a short sample saved as `musicgen_out.wav`.
+
+## How this tutorial was tested
+
+This tutorial was carried over from an earlier tutorial and updated for Starfield Labs. It was not re-run in this build, so no step in it has been tested here.
+
+To follow it you would need: Python 3.9, pytorch 2.0 and ffmpeg; a GPU is helpful (the first run downloads the MusicGen models); and an OpenAI API key (paid usage) for the URL-to-song app. No key, model download or GPU was used or run.

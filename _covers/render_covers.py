@@ -15,6 +15,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
+TUT = ROOT / "tutorials"
 CSV = Path(os.environ.get("TUTORIALS_CSV", HERE / "tutorials.csv"))
 CHROME = os.environ.get("CHROME_BIN", "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
 SIZES = {"cover": (1280, 720), "card": (640, 360), "og": (1200, 630)}
@@ -35,7 +36,7 @@ def seeded(slug):
 def tech(folder, tid):
     if tid in PILL_OVERRIDE:
         return PILL_OVERRIDE[tid]
-    pj = ROOT / folder / "package.json"
+    pj = TUT / folder / "package.json"
     if pj.exists():
         return "Next.js" if "next" in pj.read_text() else "JavaScript"
     return "Python"
@@ -44,11 +45,11 @@ def tech(folder, tid):
 def jobs(only):
     rows = {r["id"]: r for r in csv.DictReader(open(CSV))}
     out = []
-    for m in re.finditer(r"^\| (TT-\d+) [^|]*\| `([^`]+)/`", (ROOT / "README.md").read_text(), re.M):
+    for m in re.finditer(r"^\| (TT-\d+) [^|]*\| `(?:tutorials/)?([^`]+)/`", (ROOT / "README.md").read_text(), re.M):
         tid, folder = m.groups()
         if only and folder not in only:
             continue
-        h1 = re.search(r"^# (.+)$", (ROOT / folder / "article.md").read_text(), re.M).group(1)
+        h1 = re.search(r"^# (.+)$", (TUT / folder / "article.md").read_text(), re.M).group(1)
         r = seeded(folder)
         level = {"Beginner": 1, "Intermediate": 2, "Advanced": 3}[rows[tid]["level"]]
         spec = dict(slug=folder, kind="Tutorial", title=h1, sub=rows[tid]["what_you_build"],
@@ -65,7 +66,7 @@ def jobs(only):
 def render(job):
     folder, name, kind, spec = job
     w, h = SIZES[kind]
-    dest = ROOT / folder / "images" / f"{name}.png"
+    dest = TUT / folder / "images" / f"{name}.png"
     url = (HERE / "cover.html").as_uri() + "#" + urllib.parse.quote(json.dumps(spec))
     subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--hide-scrollbars",
                     f"--window-size={w},{h}", "--virtual-time-budget=8000",

@@ -10,7 +10,7 @@ Usage: python3 render_seed_covers.py <path to a starfield-labs checkout with con
 import difflib, json, math, re, struct, sys, urllib.parse, subprocess
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-from render_covers import CHROME, ROOT, HERE, seeded, tech
+from render_covers import CHROME, ROOT, TUT, HERE, seeded, tech
 
 OUT = HERE / "site"
 
@@ -35,9 +35,9 @@ def short_sub(summary):
 
 def our_folder_tech():
     pairs = []
-    for m in re.finditer(r"^\| (TT-\d+) [^|]*\| `([^`]+)/`", (ROOT / "README.md").read_text(), re.M):
+    for m in re.finditer(r"^\| (TT-\d+) [^|]*\| `(?:tutorials/)?([^`]+)/`", (ROOT / "README.md").read_text(), re.M):
         tid, folder = m.groups()
-        h1 = re.search(r"^# (.+)$", (ROOT / folder / "article.md").read_text(), re.M).group(1)
+        h1 = re.search(r"^# (.+)$", (TUT / folder / "article.md").read_text(), re.M).group(1)
         pairs.append((h1.lower(), tech(folder, tid)))
     return pairs
 
